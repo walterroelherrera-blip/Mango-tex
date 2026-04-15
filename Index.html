@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mango Tex</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background-color: #ff7a00;
+      transition: background 0.5s;
+    }
+
+    nav {
+      background-color: #222;
+      padding: 15px;
+      text-align: center;
+    }
+
+    nav button {
+      background-color: #ff7a00;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    section {
+      display: none;
+      padding: 30px;
+      text-align: center;
+      animation: fade 0.5s;
+    }
+
+    .active {
+      display: block;
+    }
+
+    @keyframes fade {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    .card {
+      background: white;
+      margin: 20px auto;
+      padding: 20px;
+      width: 80%;
+      border-radius: 10px;
+    }
+
+    img {
+      width: 250px;
+      border-radius: 10px;
+    }
+
+    video {
+      width: 300px;
+      border-radius: 10px;
+    }
+
+    input {
+      padding: 10px;
+      margin: 5px;
+    }
+
+  </style>
+
+  <script>
+    function mostrar(seccion) {
+      document.body.style.background = "white";
+
+      setTimeout(() => {
+        document.body.style.background = "#ff7a00";
+      }, 300);
+
+      let secciones = document.querySelectorAll("section");
+      secciones.forEach(s => s.classList.remove("active"));
+
+      document.getElementById(seccion).classList.add("active");
+    }
+
+    function login() {
+      let user = document.getElementById("user").value;
+      let pass = document.getElementById("pass").value;
+
+      let usuarios = {
+        "DIEGOM1NJ4R3Z": "MT-26-001",
+        "JP25004": "MT-26-002",
+        "M1/A64": "MT-26-003",
+        "W4LT3RH4": "MT-26-004"
+      };
+
+      if (usuarios[user] === pass) {
+        alert("Acceso concedido 😎");
+      } else {
+        alert("Usuario o contraseña incorrectos ❌");
+      }
+    }
+  </script>
+
+</head>
+
+<body>
+
+<nav>
+  <button onclick="mostrar('inicio')">Inicio</button>
+  <button onclick="mostrar('empresa')">Empresa</button>
+  <button onclick="mostrar('contacto')">Contacto</button>
+  <button onclick="mostrar('personal')">Personal</button>
+</nav>
+
+<!-- INICIO -->
+<section id="inicio" class="active">
+  <h1>🍊 MANGO TEX</h1>
+  <p>Innovación, calidad y confianza</p>
+
+  <video controls>
+    <source src="Video Project.mp4" type="video/mp4">
+  </video>
+
+  <div class="card">
+    <h2>Bienvenido</h2>
+    <p>
+      Mango Tex es una empresa enfocada en el desarrollo textil moderno,
+      brindando soluciones innovadoras para clientes exigentes.
+    </p>
+  </div>
+</section>
+
+<!-- EMPRESA -->
+<section id="empresa">
+  <div class="card">
+    <h2>¿Quiénes somos?</h2>
+    <p>
+      Somos una empresa líder en el sector textil, comprometida con la calidad,
+      innovación y satisfacción del cliente.
+    </p>
+    <img src="https://picsum.photos/300/200">
+  </div>
+
+  <div class="card">
+    <h2>Misión</h2>
+    <p>Ofrecer productos de alta calidad.</p>
+  </div>
+
+  <div class="card">
+    <h2>Visión</h2>
+    <p>Ser líderes a nivel nacional.</p>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="card">
+    <h2>Contacto</h2>
+    <p>📞 +52 662 463 7282</p>
+    <p>📧 mangotex081@gmail.com</p>
+  </div>
+</section>
+
+<!-- PERSONAL -->
+<section id="personal">
+  <div class="card">
+    <h2>Acceso al personal</h2>
+
+    <input type="text" id="user" placeholder="Usuario"><br>
+    <input type="password" id="pass" placeholder="Contraseña"><br><br>
+
+    <button onclick="login()">Ingresar</button>
+  </div>
+</section>
+
+</body>
+</html>
