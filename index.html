@@ -14,47 +14,23 @@
       overflow-x: hidden;
     }
 
-    /* FONDO TIPO TU IMAGEN */
+    /* FONDO CON MUCHOS MANGOS */
     .bg {
       position: fixed;
       width: 100%;
       height: 100%;
       z-index: -1;
-      overflow: hidden;
-    }
-
-    .line {
-      position: absolute;
-      width: 200%;
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
       gap: 60px;
-      transform: rotate(-30deg);
-      animation: mover 10s linear infinite;
+      padding: 40px;
+      opacity: 0.08;
     }
 
-    /* MUCHAS LINEAS (PARALELAS) */
-    .line:nth-child(1){ top: -20%; }
-    .line:nth-child(2){ top: 0%; }
-    .line:nth-child(3){ top: 20%; }
-    .line:nth-child(4){ top: 40%; }
-    .line:nth-child(5){ top: 60%; }
-    .line:nth-child(6){ top: 80%; }
-    .line:nth-child(7){ top: 100%; }
-
-    /* STICKER REAL */
-    .sticker {
-      width: 90px;
-      height: 90px;
-      background-image: url('https://cdn-icons-png.flaticon.com/512/590/590685.png');
-      background-size: cover;
-      border-radius: 20px;
-      opacity: 0.15;
-    }
-
-    /* MOVIMIENTO DIAGONAL REAL */
-    @keyframes mover {
-      from { transform: translateX(-50%) rotate(-30deg); }
-      to { transform: translateX(0%) rotate(-30deg); }
+    .bg img {
+      width: 100%;
+      max-width: 120px;
+      margin: auto;
     }
 
     nav {
@@ -119,12 +95,6 @@
       border: none;
     }
 
-    .icon {
-      width: 20px;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
-
   </style>
 
   <script>
@@ -170,28 +140,11 @@
 
 <!-- FONDO -->
 <div class="bg">
-  <!-- cada línea tiene muchos stickers -->
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
+  <!-- repite varios mangos -->
+  <img src="mango.png"><img src="mango.png"><img src="mango.png">
+  <img src="mango.png"><img src="mango.png"><img src="mango.png">
+  <img src="mango.png"><img src="mango.png"><img src="mango.png">
+  <img src="mango.png"><img src="mango.png"><img src="mango.png">
 </div>
 
 <nav>
@@ -208,26 +161,43 @@
   <p>Productos de gran calidad</p>
 </section>
 
+<!-- EMPRESA -->
+<section id="empresa">
+  <div class="card">
+    <h2>Sobre la empresa</h2>
+    <p>Mangotex es una empresa creada por Walter Roel Herrera junto a su equipo.</p>
+    <p>Su objetivo es ofrecer productos de alta calidad con una visión moderna.</p>
+    <p>Busca crecer constantemente y posicionarse como una marca confiable.</p>
+  </div>
+</section>
+
+<!-- ORIGEN -->
+<section id="origen">
+  <div class="card">
+    <h2>¿Cómo surgió?</h2>
+    <p>Nació de un grupo de jóvenes con ideas de negocio.</p>
+    <p>Comenzó como un proyecto pequeño que poco a poco fue creciendo.</p>
+    <p>Hoy sigue evolucionando con metas más grandes.</p>
+  </div>
+</section>
+
 <!-- REDES -->
 <section id="redes">
   <div class="card">
     <h2>Redes</h2>
+    <p>📸 Instagram: Mango tex S.A. de C.V.</p>
+    <p>🎵 TikTok: mangotex</p>
+    <p>💬 WhatsApp: Próximamente</p>
+  </div>
+</section>
 
-    <p>
-      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-      Mango tex S.A. de C.V.
-    </p>
-
-    <p>
-      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
-      mangotex
-    </p>
-
-    <p>
-      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
-      Próximamente
-    </p>
-
+<!-- PERSONAL -->
+<section id="personal">
+  <div class="card">
+    <h2>Acceso al personal</h2>
+    <input id="user" placeholder="Usuario"><br>
+    <input id="pass" type="password" placeholder="Contraseña"><br><br>
+    <button onclick="login()">Ingresar</button>
   </div>
 </section>
 
