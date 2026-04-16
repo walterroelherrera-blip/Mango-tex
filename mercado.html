@@ -111,6 +111,58 @@
   </style>
 
   <script>
+
+function actualizarPrecio(select, precio10, precio5){
+  let precio = select.value == "10" ? precio10 : precio5;
+  select.parentElement.querySelector(".precio").innerText = "$" + precio;
+}
+
+function confirmar(producto, btn){
+  let contenedor = btn.parentElement;
+  let select = contenedor.querySelector("select");
+  let precio = contenedor.querySelector(".precio").innerText;
+  let tamaño = select.value + "ML";
+
+  let overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+
+  document.getElementById("modalContenido").innerHTML = `
+    <h3>Confirmar compra</h3>
+    <p>${producto}</p>
+    <p>${tamaño} - ${precio}</p>
+    <button onclick="enviar('${producto}','${tamaño}','${precio}')">SI</button>
+    <button onclick="cerrar()">NO</button>
+  `;
+}
+
+function enviar(prod, tam, precio){
+  let numero = "526624637282";
+  let mensaje = `Hola, quiero comprar:
+Producto: ${prod}
+Tamaño: ${tam}
+Precio: ${precio}`;
+
+  let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
+  window.open(url, "_blank");
+  cerrar();
+}
+
+function info(texto){
+  let overlay = document.getElementById("overlay");
+  overlay.style.display = "flex";
+
+  document.getElementById("modalContenido").innerHTML = `
+    <h3>Información</h3>
+    <p>${texto}</p>
+    <button onclick="cerrar()">Cerrar</button>
+  `;
+}
+
+function cerrar(){
+  document.getElementById("overlay").style.display = "none";
+}
+
+
     function comprar(producto){
       document.getElementById("overlay").style.display = "flex";
 
@@ -159,89 +211,81 @@
 
 <!-- PERFUMERIA -->
 <section>
-  <section>
   <h1>Perfumería</h1>
 
   <div class="contenedor">
 
+    <!-- VALENTINO UOMO -->
     <div class="producto">
-      <img src="https://via.placeholder.com/250">
+      <img src="https://www.valentino-beauty.com/dw/image/v2/BBPF_PRD/on/demandware.static/-/Sites-valentino-master-catalog/default/dw2d7b2c74/images/large/3614272732153.jpg" onclick="info('Valentino Uomo: fragancia elegante, notas dulces y amaderadas.')">
       <h3>Valentino Uomo</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
+
+      <select onchange="actualizarPrecio(this, 100, 70)">
+        <option value="10">10 ML - $100</option>
+        <option value="5">5 ML - $70</option>
       </select>
-      <button class="btn" onclick="comprar('Valentino Uomo')">COMPRAR</button>
+
+      <p class="precio">$100</p>
+
+      <button class="btn" onclick="confirmar('Valentino Uomo', this)">COMPRAR</button>
     </div>
 
+    <!-- YSL -->
     <div class="producto">
-      <img src="https://via.placeholder.com/250">
-      <h3>Valentino Intense</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
-      </select>
-      <button class="btn" onclick="comprar('Valentino Intense')">COMPRAR</button>
-    </div>
-
-    <div class="producto">
-      <img src="https://via.placeholder.com/250">
+      <img src="https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dw2f60d1c0/images/YSL_MYSLF.jpg" onclick="info('YSL MYSLF: fragancia moderna, fresca y elegante.')">
       <h3>YSL MYSLF</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
+
+      <select onchange="actualizarPrecio(this, 180, 165)">
+        <option value="10">10 ML - $180</option>
+        <option value="5">5 ML - $165</option>
       </select>
-      <button class="btn" onclick="comprar('YSL MYSLF')">COMPRAR</button>
+
+      <p class="precio">$180</p>
+
+      <button class="btn" onclick="confirmar('YSL MYSLF', this)">COMPRAR</button>
     </div>
 
+    <!-- NAUTICA VOYAGE -->
     <div class="producto">
-      <img src="https://via.placeholder.com/250">
+      <img src="https://m.media-amazon.com/images/I/71M+oC0K8TL.jpg" onclick="info('Nautica Voyage: fresco, acuático, perfecto para diario.')">
       <h3>Nautica Voyage</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
+
+      <select onchange="actualizarPrecio(this, 60, 40)">
+        <option value="10">10 ML - $60</option>
+        <option value="5">5 ML - $40</option>
       </select>
-      <button class="btn" onclick="comprar('Nautica Voyage')">COMPRAR</button>
+
+      <p class="precio">$60</p>
+
+      <button class="btn" onclick="confirmar('Nautica Voyage', this)">COMPRAR</button>
     </div>
 
+    <!-- STRONGER WITH YOU -->
     <div class="producto">
-      <img src="https://via.placeholder.com/250">
-      <h3>Nautica Blue</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
+      <img src="https://m.media-amazon.com/images/I/61Y4Lk3JwUL.jpg" onclick="info('Stronger With You: dulce, intenso, muy popular.')">
+      <h3>Stronger With You</h3>
+
+      <select onchange="actualizarPrecio(this, 190, 190)">
+        <option value="5">5 ML - $190</option>
       </select>
-      <button class="btn" onclick="comprar('Nautica Blue')">COMPRAR</button>
+
+      <p class="precio">$190</p>
+
+      <button class="btn" onclick="confirmar('Stronger With You', this)">COMPRAR</button>
     </div>
 
+    <!-- PRADA -->
     <div class="producto">
-      <img src="https://via.placeholder.com/250">
-      <h3>Carolina Herrera</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
-      </select>
-      <button class="btn" onclick="comprar('Carolina Herrera')">COMPRAR</button>
-    </div>
+      <img src="https://m.media-amazon.com/images/I/61wZ9gqvBQL.jpg" onclick="info('Prada Paradigme: elegante, limpio, sofisticado.')">
+      <h3>Prada Paradigme</h3>
 
-    <div class="producto">
-      <img src="https://via.placeholder.com/250">
-      <h3>Jordan Power</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
+      <select onchange="actualizarPrecio(this, 80, 80)">
+        <option value="5">5 ML - $80</option>
       </select>
-      <button class="btn" onclick="comprar('Jordan Power')">COMPRAR</button>
-    </div>
 
-    <div class="producto">
-      <img src="https://via.placeholder.com/250">
-      <h3>Versace Eau Fraîche</h3>
-      <select>
-        <option>5 ML</option>
-        <option>10 ML</option>
-      </select>
-      <button class="btn" onclick="comprar('Versace Eau Fraîche')">COMPRAR</button>
+      <p class="precio">$80</p>
+
+      <button class="btn" onclick="confirmar('Prada Paradigme', this)">COMPRAR</button>
     </div>
 
   </div>
@@ -292,5 +336,9 @@
   </div>
 </div>
 
+  <div id="overlay" class="overlay">
+  <div class="modal" id="modalContenido"></div>
+</div>
+  
 </body>
 </html>
