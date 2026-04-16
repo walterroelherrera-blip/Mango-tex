@@ -1,225 +1,125 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mango Tex</title>
+  <title>Mercado - Mangotex</title>
 
   <style>
-    html { scroll-behavior: smooth; }
-
     body {
       margin: 0;
       font-family: Arial;
-      color: white;
-      overflow-x: hidden;
-
-      /* 🔥 FONDO CORRECTO SIN BUG */
-      background:
-        linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-        url("data:image/svg+xml,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
-<ellipse cx='50' cy='60' rx='30' ry='40' fill='%23cc8400'/>\
-<path d='M50 20 Q60 0 80 10' stroke='%232e7d32' stroke-width='6' fill='none'/>\
-</svg>");
-
-      background-size: 110px;
-      background-repeat: repeat;
-    }
-
-    nav {
-      position: fixed;
-      width: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      padding: 15px;
-      text-align: center;
-      z-index: 1000;
-    }
-
-    nav button {
-      background: transparent;
-      border: 1px solid white;
-      color: white;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    nav button:hover {
       background: white;
       color: black;
-      transform: scale(1.1);
-    }
-
-    section {
-      min-height: 100vh;
-      padding: 120px 20px;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: 1s;
       text-align: center;
     }
 
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
+    h1 {
+      margin: 40px;
     }
 
-    .logo {
-      font-size: 60px;
-      font-weight: bold;
-    }
-
-    .lema {
-      font-style: italic;
-    }
-
-    .card {
-      max-width: 800px;
-      margin: 30px auto;
-      background: rgba(255,255,255,0.1);
+    .contenedor {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
       padding: 20px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
     }
 
-    input {
+    .producto {
+      width: 250px;
+      text-align: left;
+    }
+
+    .producto img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .producto h3 {
+      font-size: 16px;
+    }
+
+    .producto p {
+      font-size: 13px;
+      color: gray;
+    }
+
+    select {
+      width: 100%;
       padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: black;
+      color: white;
       border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      letter-spacing: 2px;
+    }
+
+    .btn:hover {
+      background: #333;
     }
 
   </style>
-
-  <script>
-    window.addEventListener("scroll", () => {
-      document.querySelectorAll("section").forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 400;
-        if (top > offset) {
-          sec.classList.add("show");
-        }
-      });
-    });
-
-    function irA(id){
-      document.getElementById(id).scrollIntoView({behavior:"smooth"});
-    }
-
-    function login(){
-      let u = document.getElementById("user").value;
-      let p = document.getElementById("pass").value;
-
-      let users = {
-        "DIEGOM1NJ4R3Z": ["MT-26-001","Diego"],
-        "JP25004": ["MT-26-002","Juan Pablo"],
-        "M1/A64": ["MT-26-003","Mya"],
-        "W4LT3RH4": ["MT-26-004","Walter"],
-        "CHR1$64BIT": ["MT-2026-005","Christian"]
-      };
-
-      if(users[u] && users[u][0] === p){
-        let nombre = users[u][1];
-
-        let nueva = window.open("", "_blank");
-
-        nueva.document.write(`
-        <html>
-        <head>
-          <title>Panel</title>
-          <style>
-            body {
-              margin:0;
-              font-family: Arial;
-              color:white;
-              text-align:center;
-
-              /* 🔥 MISMO FONDO ARREGLADO */
-              background:
-                linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-                url("data:image/svg+xml,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
-<ellipse cx='50' cy='60' rx='30' ry='40' fill='%23cc8400'/>\
-<path d='M50 20 Q60 0 80 10' stroke='%232e7d32' stroke-width='6' fill='none'/>\
-</svg>");
-
-              background-size:110px;
-              background-repeat:repeat;
-            }
-
-            h1 {
-              margin-top:40px;
-            }
-          </style>
-        </head>
-
-        <body>
-          <h1>Hola ${nombre} 👋</h1>
-          <p>Aquí irá tu espacio personal próximamente...</p>
-        </body>
-        </html>
-        `);
-
-      } else {
-        alert("Error ❌");
-      }
-    }
-  </script>
 
 </head>
 
 <body>
 
-<nav>
-  <button onclick="irA('inicio')">Inicio</button>
-  <button onclick="irA('empresa')">Empresa</button>
-  <button onclick="irA('origen')">Origen</button>
-  <button onclick="irA('redes')">Redes</button>
-  <button onclick="irA('personal')">Personal</button>
-</nav>
+<h1>MERCADO MANGOTEX 🥭</h1>
 
-<section id="inicio" class="show">
-  <div class="logo">MANGOTEX</div>
-  <p class="lema">Productos de gran calidad</p>
-</section>
+<div class="contenedor">
 
-<section id="empresa">
-  <div class="card">
-    <h2>Sobre la empresa</h2>
-    <p>Mangotex es una empresa creada por Walter Roel Herrera junto a su equipo.</p>
-    <p>Su objetivo es ofrecer productos de alta calidad con una visión moderna.</p>
-    <p>Busca crecer constantemente y posicionarse como una marca confiable.</p>
+  <!-- PERFUME -->
+  <div class="producto">
+    <img src="https://via.placeholder.com/250x250?text=Perfume">
+    <h3>DECANT DE PERFUME</h3>
+    <p>Fragancias premium en presentación pequeña.</p>
+
+    <label>Tamaño</label>
+    <select>
+      <option>5 ML</option>
+      <option>10 ML</option>
+    </select>
+
+    <button class="btn">COMPRAR</button>
   </div>
-</section>
 
-<section id="origen">
-  <div class="card">
-    <h2>¿Cómo surgió?</h2>
-    <p>Nació de un grupo de jóvenes con ideas de negocio.</p>
-    <p>Comenzó como un proyecto pequeño que poco a poco fue creciendo.</p>
-    <p>Hoy sigue evolucionando con metas más grandes.</p>
-  </div>
-</section>
+  <!-- CHICLES -->
+  <div class="producto">
+    <img src="https://via.placeholder.com/250x250?text=Chicles">
+    <h3>CHICLES</h3>
+    <p>Sabores variados y frescos.</p>
 
-<section id="redes">
-  <div class="card">
-    <h2>Redes</h2>
-    <p>📸 Instagram: Mango tex S.A. de C.V.</p>
-    <p>🎵 TikTok: mangotex</p>
-    <p>💬 WhatsApp: Próximamente</p>
-  </div>
-</section>
+    <label>Presentación</label>
+    <select>
+      <option>Individual</option>
+      <option>Paquete</option>
+    </select>
 
-<section id="personal">
-  <div class="card">
-    <h2>Acceso al personal</h2>
-    <input id="user" placeholder="Usuario"><br>
-    <input id="pass" type="password" placeholder="Contraseña"><br><br>
-    <button onclick="login()">Ingresar</button>
+    <button class="btn">COMPRAR</button>
   </div>
-</section>
+
+  <!-- COHETES -->
+  <div class="producto">
+    <img src="https://via.placeholder.com/250x250?text=Cohetes">
+    <h3>COHETES</h3>
+    <p>Para eventos y celebraciones.</p>
+
+    <label>Tipo</label>
+    <select>
+      <option>Pequeño</option>
+      <option>Grande</option>
+    </select>
+
+    <button class="btn">COMPRAR</button>
+  </div>
+
+</div>
 
 </body>
 </html>
