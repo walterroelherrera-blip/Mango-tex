@@ -4,19 +4,33 @@
   <title>Mango Tex</title>
 
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial;
-      background: #111;
       color: white;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* VIDEO DE FONDO */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
     }
 
     nav {
       position: fixed;
       width: 100%;
-      top: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.6);
       backdrop-filter: blur(10px);
       padding: 15px;
       text-align: center;
@@ -25,12 +39,12 @@
 
     nav button {
       background: transparent;
-      color: white;
       border: 1px solid white;
+      color: white;
       padding: 10px 20px;
       margin: 5px;
-      cursor: pointer;
       border-radius: 20px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
@@ -42,10 +56,11 @@
 
     section {
       min-height: 100vh;
-      padding: 100px 20px;
+      padding: 120px 20px;
       opacity: 0;
-      transform: translateY(50px);
+      transform: translateY(60px);
       transition: 1s;
+      text-align: center;
     }
 
     section.show {
@@ -53,14 +68,30 @@
       transform: translateY(0);
     }
 
-    .hero {
-      text-align: center;
+    /* LOGO */
+    .logo {
+      font-size: 60px;
+      font-weight: bold;
     }
 
-    video {
-      width: 300px;
-      margin-top: 20px;
-      border-radius: 10px;
+    .bubble {
+      display: inline-block;
+      background: orange;
+      color: white;
+      border-radius: 50%;
+      padding: 10px 18px;
+      position: relative;
+    }
+
+    .leaf {
+      width: 20px;
+      height: 20px;
+      background: green;
+      position: absolute;
+      top: -15px;
+      left: 10px;
+      border-radius: 50% 0;
+      transform: rotate(45deg);
     }
 
     .card {
@@ -79,13 +110,6 @@
       border: none;
     }
 
-    footer {
-      position: relative;
-      padding: 20px;
-      font-size: 12px;
-      text-align: left;
-      opacity: 0.7;
-    }
   </style>
 
   <script>
@@ -99,8 +123,8 @@
       });
     });
 
-    function scrollToSection(id){
-      document.getElementById(id).scrollIntoView();
+    function irA(id){
+      document.getElementById(id).scrollIntoView({behavior:"smooth"});
     }
 
     function login(){
@@ -108,15 +132,17 @@
       let p = document.getElementById("pass").value;
 
       let users = {
-        "DIEGOM1NJ4R3Z": "MT-26-001",
-        "JP25004": "MT-26-002",
-        "M1/A64": "MT-26-003",
-        "W4LT3RH4": "MT-26-004",
-        "CHR1$64BIT": "MT-2026-005"
+        "DIEGOM1NJ4R3Z": ["MT-26-001","Diego"],
+        "JP25004": ["MT-26-002","Juan Pablo"],
+        "M1/A64": ["MT-26-003","Mya"],
+        "W4LT3RH4": ["MT-26-004","Walter"],
+        "CHR1$64BIT": ["MT-2026-005","Christian"]
       };
 
-      if(users[u] === p){
-        alert("Acceso concedido 😎");
+      if(users[u] && users[u][0] === p){
+        let nombre = users[u][1];
+        let nueva = window.open("", "_blank");
+        nueva.document.write("<h1>Bienvenido " + nombre + " 😎</h1>");
       } else {
         alert("Error ❌");
       }
@@ -127,22 +153,25 @@
 
 <body>
 
+<!-- VIDEO FONDO (puedes cambiarlo luego) -->
+<video autoplay muted loop id="bg-video">
+  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+</video>
+
 <nav>
-  <button onclick="scrollToSection('inicio')">Inicio</button>
-  <button onclick="scrollToSection('empresa')">Empresa</button>
-  <button onclick="scrollToSection('origen')">Origen</button>
-  <button onclick="scrollToSection('redes')">Redes</button>
-  <button onclick="scrollToSection('personal')">Personal</button>
+  <button onclick="irA('inicio')">Inicio</button>
+  <button onclick="irA('empresa')">Empresa</button>
+  <button onclick="irA('origen')">Origen</button>
+  <button onclick="irA('redes')">Redes</button>
+  <button onclick="irA('personal')">Personal</button>
 </nav>
 
 <!-- INICIO -->
-<section id="inicio" class="hero">
-  <h1>🍊 MANGOTEX</h1>
+<section id="inicio" class="show">
+  <div class="logo">
+    M<span class="bubble">O<div class="leaf"></div></span>NGOTEX
+  </div>
   <p>Productos de gran calidad</p>
-
-  <video controls>
-    <source src="Video Project.mp4" type="video/mp4">
-  </video>
 </section>
 
 <!-- EMPRESA -->
@@ -151,13 +180,7 @@
     <h2>Sobre la empresa</h2>
     <p>
       Mangotex es una reciente empresa creada por Walter Roel Herrera,
-      que cuenta con un equipo en crecimiento comprometido con la calidad,
-      innovación y desarrollo constante dentro del sector.
-    </p>
-
-    <p>
-      Actualmente es un negocio emergente con gran potencial, con el objetivo
-      de convertirse en una empresa reconocida a nivel nacional.
+      con un equipo en crecimiento enfocado en innovación y calidad.
     </p>
   </div>
 </section>
@@ -165,16 +188,10 @@
 <!-- ORIGEN -->
 <section id="origen">
   <div class="card">
-    <h2>¿Cómo surgió la empresa?</h2>
+    <h2>¿Cómo surgió?</h2>
     <p>
-      La brillante idea surgió a partir de un grupo de jóvenes emprendedores
-      que decidieron iniciar un negocio con visión a futuro, combinando creatividad,
-      trabajo en equipo y ambición para crear algo propio.
-    </p>
-
-    <p>
-      Con esfuerzo y dedicación, Mangotex comenzó como un proyecto pequeño,
-      pero con metas claras de crecimiento y éxito.
+      Surgió de un grupo de jóvenes que decidieron crear su propio negocio
+      con ideas innovadoras y visión de crecimiento.
     </p>
   </div>
 </section>
@@ -182,10 +199,10 @@
 <!-- REDES -->
 <section id="redes">
   <div class="card">
-    <h2>¿Dónde encontrarnos?</h2>
-    <p>📸 Instagram: Mango tex S.A. de C.V.</p>
-    <p>🎵 TikTok: mangotex</p>
-    <p>💬 Comunidad de WhatsApp: Próximamente</p>
+    <h2>Redes</h2>
+    <p>Instagram: Mango tex S.A. de C.V.</p>
+    <p>TikTok: mangotex</p>
+    <p>WhatsApp: Próximamente</p>
   </div>
 </section>
 
@@ -198,17 +215,6 @@
     <button onclick="login()">Ingresar</button>
   </div>
 </section>
-
-<footer>
-  <p>
-    MANGOTEX<br>
-    Productos de gran calidad
-  </p>
-
-  <p style="position:absolute; right:20px;">
-    Hecho por Juan Pablo Rendon (JP)
-  </p>
-</footer>
 
 </body>
 </html>
