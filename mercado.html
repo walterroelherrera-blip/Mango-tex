@@ -15,7 +15,6 @@
       position: fixed;
       width: 100%;
       background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
       padding: 15px;
       text-align: center;
       z-index: 1000;
@@ -31,21 +30,24 @@
       cursor: pointer;
     }
 
+    /* BOTÓN ADMIN */
+    .admin-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: white;
+      color: black;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 20px;
+      border: none;
+    }
+
     section {
       padding: 120px 20px;
       text-align: center;
-    }
-
-    h1 {
-      font-size: 40px;
-    }
-
-    .card {
-      max-width: 800px;
-      margin: auto;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
     }
 
     .contenedor {
@@ -53,7 +55,6 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
-      margin-top: 30px;
     }
 
     .producto {
@@ -61,27 +62,40 @@
       background: rgba(255,255,255,0.1);
       padding: 15px;
       border-radius: 10px;
+      position: relative;
     }
 
     .producto img {
       width: 100%;
       border-radius: 10px;
+      cursor: pointer;
     }
 
-    select {
+    .agotado {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: red;
+      padding: 5px;
+      font-size: 12px;
+    }
+
+    select, button {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
     }
 
     .btn {
-      width: 100%;
-      padding: 10px;
       background: white;
       color: black;
       border: none;
-      margin-top: 10px;
       cursor: pointer;
+    }
+
+    .precio {
+      margin-top: 10px;
+      font-weight: bold;
     }
 
     /* MODAL */
@@ -102,83 +116,12 @@
     .modal {
       background: white;
       color: black;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
-      text-align: center;
       max-width: 300px;
     }
 
   </style>
-
-  <script>
-
-function actualizarPrecio(select, precio10, precio5){
-  let precio = select.value == "10" ? precio10 : precio5;
-  select.parentElement.querySelector(".precio").innerText = "$" + precio;
-}
-
-function confirmar(producto, btn){
-  let contenedor = btn.parentElement;
-  let select = contenedor.querySelector("select");
-  let precio = contenedor.querySelector(".precio").innerText;
-  let tamaño = select.value + "ML";
-
-  let overlay = document.getElementById("overlay");
-  overlay.style.display = "flex";
-
-  document.getElementById("modalContenido").innerHTML = `
-    <h3>Confirmar compra</h3>
-    <p>${producto}</p>
-    <p>${tamaño} - ${precio}</p>
-    <button onclick="enviar('${producto}','${tamaño}','${precio}')">SI</button>
-    <button onclick="cerrar()">NO</button>
-  `;
-}
-
-function enviar(prod, tam, precio){
-  let numero = "526624637282";
-  let mensaje = `Hola, quiero comprar:
-Producto: ${prod}
-Tamaño: ${tam}
-Precio: ${precio}`;
-
-  let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
-  window.open(url, "_blank");
-  cerrar();
-}
-
-function info(texto){
-  let overlay = document.getElementById("overlay");
-  overlay.style.display = "flex";
-
-  document.getElementById("modalContenido").innerHTML = `
-    <h3>Información</h3>
-    <p>${texto}</p>
-    <button onclick="cerrar()">Cerrar</button>
-  `;
-}
-
-function cerrar(){
-  document.getElementById("overlay").style.display = "none";
-}
-
-
-    function comprar(producto){
-      document.getElementById("overlay").style.display = "flex";
-
-      setTimeout(()=>{
-        let numero = "526624637282";
-        let mensaje = "Hola, quiero comprar: " + producto;
-        let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
-
-        window.open(url, "_blank");
-      },2000);
-    }
-
-    function cerrar(){
-      document.getElementById("overlay").style.display = "none";
-    }
-  </script>
 
 </head>
 
@@ -188,157 +131,129 @@ function cerrar(){
   <button onclick="window.location.href='index.html'">Inicio</button>
 </nav>
 
-<!-- INFO -->
+<button class="admin-btn" onclick="activarAdmin()">✏️</button>
+
 <section>
-  <h1>MERCADO MANGOTEX 🥭</h1>
-  <div class="card">
-    <p>
-      Mangotex desde el principio ha estado intentando la venta de productos,
-      y como dice nuestro lema, de gran calidad.
-    </p>
-    <p>
-      Contamos con una gran variedad de artículos, desde perfumería hasta productos
-      de uso cotidiano y entretenimiento.
-    </p>
-    <p>
-      Nuestro objetivo es ofrecer precios accesibles, buena atención y una experiencia confiable.
-    </p>
-    <p>
-      Este mercado seguirá creciendo con nuevos productos y mejoras constantes.
-    </p>
-  </div>
+  <h1>MERCADO 🥭</h1>
 </section>
 
-<!-- PERFUMERIA -->
 <section>
   <h1>Perfumería</h1>
 
-  <div class="contenedor">
+  <div class="contenedor" id="productos">
 
-    <!-- VALENTINO UOMO -->
-    <div class="producto">
-      <img src="https://www.valentino-beauty.com/dw/image/v2/BBPF_PRD/on/demandware.static/-/Sites-valentino-master-catalog/default/dw2d7b2c74/images/large/3614272732153.jpg" onclick="info('Valentino Uomo: fragancia elegante, notas dulces y amaderadas.')">
-      <h3>Valentino Uomo</h3>
+    <!-- PRODUCTOS -->
+    
+    <script>
+      const productos = [
+        ["Valentino Uomo",100,70,"https://www.valentino-beauty.com/dw/image/v2/BBPF_PRD/on/demandware.static/-/Sites-valentino-master-catalog/default/dw2d7b2c74/images/large/3614272732153.jpg"],
+        ["Valentino Intense",120,90,"https://m.media-amazon.com/images/I/71k6qgq6yDL.jpg"],
+        ["YSL MYSLF",180,165,"https://m.media-amazon.com/images/I/61j3X0LZ0pL.jpg"],
+        ["Nautica Voyage",60,40,"https://m.media-amazon.com/images/I/71M+oC0K8TL.jpg"],
+        ["Nautica Blue",70,60,"https://m.media-amazon.com/images/I/61vF6pKq7UL.jpg"],
+        ["Carolina Herrera",90,50,"https://m.media-amazon.com/images/I/61MZ3YlJZDL.jpg"],
+        ["Jordan Power",100,60,"https://via.placeholder.com/250"],
+        ["Versace Eau Fraiche",180,90,"https://m.media-amazon.com/images/I/61W9F8g9Q1L.jpg"],
+        ["Stronger With You",190,190,"https://m.media-amazon.com/images/I/61Y4Lk3JwUL.jpg"],
+        ["Prada Paradigme",80,80,"https://m.media-amazon.com/images/I/61wZ9gqvBQL.jpg"]
+      ];
 
-      <select onchange="actualizarPrecio(this, 100, 70)">
-        <option value="10">10 ML - $100</option>
-        <option value="5">5 ML - $70</option>
-      </select>
+      let admin = false;
 
-      <p class="precio">$100</p>
+      function cargar(){
+        let cont = document.getElementById("productos");
+        cont.innerHTML = "";
 
-      <button class="btn" onclick="confirmar('Valentino Uomo', this)">COMPRAR</button>
-    </div>
+        productos.forEach((p,i)=>{
+          cont.innerHTML += `
+          <div class="producto" id="prod${i}">
+            <img src="${p[3]}" onclick="info('${p[0]}: fragancia premium.')">
+            <h3>${p[0]}</h3>
 
-    <!-- YSL -->
-    <div class="producto">
-      <img src="https://www.yslbeautyus.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-ysl-master-catalog/default/dw2f60d1c0/images/YSL_MYSLF.jpg" onclick="info('YSL MYSLF: fragancia moderna, fresca y elegante.')">
-      <h3>YSL MYSLF</h3>
+            <select onchange="precio(this,${p[1]},${p[2]})">
+              ${p[1]==p[2] ? `<option>5 ML - $${p[2]}</option>` :
+              `<option value="10">10 ML - $${p[1]}</option>
+               <option value="5">5 ML - $${p[2]}</option>`}
+            </select>
 
-      <select onchange="actualizarPrecio(this, 180, 165)">
-        <option value="10">10 ML - $180</option>
-        <option value="5">5 ML - $165</option>
-      </select>
+            <div class="precio">$${p[1]}</div>
 
-      <p class="precio">$180</p>
+            <button class="btn" onclick="confirmar('${p[0]}',this)">COMPRAR</button>
 
-      <button class="btn" onclick="confirmar('YSL MYSLF', this)">COMPRAR</button>
-    </div>
+            ${admin ? `<button onclick="toggle(${i})">AGOTAR</button>` : ``}
+          </div>
+          `;
+        });
+      }
 
-    <!-- NAUTICA VOYAGE -->
-    <div class="producto">
-      <img src="https://m.media-amazon.com/images/I/71M+oC0K8TL.jpg" onclick="info('Nautica Voyage: fresco, acuático, perfecto para diario.')">
-      <h3>Nautica Voyage</h3>
+      function precio(sel,p10,p5){
+        let val = sel.value;
+        let pr = val=="5"?p5:p10;
+        sel.parentElement.querySelector(".precio").innerText="$"+pr;
+      }
 
-      <select onchange="actualizarPrecio(this, 60, 40)">
-        <option value="10">10 ML - $60</option>
-        <option value="5">5 ML - $40</option>
-      </select>
+      function confirmar(prod,btn){
+        let p = btn.parentElement;
+        let tamaño = p.querySelector("select").value;
+        let precio = p.querySelector(".precio").innerText;
 
-      <p class="precio">$60</p>
+        mostrar(`
+          <h3>Confirmar compra</h3>
+          <p>${prod}</p>
+          <p>${tamaño} - ${precio}</p>
+          <button onclick="enviar('${prod}','${tamaño}','${precio}')">SI</button>
+          <button onclick="cerrar()">NO</button>
+        `);
+      }
 
-      <button class="btn" onclick="confirmar('Nautica Voyage', this)">COMPRAR</button>
-    </div>
+      function enviar(prod,tam,precio){
+        let url = "https://wa.me/526624637282?text="+encodeURIComponent(
+          `Compra Mangotex:
+Producto: ${prod}
+Tamaño: ${tam}
+Precio: ${precio}`
+        );
+        window.open(url,"_blank");
+        cerrar();
+      }
 
-    <!-- STRONGER WITH YOU -->
-    <div class="producto">
-      <img src="https://m.media-amazon.com/images/I/61Y4Lk3JwUL.jpg" onclick="info('Stronger With You: dulce, intenso, muy popular.')">
-      <h3>Stronger With You</h3>
+      function info(texto){
+        mostrar(`<h3>Información</h3><p>${texto}</p><button onclick="cerrar()">Cerrar</button>`);
+      }
 
-      <select onchange="actualizarPrecio(this, 190, 190)">
-        <option value="5">5 ML - $190</option>
-      </select>
+      function mostrar(html){
+        let o = document.getElementById("overlay");
+        o.style.display="flex";
+        document.getElementById("modal").innerHTML=html;
+      }
 
-      <p class="precio">$190</p>
+      function cerrar(){
+        document.getElementById("overlay").style.display="none";
+      }
 
-      <button class="btn" onclick="confirmar('Stronger With You', this)">COMPRAR</button>
-    </div>
+      function activarAdmin(){
+        admin = !admin;
+        cargar();
+      }
 
-    <!-- PRADA -->
-    <div class="producto">
-      <img src="https://m.media-amazon.com/images/I/61wZ9gqvBQL.jpg" onclick="info('Prada Paradigme: elegante, limpio, sofisticado.')">
-      <h3>Prada Paradigme</h3>
+      function toggle(i){
+        let el = document.getElementById("prod"+i);
+        if(el.querySelector(".agotado")){
+          el.querySelector(".agotado").remove();
+        } else {
+          el.innerHTML += `<div class="agotado">AGOTADO</div>`;
+        }
+      }
 
-      <select onchange="actualizarPrecio(this, 80, 80)">
-        <option value="5">5 ML - $80</option>
-      </select>
-
-      <p class="precio">$80</p>
-
-      <button class="btn" onclick="confirmar('Prada Paradigme', this)">COMPRAR</button>
-    </div>
-
-  </div>
-</section>
-  
-<!-- CHICLES -->
-<section>
-  <h1>Chicles</h1>
-
-  <div class="contenedor">
-
-    <div class="producto">
-      <img src="https://via.placeholder.com/250?text=Chicles">
-      <h3>Chicles Mangotex</h3>
-
-      <select>
-        <option>Paquete de 4</option>
-        <option>Paquete grande</option>
-      </select>
-
-      <button class="btn" onclick="comprar('Chicles')">COMPRAR</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- FUEGOS -->
-<section>
-  <h1>Fuegos artificiales</h1>
-
-  <div class="contenedor">
-
-    <div class="producto">
-      <img src="https://via.placeholder.com/250?text=Cohetes">
-      <h3>Cohetes básicos</h3>
-      <button class="btn" onclick="comprar('Cohetes básicos')">COMPRAR</button>
-    </div>
+      window.onload = cargar;
+    </script>
 
   </div>
 </section>
 
-<!-- MODAL -->
-<div id="overlay" class="overlay" onclick="cerrar()">
-  <div class="modal">
-    <h3>Procesando compra...</h3>
-    <p>Serás redirigido a WhatsApp 📲</p>
-    <p>Espera respuesta del mensaje.</p>
-  </div>
+<div id="overlay" class="overlay">
+  <div id="modal" class="modal"></div>
 </div>
 
-  <div id="overlay" class="overlay">
-  <div class="modal" id="modalContenido"></div>
-</div>
-  
 </body>
 </html>
