@@ -12,15 +12,18 @@
       color: white;
       overflow-x: hidden;
 
-      /* 🔥 TU MANGO COMO FONDO */
+      /* 🥭 FONDO LIMPIO CON MANGOS */
       background-color: black;
-      background-image: url('mango.png');
-      background-size: 140px;
+      background-image: url("data:image/svg+xml,\
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
+<ellipse cx='50' cy='60' rx='30' ry='40' fill='orange'/>\
+<path d='M50 20 Q60 0 80 10' stroke='green' stroke-width='6' fill='none'/>\
+</svg>");
+      background-size: 120px;
       background-repeat: repeat;
-      background-position: center;
     }
 
-    /* oscurecer para que no moleste */
+    /* oscurecer un poco para que no distraiga */
     body::before {
       content: "";
       position: fixed;
@@ -124,7 +127,7 @@
       if(users[u] && users[u][0] === p){
         let nombre = users[u][1];
         let nueva = window.open("", "_blank");
-        nueva.document.write("<h1>Bienvenido " + nombre + " 😎</h1>");
+        nueva.document.write("<h1 style='font-family:Arial'>Bienvenido " + nombre + " 😎</h1>");
       } else {
         alert("Error ❌");
       }
@@ -143,11 +146,13 @@
   <button onclick="irA('personal')">Personal</button>
 </nav>
 
+<!-- INICIO -->
 <section id="inicio" class="show">
   <div class="logo">MANGOTEX</div>
   <p>Productos de gran calidad</p>
 </section>
 
+<!-- EMPRESA -->
 <section id="empresa">
   <div class="card">
     <h2>Sobre la empresa</h2>
@@ -157,6 +162,7 @@
   </div>
 </section>
 
+<!-- ORIGEN -->
 <section id="origen">
   <div class="card">
     <h2>¿Cómo surgió?</h2>
@@ -166,6 +172,7 @@
   </div>
 </section>
 
+<!-- REDES -->
 <section id="redes">
   <div class="card">
     <h2>Redes</h2>
@@ -175,6 +182,7 @@
   </div>
 </section>
 
+<!-- PERSONAL -->
 <section id="personal">
   <div class="card">
     <h2>Acceso al personal</h2>
