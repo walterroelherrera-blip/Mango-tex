@@ -242,10 +242,12 @@ const perfumes = [
 function cargar(){
   let cont = document.getElementById("perfumes");
   cont.innerHTML = "";
+  let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
   perfumes.forEach((p,i)=>{
     cont.innerHTML += `
     <div class="producto" id="p${i}">
+  ${agotados.includes(i) ? `<div class="agotado">AGOTADO</div>` : ""}
       <img src="${p[3]}" onclick="info('${p[0]} fragancia premium.')">
       <h3>${p[0]}</h3>
 
@@ -309,17 +311,36 @@ function cerrar(){
 }
 
 function adminMode(){
-  admin = !admin;
-  cargar();
+  mostrar(`
+    <h3>Acceso Admin</h3>
+    <input id="adminPass" type="password" placeholder="Contraseña"><br><br>
+    <button onclick="verificarAdmin()">Entrar</button>
+  `);
+}
+
+  function verificarAdmin(){
+  let pass = document.getElementById("adminPass").value;
+
+  if(pass === "MT-MERCADO2026zz"){
+    admin = true;
+    cerrar();
+    cargar();
+  } else {
+    alert("Contraseña incorrecta ❌");
+  }
 }
 
 function agotado(i){
-  let el = document.getElementById("p"+i);
-  if(el.querySelector(".agotado")){
-    el.querySelector(".agotado").remove();
+  let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+
+  if(agotados.includes(i)){
+    agotados = agotados.filter(x => x !== i);
   } else {
-    el.innerHTML += `<div class="agotado">AGOTADO</div>`;
+    agotados.push(i);
   }
+
+  localStorage.setItem("agotados", JSON.stringify(agotados));
+  cargar();
 }
 
 window.onload = cargar;
