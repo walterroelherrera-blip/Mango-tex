@@ -16,7 +16,7 @@
       overflow-x: hidden;
     }
 
-    /* FONDO LOGOS */
+    /* FONDO DIAGONAL */
     .bg {
       position: fixed;
       width: 100%;
@@ -25,20 +25,31 @@
       overflow: hidden;
     }
 
-    .logo-bg {
+    .line {
       position: absolute;
-      width: 120px;
-      opacity: 0.2;
-      animation: mover 20s linear infinite;
+      width: 200%;
+      display: flex;
+      gap: 40px;
+      transform: rotate(-25deg);
+      animation: moverLinea 20s linear infinite;
     }
 
-    @keyframes mover {
-      from {
-        transform: translate(-200px, 100vh) rotate(0deg);
-      }
-      to {
-        transform: translate(100vw, -200px) rotate(360deg);
-      }
+    .line:nth-child(1){ top: 10%; }
+    .line:nth-child(2){ top: 40%; animation-delay: 5s; }
+    .line:nth-child(3){ top: 70%; animation-delay: 10s; }
+
+    .sticker {
+      width: 80px;
+      height: 80px;
+      background: orange;
+      border: 4px solid white;
+      border-radius: 20px;
+      opacity: 0.2;
+    }
+
+    @keyframes moverLinea {
+      from { transform: translateX(-50%) rotate(-25deg); }
+      to { transform: translateX(0%) rotate(-25deg); }
     }
 
     nav {
@@ -82,7 +93,7 @@
       transform: translateY(0);
     }
 
-    /* LOGO PRINCIPAL */
+    /* LOGO */
     .logo {
       font-size: 60px;
       font-weight: bold;
@@ -167,11 +178,17 @@
 
 <body>
 
-<!-- FONDO CON LOGOS -->
+<!-- FONDO -->
 <div class="bg">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.svg/120px-Hapus_Mango.svg.png" class="logo-bg" style="left:10%;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.svg/120px-Hapus_Mango.svg.png" class="logo-bg" style="left:40%; animation-delay:5s;">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.svg/120px-Hapus_Mango.svg.png" class="logo-bg" style="left:70%; animation-delay:10s;">
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
 </div>
 
 <nav>
@@ -185,7 +202,7 @@
 <!-- INICIO -->
 <section id="inicio" class="show">
   <div class="logo">
-    M<span class="bubble">A<div class="leaf"></div></span>NGOTEX
+    M<span class="bubble">O<div class="leaf"></div></span>NGOTEX
   </div>
   <p>Productos de gran calidad</p>
 </section>
@@ -194,20 +211,9 @@
 <section id="empresa">
   <div class="card">
     <h2>Sobre la empresa</h2>
-    <p>
-      Mangotex es una empresa reciente creada por Walter Roel Herrera junto a su equipo,
-      enfocada en ofrecer productos de calidad con una visión moderna.
-    </p>
-
-    <p>
-      A pesar de ser un proyecto emergente, la empresa busca posicionarse dentro del mercado
-      gracias a su innovación, compromiso y constante evolución.
-    </p>
-
-    <p>
-      Cada paso que da Mangotex está orientado a mejorar la experiencia del cliente,
-      ofreciendo productos confiables y bien desarrollados.
-    </p>
+    <p>Mangotex es una empresa creada por Walter Roel Herrera con un equipo en crecimiento.</p>
+    <p>Su objetivo es ofrecer productos de alta calidad y posicionarse en el mercado.</p>
+    <p>Se enfoca en innovación, responsabilidad y evolución constante.</p>
   </div>
 </section>
 
@@ -215,19 +221,9 @@
 <section id="origen">
   <div class="card">
     <h2>¿Cómo surgió?</h2>
-    <p>
-      La idea nació de un grupo de jóvenes con mentalidad emprendedora que decidieron
-      iniciar su propio negocio.
-    </p>
-
-    <p>
-      Buscando independencia y crecimiento, comenzaron con ideas simples que poco a poco
-      fueron tomando forma hasta convertirse en lo que hoy es Mangotex.
-    </p>
-
-    <p>
-      El proyecto continúa evolucionando con nuevas metas y objetivos a largo plazo.
-    </p>
+    <p>Nació de un grupo de jóvenes emprendedores con ideas innovadoras.</p>
+    <p>Comenzó como un proyecto pequeño con grandes metas.</p>
+    <p>Hoy sigue creciendo con visión a futuro.</p>
   </div>
 </section>
 
@@ -235,9 +231,9 @@
 <section id="redes">
   <div class="card">
     <h2>Redes</h2>
-    <p>Instagram: Mango tex S.A. de C.V.</p>
-    <p>TikTok: mangotex</p>
-    <p>WhatsApp: Próximamente</p>
+    <p>📸 Instagram: Mango tex S.A. de C.V.</p>
+    <p>🎵 TikTok: mangotex</p>
+    <p>💬 WhatsApp: Próximamente</p>
   </div>
 </section>
 
