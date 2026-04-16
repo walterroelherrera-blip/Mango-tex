@@ -7,96 +7,118 @@
     body {
       margin: 0;
       font-family: Arial;
-      background-color: #ff7a00;
-      transition: background 0.5s;
+      background: #111;
+      color: white;
+      scroll-behavior: smooth;
     }
 
     nav {
-      background-color: #222;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
       padding: 15px;
       text-align: center;
+      z-index: 1000;
     }
 
     nav button {
-      background-color: #ff7a00;
-      border: none;
+      background: transparent;
       color: white;
+      border: 1px solid white;
       padding: 10px 20px;
       margin: 5px;
       cursor: pointer;
-      border-radius: 5px;
+      border-radius: 20px;
+      transition: 0.3s;
+    }
+
+    nav button:hover {
+      background: white;
+      color: black;
+      transform: scale(1.1);
     }
 
     section {
-      display: none;
-      padding: 30px;
+      min-height: 100vh;
+      padding: 100px 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: 1s;
+    }
+
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
       text-align: center;
-      animation: fade 0.5s;
-    }
-
-    .active {
-      display: block;
-    }
-
-    @keyframes fade {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    .card {
-      background: white;
-      margin: 20px auto;
-      padding: 20px;
-      width: 80%;
-      border-radius: 10px;
-    }
-
-    img {
-      width: 250px;
-      border-radius: 10px;
     }
 
     video {
       width: 300px;
+      margin-top: 20px;
       border-radius: 10px;
+    }
+
+    .card {
+      max-width: 800px;
+      margin: 30px auto;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
     }
 
     input {
       padding: 10px;
       margin: 5px;
+      border-radius: 5px;
+      border: none;
     }
 
+    footer {
+      position: relative;
+      padding: 20px;
+      font-size: 12px;
+      text-align: left;
+      opacity: 0.7;
+    }
   </style>
 
   <script>
-    function mostrar(seccion) {
-      document.body.style.background = "white";
+    window.addEventListener("scroll", () => {
+      document.querySelectorAll("section").forEach(sec => {
+        let top = window.scrollY;
+        let offset = sec.offsetTop - 400;
+        if (top > offset) {
+          sec.classList.add("show");
+        }
+      });
+    });
 
-      setTimeout(() => {
-        document.body.style.background = "#ff7a00";
-      }, 300);
-
-      let secciones = document.querySelectorAll("section");
-      secciones.forEach(s => s.classList.remove("active"));
-
-      document.getElementById(seccion).classList.add("active");
+    function scrollToSection(id){
+      document.getElementById(id).scrollIntoView();
     }
 
-    function login() {
-      let user = document.getElementById("user").value;
-      let pass = document.getElementById("pass").value;
+    function login(){
+      let u = document.getElementById("user").value;
+      let p = document.getElementById("pass").value;
 
-      let usuarios = {
+      let users = {
         "DIEGOM1NJ4R3Z": "MT-26-001",
         "JP25004": "MT-26-002",
         "M1/A64": "MT-26-003",
-        "W4LT3RH4": "MT-26-004"
+        "W4LT3RH4": "MT-26-004",
+        "CHR1$64BIT": "MT-2026-005"
       };
 
-      if (usuarios[user] === pass) {
+      if(users[u] === p){
         alert("Acceso concedido 😎");
       } else {
-        alert("Usuario o contraseña incorrectos ❌");
+        alert("Error ❌");
       }
     }
   </script>
@@ -106,58 +128,64 @@
 <body>
 
 <nav>
-  <button onclick="mostrar('inicio')">Inicio</button>
-  <button onclick="mostrar('empresa')">Empresa</button>
-  <button onclick="mostrar('contacto')">Contacto</button>
-  <button onclick="mostrar('personal')">Personal</button>
+  <button onclick="scrollToSection('inicio')">Inicio</button>
+  <button onclick="scrollToSection('empresa')">Empresa</button>
+  <button onclick="scrollToSection('origen')">Origen</button>
+  <button onclick="scrollToSection('redes')">Redes</button>
+  <button onclick="scrollToSection('personal')">Personal</button>
 </nav>
 
 <!-- INICIO -->
-<section id="inicio" class="active">
-  <h1>🍊 MANGO TEX</h1>
-  <p>Innovación, calidad y confianza</p>
+<section id="inicio" class="hero">
+  <h1>🍊 MANGOTEX</h1>
+  <p>Productos de gran calidad</p>
 
   <video controls>
     <source src="Video Project.mp4" type="video/mp4">
   </video>
-
-  <div class="card">
-    <h2>Bienvenido</h2>
-    <p>
-      Mango Tex es una empresa enfocada en el desarrollo textil moderno,
-      brindando soluciones innovadoras para clientes exigentes.
-    </p>
-  </div>
 </section>
 
 <!-- EMPRESA -->
 <section id="empresa">
   <div class="card">
-    <h2>¿Quiénes somos?</h2>
+    <h2>Sobre la empresa</h2>
     <p>
-      Somos una empresa líder en el sector textil, comprometida con la calidad,
-      innovación y satisfacción del cliente.
+      Mangotex es una reciente empresa creada por Walter Roel Herrera,
+      que cuenta con un equipo en crecimiento comprometido con la calidad,
+      innovación y desarrollo constante dentro del sector.
     </p>
-    <img src="https://picsum.photos/300/200">
-  </div>
 
-  <div class="card">
-    <h2>Misión</h2>
-    <p>Ofrecer productos de alta calidad.</p>
-  </div>
-
-  <div class="card">
-    <h2>Visión</h2>
-    <p>Ser líderes a nivel nacional.</p>
+    <p>
+      Actualmente es un negocio emergente con gran potencial, con el objetivo
+      de convertirse en una empresa reconocida a nivel nacional.
+    </p>
   </div>
 </section>
 
-<!-- CONTACTO -->
-<section id="contacto">
+<!-- ORIGEN -->
+<section id="origen">
   <div class="card">
-    <h2>Contacto</h2>
-    <p>📞 +52 662 463 7282</p>
-    <p>📧 mangotex081@gmail.com</p>
+    <h2>¿Cómo surgió la empresa?</h2>
+    <p>
+      La brillante idea surgió a partir de un grupo de jóvenes emprendedores
+      que decidieron iniciar un negocio con visión a futuro, combinando creatividad,
+      trabajo en equipo y ambición para crear algo propio.
+    </p>
+
+    <p>
+      Con esfuerzo y dedicación, Mangotex comenzó como un proyecto pequeño,
+      pero con metas claras de crecimiento y éxito.
+    </p>
+  </div>
+</section>
+
+<!-- REDES -->
+<section id="redes">
+  <div class="card">
+    <h2>¿Dónde encontrarnos?</h2>
+    <p>📸 Instagram: Mango tex S.A. de C.V.</p>
+    <p>🎵 TikTok: mangotex</p>
+    <p>💬 Comunidad de WhatsApp: Próximamente</p>
   </div>
 </section>
 
@@ -165,13 +193,22 @@
 <section id="personal">
   <div class="card">
     <h2>Acceso al personal</h2>
-
-    <input type="text" id="user" placeholder="Usuario"><br>
-    <input type="password" id="pass" placeholder="Contraseña"><br><br>
-
+    <input id="user" placeholder="Usuario"><br>
+    <input id="pass" type="password" placeholder="Contraseña"><br><br>
     <button onclick="login()">Ingresar</button>
   </div>
 </section>
+
+<footer>
+  <p>
+    MANGOTEX<br>
+    Productos de gran calidad
+  </p>
+
+  <p style="position:absolute; right:20px;">
+    Hecho por Juan Pablo Rendon (JP)
+  </p>
+</footer>
 
 </body>
 </html>
