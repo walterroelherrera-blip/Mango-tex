@@ -4,9 +4,7 @@
   <title>Mango Tex</title>
 
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -16,7 +14,7 @@
       overflow-x: hidden;
     }
 
-    /* FONDO DIAGONAL */
+    /* FONDO DIAGONAL PRO */
     .bg {
       position: fixed;
       width: 100%;
@@ -25,31 +23,38 @@
       overflow: hidden;
     }
 
-    .line {
-      position: absolute;
-      width: 200%;
-      display: flex;
-      gap: 40px;
-      transform: rotate(-25deg);
-      animation: moverLinea 20s linear infinite;
-    }
-
-    .line:nth-child(1){ top: 10%; }
-    .line:nth-child(2){ top: 40%; animation-delay: 5s; }
-    .line:nth-child(3){ top: 70%; animation-delay: 10s; }
-
     .sticker {
-      width: 80px;
-      height: 80px;
+      position: absolute;
+      width: 70px;
+      height: 70px;
       background: orange;
       border: 4px solid white;
       border-radius: 20px;
-      opacity: 0.2;
+      opacity: 0.25;
+      animation: diagonal 8s linear infinite;
     }
 
-    @keyframes moverLinea {
-      from { transform: translateX(-50%) rotate(-25deg); }
-      to { transform: translateX(0%) rotate(-25deg); }
+    /* DIFERENTES POSICIONES */
+    .sticker:nth-child(1){ left: -10%; bottom: -10%; animation-delay: 0s;}
+    .sticker:nth-child(2){ left: -20%; bottom: -20%; animation-delay: 1s;}
+    .sticker:nth-child(3){ left: -30%; bottom: -30%; animation-delay: 2s;}
+    .sticker:nth-child(4){ left: -40%; bottom: -40%; animation-delay: 3s;}
+    .sticker:nth-child(5){ left: -50%; bottom: -50%; animation-delay: 4s;}
+    .sticker:nth-child(6){ left: -60%; bottom: -60%; animation-delay: 5s;}
+
+    /* MOVIMIENTO DIAGONAL REAL */
+    @keyframes diagonal {
+      0% {
+        transform: translate(0,0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.25;
+      }
+      100% {
+        transform: translate(120vw, -120vh);
+        opacity: 0;
+      }
     }
 
     nav {
@@ -180,15 +185,12 @@
 
 <!-- FONDO -->
 <div class="bg">
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
-  <div class="line">
-    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
-  </div>
+  <div class="sticker"></div>
+  <div class="sticker"></div>
+  <div class="sticker"></div>
+  <div class="sticker"></div>
+  <div class="sticker"></div>
+  <div class="sticker"></div>
 </div>
 
 <nav>
