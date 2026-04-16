@@ -14,7 +14,7 @@
       overflow-x: hidden;
     }
 
-    /* FONDO DIAGONAL PRO */
+    /* FONDO TIPO TU IMAGEN */
     .bg {
       position: fixed;
       width: 100%;
@@ -23,38 +23,38 @@
       overflow: hidden;
     }
 
-    .sticker {
+    .line {
       position: absolute;
-      width: 70px;
-      height: 70px;
-      background: orange;
-      border: 4px solid white;
-      border-radius: 20px;
-      opacity: 0.25;
-      animation: diagonal 8s linear infinite;
+      width: 200%;
+      display: flex;
+      gap: 60px;
+      transform: rotate(-30deg);
+      animation: mover 10s linear infinite;
     }
 
-    /* DIFERENTES POSICIONES */
-    .sticker:nth-child(1){ left: -10%; bottom: -10%; animation-delay: 0s;}
-    .sticker:nth-child(2){ left: -20%; bottom: -20%; animation-delay: 1s;}
-    .sticker:nth-child(3){ left: -30%; bottom: -30%; animation-delay: 2s;}
-    .sticker:nth-child(4){ left: -40%; bottom: -40%; animation-delay: 3s;}
-    .sticker:nth-child(5){ left: -50%; bottom: -50%; animation-delay: 4s;}
-    .sticker:nth-child(6){ left: -60%; bottom: -60%; animation-delay: 5s;}
+    /* MUCHAS LINEAS (PARALELAS) */
+    .line:nth-child(1){ top: -20%; }
+    .line:nth-child(2){ top: 0%; }
+    .line:nth-child(3){ top: 20%; }
+    .line:nth-child(4){ top: 40%; }
+    .line:nth-child(5){ top: 60%; }
+    .line:nth-child(6){ top: 80%; }
+    .line:nth-child(7){ top: 100%; }
+
+    /* STICKER REAL */
+    .sticker {
+      width: 90px;
+      height: 90px;
+      background-image: url('https://cdn-icons-png.flaticon.com/512/590/590685.png');
+      background-size: cover;
+      border-radius: 20px;
+      opacity: 0.15;
+    }
 
     /* MOVIMIENTO DIAGONAL REAL */
-    @keyframes diagonal {
-      0% {
-        transform: translate(0,0);
-        opacity: 0;
-      }
-      10% {
-        opacity: 0.25;
-      }
-      100% {
-        transform: translate(120vw, -120vh);
-        opacity: 0;
-      }
+    @keyframes mover {
+      from { transform: translateX(-50%) rotate(-30deg); }
+      to { transform: translateX(0%) rotate(-30deg); }
     }
 
     nav {
@@ -98,30 +98,9 @@
       transform: translateY(0);
     }
 
-    /* LOGO */
     .logo {
       font-size: 60px;
       font-weight: bold;
-    }
-
-    .bubble {
-      display: inline-block;
-      background: orange;
-      color: white;
-      border-radius: 50%;
-      padding: 10px 18px;
-      position: relative;
-    }
-
-    .leaf {
-      width: 20px;
-      height: 20px;
-      background: green;
-      position: absolute;
-      top: -15px;
-      left: 10px;
-      border-radius: 50% 0;
-      transform: rotate(45deg);
     }
 
     .card {
@@ -138,6 +117,12 @@
       margin: 5px;
       border-radius: 5px;
       border: none;
+    }
+
+    .icon {
+      width: 20px;
+      vertical-align: middle;
+      margin-right: 8px;
     }
 
   </style>
@@ -185,12 +170,28 @@
 
 <!-- FONDO -->
 <div class="bg">
-  <div class="sticker"></div>
-  <div class="sticker"></div>
-  <div class="sticker"></div>
-  <div class="sticker"></div>
-  <div class="sticker"></div>
-  <div class="sticker"></div>
+  <!-- cada línea tiene muchos stickers -->
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
+  <div class="line">
+    <div class="sticker"></div><div class="sticker"></div><div class="sticker"></div><div class="sticker"></div>
+  </div>
 </div>
 
 <nav>
@@ -203,49 +204,30 @@
 
 <!-- INICIO -->
 <section id="inicio" class="show">
-  <div class="logo">
-    M<span class="bubble">O<div class="leaf"></div></span>NGOTEX
-  </div>
+  <div class="logo">MANGOTEX</div>
   <p>Productos de gran calidad</p>
-</section>
-
-<!-- EMPRESA -->
-<section id="empresa">
-  <div class="card">
-    <h2>Sobre la empresa</h2>
-    <p>Mangotex es una empresa creada por Walter Roel Herrera con un equipo en crecimiento.</p>
-    <p>Su objetivo es ofrecer productos de alta calidad y posicionarse en el mercado.</p>
-    <p>Se enfoca en innovación, responsabilidad y evolución constante.</p>
-  </div>
-</section>
-
-<!-- ORIGEN -->
-<section id="origen">
-  <div class="card">
-    <h2>¿Cómo surgió?</h2>
-    <p>Nació de un grupo de jóvenes emprendedores con ideas innovadoras.</p>
-    <p>Comenzó como un proyecto pequeño con grandes metas.</p>
-    <p>Hoy sigue creciendo con visión a futuro.</p>
-  </div>
 </section>
 
 <!-- REDES -->
 <section id="redes">
   <div class="card">
     <h2>Redes</h2>
-    <p>📸 Instagram: Mango tex S.A. de C.V.</p>
-    <p>🎵 TikTok: mangotex</p>
-    <p>💬 WhatsApp: Próximamente</p>
-  </div>
-</section>
 
-<!-- PERSONAL -->
-<section id="personal">
-  <div class="card">
-    <h2>Acceso al personal</h2>
-    <input id="user" placeholder="Usuario"><br>
-    <input id="pass" type="password" placeholder="Contraseña"><br><br>
-    <button onclick="login()">Ingresar</button>
+    <p>
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+      Mango tex S.A. de C.V.
+    </p>
+
+    <p>
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+      mangotex
+    </p>
+
+    <p>
+      <img class="icon" src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+      Próximamente
+    </p>
+
   </div>
 </section>
 
