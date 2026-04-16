@@ -7,26 +7,60 @@
     body {
       margin: 0;
       font-family: Arial;
-      background: white;
-      color: black;
+      color: white;
+      background: black;
+    }
+
+    nav {
+      position: fixed;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(10px);
+      padding: 15px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    nav button {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    section {
+      padding: 120px 20px;
       text-align: center;
     }
 
     h1 {
-      margin: 40px;
+      font-size: 40px;
+    }
+
+    .card {
+      max-width: 800px;
+      margin: auto;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
     }
 
     .contenedor {
       display: flex;
-      justify-content: center;
-      gap: 40px;
       flex-wrap: wrap;
-      padding: 20px;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
     }
 
     .producto {
       width: 250px;
-      text-align: left;
+      background: rgba(255,255,255,0.1);
+      padding: 15px;
+      border-radius: 10px;
     }
 
     .producto img {
@@ -42,53 +76,169 @@
 
     .btn {
       width: 100%;
-      padding: 12px;
-      background: black;
-      color: white;
+      padding: 10px;
+      background: white;
+      color: black;
       border: none;
-      margin-top: 15px;
+      margin-top: 10px;
       cursor: pointer;
     }
+
+    /* MODAL */
+    .overlay {
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal {
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 300px;
+    }
+
   </style>
+
+  <script>
+    function comprar(producto){
+      document.getElementById("overlay").style.display = "flex";
+
+      setTimeout(()=>{
+        let numero = "526624637282";
+        let mensaje = "Hola, quiero comprar: " + producto;
+        let url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensaje);
+
+        window.open(url, "_blank");
+      },2000);
+    }
+
+    function cerrar(){
+      document.getElementById("overlay").style.display = "none";
+    }
+  </script>
 
 </head>
 
 <body>
 
-<h1>MERCADO 🥭</h1>
+<nav>
+  <button onclick="window.location.href='index.html'">Inicio</button>
+</nav>
 
-<div class="contenedor">
-
-  <div class="producto">
-    <img src="https://via.placeholder.com/250">
-    <h3>DECANT DE PERFUME</h3>
-    <select>
-      <option>5 ML</option>
-      <option>10 ML</option>
-    </select>
-    <button class="btn">COMPRAR</button>
+<!-- INFO -->
+<section>
+  <h1>MERCADO MANGOTEX 🥭</h1>
+  <div class="card">
+    <p>
+      Mangotex desde el principio ha estado intentando la venta de productos,
+      y como dice nuestro lema, de gran calidad.
+    </p>
+    <p>
+      Contamos con una gran variedad de artículos, desde perfumería hasta productos
+      de uso cotidiano y entretenimiento.
+    </p>
+    <p>
+      Nuestro objetivo es ofrecer precios accesibles, buena atención y una experiencia confiable.
+    </p>
+    <p>
+      Este mercado seguirá creciendo con nuevos productos y mejoras constantes.
+    </p>
   </div>
+</section>
 
-  <div class="producto">
-    <img src="https://via.placeholder.com/250">
-    <h3>CHICLES</h3>
-    <select>
-      <option>Individual</option>
-      <option>Paquete</option>
-    </select>
-    <button class="btn">COMPRAR</button>
+<!-- PERFUMERIA -->
+<section>
+  <h1>Perfumería</h1>
+
+  <div class="contenedor">
+
+    <div class="producto">
+      <img src="https://via.placeholder.com/250">
+      <h3>Valentino Uomo</h3>
+      <select>
+        <option>5 ML</option>
+        <option>10 ML</option>
+      </select>
+      <button class="btn" onclick="comprar('Valentino Uomo')">COMPRAR</button>
+    </div>
+
+    <div class="producto">
+      <img src="https://via.placeholder.com/250">
+      <h3>Valentino Intense</h3>
+      <select>
+        <option>5 ML</option>
+        <option>10 ML</option>
+      </select>
+      <button class="btn" onclick="comprar('Valentino Intense')">COMPRAR</button>
+    </div>
+
+    <div class="producto">
+      <img src="https://via.placeholder.com/250">
+      <h3>YSL MYSLF</h3>
+      <select>
+        <option>5 ML</option>
+        <option>10 ML</option>
+      </select>
+      <button class="btn" onclick="comprar('YSL MYSLF')">COMPRAR</button>
+    </div>
+
   </div>
+</section>
 
-  <div class="producto">
-    <img src="https://via.placeholder.com/250">
-    <h3>COHETES</h3>
-    <select>
-      <option>Pequeño</option>
-      <option>Grande</option>
-    </select>
-    <button class="btn">COMPRAR</button>
+<!-- CHICLES -->
+<section>
+  <h1>Chicles</h1>
+
+  <div class="contenedor">
+
+    <div class="producto">
+      <img src="https://via.placeholder.com/250?text=Chicles">
+      <h3>Chicles Mangotex</h3>
+
+      <select>
+        <option>Paquete de 4</option>
+        <option>Paquete grande</option>
+      </select>
+
+      <button class="btn" onclick="comprar('Chicles')">COMPRAR</button>
+    </div>
+
   </div>
+</section>
 
+<!-- FUEGOS -->
+<section>
+  <h1>Fuegos artificiales</h1>
+
+  <div class="contenedor">
+
+    <div class="producto">
+      <img src="https://via.placeholder.com/250?text=Cohetes">
+      <h3>Cohetes básicos</h3>
+      <button class="btn" onclick="comprar('Cohetes básicos')">COMPRAR</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="overlay" class="overlay" onclick="cerrar()">
+  <div class="modal">
+    <h3>Procesando compra...</h3>
+    <p>Serás redirigido a WhatsApp 📲</p>
+    <p>Espera respuesta del mensaje.</p>
+  </div>
 </div>
 
 </body>
