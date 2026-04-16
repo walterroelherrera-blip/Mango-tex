@@ -12,19 +12,33 @@
       margin: 0;
       font-family: Arial;
       color: white;
+      background: black;
       overflow-x: hidden;
     }
 
-    /* VIDEO DE FONDO */
-    #bg-video {
+    /* FONDO LOGOS */
+    .bg {
       position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
       z-index: -1;
-      filter: brightness(0.4);
+      overflow: hidden;
+    }
+
+    .logo-bg {
+      position: absolute;
+      width: 120px;
+      opacity: 0.2;
+      animation: mover 20s linear infinite;
+    }
+
+    @keyframes mover {
+      from {
+        transform: translate(-200px, 100vh) rotate(0deg);
+      }
+      to {
+        transform: translate(100vw, -200px) rotate(360deg);
+      }
     }
 
     nav {
@@ -68,7 +82,7 @@
       transform: translateY(0);
     }
 
-    /* LOGO */
+    /* LOGO PRINCIPAL */
     .logo {
       font-size: 60px;
       font-weight: bold;
@@ -153,10 +167,12 @@
 
 <body>
 
-<!-- VIDEO FONDO (puedes cambiarlo luego) -->
-<video autoplay muted loop id="bg-video">
-  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-</video>
+<!-- FONDO CON LOGOS -->
+<div class="bg">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.svg/120px-Hapus_Mango.svg.png" class="logo-bg" style="left:10%;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.svg/120px-Hapus_Mango.svg.png" class="logo-bg" style="left:40%; animation-delay:5s;">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Hapus_Mango.svg/120px-Hapus_Mango.svg.png" class="logo-bg" style="left:70%; animation-delay:10s;">
+</div>
 
 <nav>
   <button onclick="irA('inicio')">Inicio</button>
@@ -169,7 +185,7 @@
 <!-- INICIO -->
 <section id="inicio" class="show">
   <div class="logo">
-    M<span class="bubble">O<div class="leaf"></div></span>NGOTEX
+    M<span class="bubble">A<div class="leaf"></div></span>NGOTEX
   </div>
   <p>Productos de gran calidad</p>
 </section>
@@ -179,8 +195,18 @@
   <div class="card">
     <h2>Sobre la empresa</h2>
     <p>
-      Mangotex es una reciente empresa creada por Walter Roel Herrera,
-      con un equipo en crecimiento enfocado en innovación y calidad.
+      Mangotex es una empresa reciente creada por Walter Roel Herrera junto a su equipo,
+      enfocada en ofrecer productos de calidad con una visión moderna.
+    </p>
+
+    <p>
+      A pesar de ser un proyecto emergente, la empresa busca posicionarse dentro del mercado
+      gracias a su innovación, compromiso y constante evolución.
+    </p>
+
+    <p>
+      Cada paso que da Mangotex está orientado a mejorar la experiencia del cliente,
+      ofreciendo productos confiables y bien desarrollados.
     </p>
   </div>
 </section>
@@ -190,8 +216,17 @@
   <div class="card">
     <h2>¿Cómo surgió?</h2>
     <p>
-      Surgió de un grupo de jóvenes que decidieron crear su propio negocio
-      con ideas innovadoras y visión de crecimiento.
+      La idea nació de un grupo de jóvenes con mentalidad emprendedora que decidieron
+      iniciar su propio negocio.
+    </p>
+
+    <p>
+      Buscando independencia y crecimiento, comenzaron con ideas simples que poco a poco
+      fueron tomando forma hasta convertirse en lo que hoy es Mangotex.
+    </p>
+
+    <p>
+      El proyecto continúa evolucionando con nuevas metas y objetivos a largo plazo.
     </p>
   </div>
 </section>
