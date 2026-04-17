@@ -254,6 +254,50 @@ function cargar(){
 
   perfumes.forEach((p,i)=>{
 
+    if(!p || !p[0]) return;
+
+    let esAgotado = agotados.includes(i);
+
+    cont.innerHTML += `
+      <div class="producto" id="p${i}">
+        ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
+
+        <img src="${p[3] || 'https://picsum.photos/200'}"
+             onerror="this.src='https://picsum.photos/200'"
+             onclick="info('${p[0]} fragancia premium.')">
+
+        <h3>${p[0]}</h3>
+
+        <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado ? "disabled" : ""}>
+          ${
+            p[1]==p[2]
+            ? `<option>5 ML - $${p[2]}</option>`
+            : `
+              <option value="10">10 ML - $${p[1]}</option>
+              <option value="5">5 ML - $${p[2]}</option>
+            `
+          }
+        </select>
+
+        <div class="precio">$${p[1]}</div>
+
+        <button class="btn"
+          onclick="confirmar('${p[0]}', this)"
+          ${esAgotado ? "disabled style='background:gray;'" : ""}>
+          COMPRAR
+        </button>
+
+        ${admin ? `
+          <button onclick="agotado(${i})">AGOTAR</button>
+          <button onclick="editar(${i})">EDITAR</button>
+        ` : ""}
+
+      </div>
+    `;
+
+  });
+}
+
     // PROTECCIÓN contra datos corruptos ($null, etc.)
     if(!p || !p[0]) return;
 
@@ -309,24 +353,6 @@ function cargar(){
 });
 }
     
-
-    let esAgotado = agotados.includes(i);
-
-    cont.innerHTML += `
-    <div class="producto" id="p${i}">
-      ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
-
-      <img src="${p[3]}" onclick="info('${p[0]} fragancia premium.')">
-
-      <h3>${p[0]}</h3>
-
-      <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado ? "disabled" : ""}>
-        ${p[1]==p[2] ? `<option>5 ML - $${p[2]}</option>` :
-        `<option value="10">10 ML - $${p[1]}</option>
-         <option value="5">5 ML - $${p[2]}</option>`}
-      </select>
-
-      <div class="precio">$${p[1]}</div>
 
       <button class="btn" 
         style="${esAgotado ? "background:gray; cursor:not-allowed;" : ""}"
