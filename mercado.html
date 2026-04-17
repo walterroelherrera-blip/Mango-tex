@@ -1,249 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Mercado Mangotex</title>
+<meta charset="UTF-8">
+<title>Mangotex - Mercado</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      color: white;
-      background: black;
-    }
+<style>
+  body{
+    font-family: Arial;
+    background:black;
+    color:white;
+    margin:0;
+    text-align:center;
+  }
 
- nav {
-  position: fixed;
-  width: 100%;
-  background: rgba(0,0,0,0.6);
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  z-index: 1000;
-}
+  h1{ margin:20px 0; }
 
-    nav button {
-      background: transparent;
-      border: 1px solid white;
-      color: white;
-      padding: 8px 15px;
-      margin: 3px;
-      border-radius: 15px;
-      cursor: pointer;
-    }
+  .contenedor{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:20px;
+    padding:20px;
+  }
 
-    .admin-btn {
-      position: fixed;
-      top: 10px;
-      right: 10px;
-      background: white;
-      color: black;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      border: none;
-      cursor: pointer;
-    }
+  .producto{
+    background:rgba(255,255,255,0.08);
+    padding:15px;
+    border-radius:15px;
+    width:200px;
+    position:relative;
+  }
 
-    section {
-      padding: 100px 20px;
-      text-align: center;
-    }
+  .producto img{
+    width:100%;
+    border-radius:10px;
+    cursor:pointer;
+  }
 
-    .card {
-      max-width: 800px;
-      margin: auto;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-    }
+  .btn{
+    margin-top:10px;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    background:white;
+    color:black;
+  }
 
-    .contenedor {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 25px;
-      margin-top: 20px;
-    }
+  select{
+    margin-top:10px;
+    padding:5px;
+    border-radius:5px;
+  }
 
-    .producto {
-      width: 240px;
-      background: rgba(255,255,255,0.1);
-      padding: 15px;
-      border-radius: 10px;
-      position: relative;
-    }
+  .precio{
+    margin-top:5px;
+    font-weight:bold;
+  }
 
-    .producto img {
-      width: 100%;
-      border-radius: 10px;
-      cursor: pointer;
-    }
+  .agotado{
+    position:absolute;
+    top:10px;
+    left:10px;
+    background:red;
+    padding:5px;
+    border-radius:5px;
+    font-size:12px;
+  }
 
-    .precio {
-      margin-top: 8px;
-      font-weight: bold;
-    }
-
-   select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 8px;
-}
-
-.producto button {
-  width: 100%;
-  padding: 8px;
-  margin-top: 8px;
-}
-
-nav button {
-  width: auto;
-  margin: 0 5px;
-}
-
-    .btn {
-      background: white;
-      color: black;
-      border: none;
-      cursor: pointer;
-    }
-
-    .agotado {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background: red;
-      padding: 4px;
-      font-size: 12px;
-    }
-
-    .overlay {
-      position: fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      display: none;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal {
-      background: white;
-      color: black;
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 300px;
-    }
-
-      .admin-btn {
-  position: fixed;
-  top: 15px;
-  right: 15px;
-  z-index: 3000;
-  background: white;
-  color: black;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  border: none;
-  cursor: pointer;
-}
-    
-  </style>
-
+  .admin-btn{
+    position:fixed;
+    top:10px;
+    right:10px;
+    background:white;
+    border-radius:50%;
+    width:35px;
+    height:35px;
+    border:none;
+    cursor:pointer;
+  }
+</style>
 </head>
 
 <body>
 
-<nav>
-  <button onclick="window.location.href='index.html'">Inicio</button>
-</nav>
-
 <button class="admin-btn" onclick="adminMode()">✏️</button>
-<button class="admin-btn" style="top: 55px;" onclick="agregarProducto()">＋</button>
 
-<!-- INTRO -->
-<section>
-  <h1>MERCADO MANGOTEX 🥭</h1>
+<h1>Mercado Mangotex</h1>
 
-  <div class="card">
-    <p>Mangotex desde el principio ha estado intentando la venta de productos de gran calidad.</p>
-    <p>Contamos con variedad de productos, precios accesibles y un sistema de compra sencillo.</p>
-    <p>Este mercado seguirá creciendo con más productos próximamente.</p>
-  </div>
-</section>
-
-<!-- PERFUMES -->
-<section>
-  <h2>Perfumería</h2>
-  <div class="contenedor" id="perfumes"></div>
-</section>
-
-<!-- CHICLES -->
-<section>
-  <h2>Chicles</h2>
-  <div class="contenedor">
-    <div class="producto">
-      <img src="https://via.placeholder.com/250?text=Chicles" onclick="info('Chicles Mangotex, sabor duradero.')">
-      <h3>Chicles Mangotex</h3>
-
-      <select>
-        <option>Paquete de 4</option>
-        <option>Paquete grande</option>
-      </select>
-
-      <div class="precio">$20</div>
-
-      <button class="btn" onclick="confirmar('Chicles', this)">COMPRAR</button>
-    </div>
-  </div>
-</section>
-
-<!-- FUEGOS -->
-<section>
-  <h2>Fuegos artificiales</h2>
-  <div class="contenedor">
-    <div class="producto">
-      <img src="https://via.placeholder.com/250?text=Cohetes" onclick="info('Cohetes de entretenimiento.')">
-      <h3>Cohetes</h3>
-
-      <div class="precio">$50</div>
-
-      <button class="btn" onclick="confirmar('Cohetes', this)">COMPRAR</button>
-    </div>
-  </div>
-</section>
-
-<!-- MODAL -->
-<div id="overlay" class="overlay">
-  <div id="modal" class="modal"></div>
-</div>
+<div class="contenedor" id="perfumes"></div>
 
 <script>
-
 let admin = false;
 
+// Datos iniciales
 let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [
-["Valentino Uomo",100,70,"https://i.imgur.com/3ZQ3Z6M.jpg"],
-["Valentino Intense",120,90,"https://i.imgur.com/jk7Qb6x.jpg"],
-["YSL MYSLF",180,165,"https://i.imgur.com/0VYpH6B.jpg"],
-["Nautica Voyage",60,40,"https://i.imgur.com/8fK4h6T.jpg"],
-["Nautica Blue",70,60,"https://i.imgur.com/WP3Qz7h.jpg"],
-["Carolina Herrera",90,50,"https://i.imgur.com/B5Z9k8P.jpg"],
-["Jordan Power",100,60,"https://i.imgur.com/placeholder.jpg"],
-["Versace Eau Fraiche",180,90,"https://i.imgur.com/FZk9Y2m.jpg"],
-["Stronger With You",190,190,"https://i.imgur.com/Y6nK2sR.jpg"],
-["Prada Paradigme",80,80,"https://i.imgur.com/Kl2Jd9S.jpg"]
+  ["Valentino Uomo",100,70,"https://picsum.photos/200"],
+  ["YSL MYSLF",180,165,"https://picsum.photos/200"],
+  ["Nautica Voyage",60,40,"https://picsum.photos/200"],
+  ["Stronger With You",190,190,"https://picsum.photos/200"]
 ];
 
+// Guardar datos
 function guardar(){
   localStorage.setItem("perfumes", JSON.stringify(perfumes));
 }
 
+// Cargar productos
 function cargar(){
   let cont = document.getElementById("perfumes");
   if(!cont) return;
@@ -259,7 +122,7 @@ function cargar(){
     let esAgotado = agotados.includes(i);
 
     cont.innerHTML += `
-      <div class="producto" id="p${i}">
+      <div class="producto">
         ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
 
         <img src="${p[3] || 'https://picsum.photos/200'}"
@@ -282,7 +145,7 @@ function cargar(){
         <div class="precio">$${p[1]}</div>
 
         <button class="btn"
-          onclick="confirmar('${p[0]}', this)"
+          onclick="confirmar('${p[0]}')"
           ${esAgotado ? "disabled style='background:gray;'" : ""}>
           COMPRAR
         </button>
@@ -291,164 +154,47 @@ function cargar(){
           <button onclick="agotado(${i})">AGOTAR</button>
           <button onclick="editar(${i})">EDITAR</button>
         ` : ""}
-
       </div>
     `;
-
   });
 }
 
-    // PROTECCIÓN contra datos corruptos ($null, etc.)
-    if(!p || !p[0]) return;
-
-    let nombre = p[0];
-    let p10 = parseInt(p[1]) || 0;
-    let p5 = parseInt(p[2]) || p10;
-    let img = p[3] || "https://via.placeholder.com/250";
-    let tipo = p[4] || "normal";
-
-    let esAgotado = agotados.includes(i);
-    let esProx = tipo === "proximamente";
-
-    cont.innerHTML += `
-    <div class="producto" id="p${i}">
-
-      ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
-
-      <img src="${img}" onerror="this.src='https://via.placeholder.com/250'" onclick="info('${nombre}')">
-
-      <h3>${nombre}</h3>
-
-      ${
-        esProx ? `
-          <button class="btn" style="background:gray;" disabled>
-            Próximamente
-          </button>
-        ` : `
-          <select onchange="precio(this,${p10},${p5})" ${esAgotado ? "disabled" : ""}>
-            <option value="10">10 ML - $${p10}</option>
-            <option value="5">5 ML - $${p5}</option>
-          </select>
-
-          <div class="precio">$${p10}</div>
-
-          <button class="btn"
-            style="${esAgotado ? "background:gray; cursor:not-allowed;" : ""}"
-            ${esAgotado ? "disabled" : ""}
-            onclick="confirmar('${nombre}', this)">
-            COMPRAR
-          </button>
-        `
-      }
-
-      ${
-        admin ? `
-          <button onclick="agotado(${i})">AGOTAR</button>
-          <button onclick="editar(${i})">EDITAR</button>
-        ` : ""
-      }
-
- </div>
-`;
-});
-}
-    
-
-      <button class="btn" 
-        style="${esAgotado ? "background:gray; cursor:not-allowed;" : ""}"
-        ${esAgotado ? "disabled" : ""}
-        onclick="confirmar('${p[0]}', this)">
-        COMPRAR
-      </button>
-
-      ${admin ? `
-        <button onclick="agotado(${i})">AGOTAR</button>
-        <button onclick="editar(${i})">EDITAR</button>
-      ` : ""}
-    </div>
-    `;
-  });
-}
-
+// Cambiar precio dinámico
 function precio(sel,p10,p5){
-  let val = sel.value;
-  let pr = val=="5"?p5:p10;
-  sel.parentElement.querySelector(".precio").innerText="$"+pr;
+  let div = sel.parentElement.querySelector(".precio");
+  div.innerText = sel.value == "5" ? "$"+p5 : "$"+p10;
 }
 
-function confirmar(prod,btn){
-  let p = btn.parentElement;
-  let tamaño = p.querySelector("select")?.value || "Único";
-  let precio = p.querySelector(".precio").innerText;
-
-  mostrar(`
-    <h3>Confirmar compra</h3>
-    <p>${prod}</p>
-    <p>${tamaño} - ${precio}</p>
-    <button onclick="enviar('${prod}','${tamaño}','${precio}')">SI</button>
-    <button onclick="cerrar()">NO</button>
-  `);
-}
-
-function enviar(prod,tam,precio){
-  let url = "https://wa.me/526624637282?text="+encodeURIComponent(
-`Compra Mangotex:
-Producto: ${prod}
-Tamaño: ${tam}
-Precio: ${precio}`
-  );
-  window.open(url,"_blank");
-  cerrar();
-}
-
-function info(texto){
-  mostrar(`<h3>Información</h3><p>${texto}</p><button onclick="cerrar()">Cerrar</button>`);
-}
-
-function mostrar(html){
-  document.getElementById("overlay").style.display="flex";
-  document.getElementById("modal").innerHTML=html;
-}
-
-function cerrar(){
-  document.getElementById("overlay").style.display="none";
-}
-
-/* ADMIN LOGIN / LOGOUT */
-function adminMode(){
-  if(admin){
-    admin = false;
-    cargar();
-    alert("Saliste del modo admin");
-    return;
+// Confirmar compra
+function confirmar(nombre){
+  let ok = confirm("¿Comprar " + nombre + "?");
+  if(ok){
+    alert("Se enviará mensaje por WhatsApp");
   }
-
-  mostrar(`
-    <h3>Acceso Admin</h3>
-    <input id="adminPass" type="password" placeholder="Contraseña"><br><br>
-    <button onclick="verificarAdmin()">Entrar</button>
-  `);
 }
 
-function verificarAdmin(){
-  let pass = document.getElementById("adminPass").value;
+// Info producto
+function info(texto){
+  alert(texto);
+}
 
+// Admin login
+function adminMode(){
+  let pass = prompt("Contraseña:");
   if(pass === "MT-MERCADO2026zz"){
-    admin = true;
-    cerrar();
+    admin = !admin;
+    alert(admin ? "Admin activado" : "Admin desactivado");
     cargar();
   } else {
-    alert("Contraseña incorrecta ❌");
+    alert("Incorrecto");
   }
 }
 
-/* AGOTADOS */
+// Marcar agotado
 function agotado(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
-  if(agotados.includes(i)){
-    agotados = agotados.filter(x => x !== i);
-  } else {
+  if(!agotados.includes(i)){
     agotados.push(i);
   }
 
@@ -456,72 +202,20 @@ function agotado(i){
   cargar();
 }
 
-/* EDITAR PRODUCTO */
+// Editar producto
 function editar(i){
-  let p = perfumes[i];
+  let n = prompt("Nombre:", perfumes[i][0]);
+  let p10 = prompt("Precio 10ml:", perfumes[i][1]);
+  let p5 = prompt("Precio 5ml:", perfumes[i][2]);
+  let img = prompt("Imagen URL:", perfumes[i][3]);
 
-  mostrar(`
-    <h3>Editar ${p[0]}</h3>
-
-    <input id="n1" value="${p[1]}" placeholder="Precio 10ml"><br>
-    <input id="n2" value="${p[2]}" placeholder="Precio 5ml"><br>
-    <input id="imgEdit" value="${p[3]}" placeholder="URL imagen"><br>
-
-    <button onclick="guardarEdit(${i})">Guardar</button>
-  `);
-}
-
-  mostrar(`
-    <h3>Editar ${p[0]}</h3>
-    <input id="n1" value="${p[1]}"><br>
-    <input id="n2" value="${p[2]}"><br>
-    <button onclick="guardarEdit(${i})">Guardar</button>
-  `);
-}
-
-function guardarEdit(i){
-  let p10 = parseInt(document.getElementById("n1").value) || 0;
-  let p5 = parseInt(document.getElementById("n2").value) || p10;
-  let img = document.getElementById("imgEdit").value || "https://via.placeholder.com/250";
-
-  perfumes[i][1] = p10;
-  perfumes[i][2] = p5;
-  perfumes[i][3] = img;
-
+  perfumes[i] = [n, p10, p5, img];
   guardar();
-  cerrar();
-  cargar();
-}
-}
-
-/* AGREGAR PRODUCTO */
-function agregarProducto(){
-  mostrar(`
-    <h3>Nuevo producto</h3>
-    <input id="nombre" placeholder="Nombre"><br>
-    <input id="p10" placeholder="Precio 10ml"><br>
-    <input id="p5" placeholder="Precio 5ml"><br>
-    <input id="img" placeholder="URL imagen"><br>
-    <button onclick="guardarNuevo()">Agregar</button>
-  `);
-}
-
-function guardarNuevo(){
-  let n = document.getElementById("nombre").value;
-  let p10 = parseInt(document.getElementById("p10").value);
-  let p5 = parseInt(document.getElementById("p5").value);
-  let img = document.getElementById("img").value;
-
-  let tipo = document.getElementById("tipo").value;
-perfumes.push([n,p10,p5,img,tipo]);
-  guardar();
-  cerrar();
   cargar();
 }
 
-/* CARGA */
+// Iniciar
 window.onload = cargar;
-
 </script>
 
 </body>
