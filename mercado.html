@@ -164,6 +164,7 @@ nav button {
 </nav>
 
 <button class="admin-btn" onclick="adminMode()">✏️</button>
+<button class="admin-btn" style="top: 55px;" onclick="agregarProducto()">＋</button>
 
 <!-- INTRO -->
 <section>
@@ -226,32 +227,42 @@ nav button {
 
 let admin = false;
 
-const perfumes = [
-["Valentino Uomo",100,70,"https://www.valentino-beauty.com/dw/image/v2/BBPF_PRD/on/demandware.static/-/Sites-valentino-master-catalog/default/dw2d7b2c74/images/large/3614272732153.jpg"],
-["Valentino Intense",120,90,"https://m.media-amazon.com/images/I/71k6qgq6yDL.jpg"],
-["YSL MYSLF",180,165,"https://m.media-amazon.com/images/I/61j3X0LZ0pL.jpg"],
-["Nautica Voyage",60,40,"https://m.media-amazon.com/images/I/71M+oC0K8TL.jpg"],
-["Nautica Blue",70,60,"https://m.media-amazon.com/images/I/61vF6pKq7UL.jpg"],
-["Carolina Herrera",90,50,"https://m.media-amazon.com/images/I/61MZ3YlJZDL.jpg"],
-["Jordan Power",100,60,"https://via.placeholder.com/250"],
-["Versace Eau Fraiche",180,90,"https://m.media-amazon.com/images/I/61W9F8g9Q1L.jpg"],
-["Stronger With You",190,190,"https://m.media-amazon.com/images/I/61Y4Lk3JwUL.jpg"],
-["Prada Paradigme",80,80,"https://m.media-amazon.com/images/I/61wZ9gqvBQL.jpg"]
+let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [
+["Valentino Uomo",100,70,"https://i.imgur.com/3ZQ3Z6M.jpg"],
+["Valentino Intense",120,90,"https://i.imgur.com/jk7Qb6x.jpg"],
+["YSL MYSLF",180,165,"https://i.imgur.com/0VYpH6B.jpg"],
+["Nautica Voyage",60,40,"https://i.imgur.com/8fK4h6T.jpg"],
+["Nautica Blue",70,60,"https://i.imgur.com/WP3Qz7h.jpg"],
+["Carolina Herrera",90,50,"https://i.imgur.com/B5Z9k8P.jpg"],
+["Jordan Power",100,60,"https://i.imgur.com/placeholder.jpg"],
+["Versace Eau Fraiche",180,90,"https://i.imgur.com/FZk9Y2m.jpg"],
+["Stronger With You",190,190,"https://i.imgur.com/Y6nK2sR.jpg"],
+["Prada Paradigme",80,80,"https://i.imgur.com/Kl2Jd9S.jpg"]
 ];
+
+function guardar(){
+  localStorage.setItem("perfumes", JSON.stringify(perfumes));
+}
 
 function cargar(){
   let cont = document.getElementById("perfumes");
   cont.innerHTML = "";
+
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
   perfumes.forEach((p,i)=>{
+
+    let esAgotado = agotados.includes(i);
+
     cont.innerHTML += `
     <div class="producto" id="p${i}">
-  ${agotados.includes(i) ? `<div class="agotado">AGOTADO</div>` : ""}
+      ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
+
       <img src="${p[3]}" onclick="info('${p[0]} fragancia premium.')">
+
       <h3>${p[0]}</h3>
 
-      <select onchange="precio(this,${p[1]},${p[2]})">
+      <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado ? "disabled" : ""}>
         ${p[1]==p[2] ? `<option>5 ML - $${p[2]}</option>` :
         `<option value="10">10 ML - $${p[1]}</option>
          <option value="5">5 ML - $${p[2]}</option>`}
@@ -259,10 +270,19 @@ function cargar(){
 
       <div class="precio">$${p[1]}</div>
 
-      <button class="btn" onclick="confirmar('${p[0]}', this)">COMPRAR</button>
+      <button class="btn" 
+        style="${esAgotado ? "background:gray; cursor:not-allowed;" : ""}"
+        ${esAgotado ? "disabled" : ""}
+        onclick="confirmar('${p[0]}', this)">
+        COMPRAR
+      </button>
 
-      ${admin ? `<button onclick="agotado(${i})">AGOTAR</button>` : ``}
-    </div>`;
+      ${admin ? `
+        <button onclick="agotado(${i})">AGOTAR</button>
+        <button onclick="editar(${i})">EDITAR</button>
+      ` : ""}
+    </div>
+    `;
   });
 }
 
@@ -310,7 +330,15 @@ function cerrar(){
   document.getElementById("overlay").style.display="none";
 }
 
+/* ADMIN LOGIN / LOGOUT */
 function adminMode(){
+  if(admin){
+    admin = false;
+    cargar();
+    alert("Saliste del modo admin");
+    return;
+  }
+
   mostrar(`
     <h3>Acceso Admin</h3>
     <input id="adminPass" type="password" placeholder="Contraseña"><br><br>
@@ -318,7 +346,7 @@ function adminMode(){
   `);
 }
 
-  function verificarAdmin(){
+function verificarAdmin(){
   let pass = document.getElementById("adminPass").value;
 
   if(pass === "MT-MERCADO2026zz"){
@@ -330,6 +358,7 @@ function adminMode(){
   }
 }
 
+/* AGOTADOS */
 function agotado(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
@@ -343,6 +372,52 @@ function agotado(i){
   cargar();
 }
 
+/* EDITAR PRODUCTO */
+function editar(i){
+  let p = perfumes[i];
+
+  mostrar(`
+    <h3>Editar ${p[0]}</h3>
+    <input id="n1" value="${p[1]}"><br>
+    <input id="n2" value="${p[2]}"><br>
+    <button onclick="guardarEdit(${i})">Guardar</button>
+  `);
+}
+
+function guardarEdit(i){
+  perfumes[i][1] = parseInt(document.getElementById("n1").value);
+  perfumes[i][2] = parseInt(document.getElementById("n2").value);
+
+  guardar();
+  cerrar();
+  cargar();
+}
+
+/* AGREGAR PRODUCTO */
+function agregarProducto(){
+  mostrar(`
+    <h3>Nuevo producto</h3>
+    <input id="nombre" placeholder="Nombre"><br>
+    <input id="p10" placeholder="Precio 10ml"><br>
+    <input id="p5" placeholder="Precio 5ml"><br>
+    <input id="img" placeholder="URL imagen"><br>
+    <button onclick="guardarNuevo()">Agregar</button>
+  `);
+}
+
+function guardarNuevo(){
+  let n = document.getElementById("nombre").value;
+  let p10 = parseInt(document.getElementById("p10").value);
+  let p5 = parseInt(document.getElementById("p5").value);
+  let img = document.getElementById("img").value;
+
+  perfumes.push([n,p10,p5,img]);
+  guardar();
+  cerrar();
+  cargar();
+}
+
+/* CARGA */
 window.onload = cargar;
 
 </script>
