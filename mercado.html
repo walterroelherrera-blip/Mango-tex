@@ -246,41 +246,68 @@ function guardar(){
 
 function cargar(){
   let cont = document.getElementById("perfumes");
+  if(!cont) return;
+
   cont.innerHTML = "";
 
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
-perfumes.forEach((p,i)=>{
+  perfumes.forEach((p,i)=>{
 
-  let nombre = p[0];
-  let p10 = p[1];
-  let p5 = p[2];
-  let img = p[3];
-  let tipo = p[4] || "normal";
+    // PROTECCIÓN contra datos corruptos ($null, etc.)
+    if(!p || !p[0]) return;
 
-  cont.innerHTML += `
-  <div class="producto">
+    let nombre = p[0];
+    let p10 = parseInt(p[1]) || 0;
+    let p5 = parseInt(p[2]) || p10;
+    let img = p[3] || "https://via.placeholder.com/250";
+    let tipo = p[4] || "normal";
 
-    <img src="${img}" onclick="info('${nombre}')">
+    let esAgotado = agotados.includes(i);
+    let esProx = tipo === "proximamente";
 
-    <h3>${nombre}</h3>
+    cont.innerHTML += `
+    <div class="producto" id="p${i}">
 
-    ${tipo === "proximamente" ? `
-      <button class="btn" style="background:gray;" disabled>
-        Próximamente
-      </button>
-    ` : `
-      <select onchange="precio(this,${p10},${p5})">
-        <option value="10">10 ML - $${p10}</option>
-        <option value="5">5 ML - $${p5}</option>
-      </select>
+      ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
 
-      <div class="precio">$${p10}</div>
+      <img src="${img}" onerror="this.src='https://via.placeholder.com/250'" onclick="info('${nombre}')">
 
-      <button class="btn" onclick="confirmar('${nombre}', this)">
-        COMPRAR
-      </button>
-    `}
+      <h3>${nombre}</h3>
+
+      ${
+        esProx ? `
+          <button class="btn" style="background:gray;" disabled>
+            Próximamente
+          </button>
+        ` : `
+          <select onchange="precio(this,${p10},${p5})" ${esAgotado ? "disabled" : ""}>
+            <option value="10">10 ML - $${p10}</option>
+            <option value="5">5 ML - $${p5}</option>
+          </select>
+
+          <div class="precio">$${p10}</div>
+
+          <button class="btn"
+            style="${esAgotado ? "background:gray; cursor:not-allowed;" : ""}"
+            ${esAgotado ? "disabled" : ""}
+            onclick="confirmar('${nombre}', this)">
+            COMPRAR
+          </button>
+        `
+      }
+
+      ${
+        admin ? `
+          <button onclick="agotado(${i})">AGOTAR</button>
+          <button onclick="editar(${i})">EDITAR</button>
+        ` : ""
+      }
+
+    </div>
+    `;
+  });
+}
 
   </div>
   `;
