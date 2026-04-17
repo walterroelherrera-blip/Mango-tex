@@ -5,80 +5,80 @@
 <title>Mangotex - Mercado</title>
 
 <style>
-  body{
-    font-family: Arial;
-    background:black;
-    color:white;
-    margin:0;
-    text-align:center;
-  }
+body{
+  font-family: Arial;
+  background:black;
+  color:white;
+  margin:0;
+  text-align:center;
+}
 
-  h1{ margin:20px 0; }
+h1{margin:20px;}
 
-  .contenedor{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:20px;
-    padding:20px;
-  }
+.contenedor{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+  padding:20px;
+}
 
-  .producto{
-    background:rgba(255,255,255,0.08);
-    padding:15px;
-    border-radius:15px;
-    width:200px;
-    position:relative;
-  }
+.producto{
+  background:rgba(255,255,255,0.08);
+  padding:15px;
+  border-radius:15px;
+  width:200px;
+  position:relative;
+}
 
-  .producto img{
-    width:100%;
-    border-radius:10px;
-    cursor:pointer;
-  }
+.producto img{
+  width:100%;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-  .btn{
-    margin-top:10px;
-    padding:8px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    background:white;
-    color:black;
-  }
+.btn{
+  margin-top:10px;
+  padding:8px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:white;
+  color:black;
+}
 
-  select{
-    margin-top:10px;
-    padding:5px;
-    border-radius:5px;
-  }
+select{
+  margin-top:10px;
+  padding:5px;
+  border-radius:5px;
+}
 
-  .precio{
-    margin-top:5px;
-    font-weight:bold;
-  }
+.precio{
+  margin-top:5px;
+  font-weight:bold;
+}
 
-  .agotado{
-    position:absolute;
-    top:10px;
-    left:10px;
-    background:red;
-    padding:5px;
-    border-radius:5px;
-    font-size:12px;
-  }
+.agotado{
+  position:absolute;
+  top:10px;
+  left:10px;
+  background:red;
+  padding:5px;
+  border-radius:5px;
+  font-size:12px;
+}
 
-  .admin-btn{
-    position:fixed;
-    top:10px;
-    right:10px;
-    background:white;
-    border-radius:50%;
-    width:35px;
-    height:35px;
-    border:none;
-    cursor:pointer;
-  }
+.admin-btn{
+  position:fixed;
+  top:10px;
+  right:10px;
+  background:white;
+  border-radius:50%;
+  width:35px;
+  height:35px;
+  border:none;
+  cursor:pointer;
+}
 </style>
 </head>
 
@@ -93,30 +93,32 @@
 <script>
 let admin = false;
 
-// Datos iniciales
+// 📦 Productos iniciales
 let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [
-  ["Valentino Uomo",100,70,"https://picsum.photos/200"],
-  ["YSL MYSLF",180,165,"https://picsum.photos/200"],
-  ["Nautica Voyage",60,40,"https://picsum.photos/200"],
-  ["Stronger With You",190,190,"https://picsum.photos/200"]
+  ["Valentino Uomo",100,70,"https://i.imgur.com/6X4K7bE.jpg"],
+  ["Valentino Intense",120,90,"https://i.imgur.com/4Yh6F2D.jpg"],
+  ["YSL MYSLF",180,165,"https://i.imgur.com/8RKXAIV.jpg"],
+  ["Nautica Voyage",60,40,"https://i.imgur.com/l0X5bQn.jpg"],
+  ["Nautica Blue",70,60,"https://i.imgur.com/TVQhFqP.jpg"],
+  ["Carolina Herrera",90,50,"https://i.imgur.com/ybk0KqR.jpg"],
+  ["Jordan Power",100,60,"https://i.imgur.com/H1F7GdM.jpg"],
+  ["Versace Eau Fraiche",180,90,"https://i.imgur.com/WE9m3zT.jpg"],
+  ["Stronger With You",190,190,"https://i.imgur.com/k1uP9V9.jpg"],
+  ["Prada Paradigme",80,80,"https://i.imgur.com/1sG9H1p.jpg"]
 ];
 
-// Guardar datos
 function guardar(){
   localStorage.setItem("perfumes", JSON.stringify(perfumes));
 }
 
-// Cargar productos
+// 🧠 CARGAR PRODUCTOS
 function cargar(){
   let cont = document.getElementById("perfumes");
-  if(!cont) return;
-
   cont.innerHTML = "";
 
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
   perfumes.forEach((p,i)=>{
-
     if(!p || !p[0]) return;
 
     let esAgotado = agotados.includes(i);
@@ -125,13 +127,13 @@ function cargar(){
       <div class="producto">
         ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
 
-        <img src="${p[3] || 'https://picsum.photos/200'}"
-             onerror="this.src='https://picsum.photos/200'"
-             onclick="info('${p[0]} fragancia premium.')">
+        <img src="${p[3]}" 
+        onerror="this.src='https://picsum.photos/200'"
+        onclick="info('${p[0]}')">
 
         <h3>${p[0]}</h3>
 
-        <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado ? "disabled" : ""}>
+        <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado?"disabled":""}>
           ${
             p[1]==p[2]
             ? `<option>5 ML - $${p[2]}</option>`
@@ -144,77 +146,101 @@ function cargar(){
 
         <div class="precio">$${p[1]}</div>
 
-        <button class="btn"
-          onclick="confirmar('${p[0]}')"
-          ${esAgotado ? "disabled style='background:gray;'" : ""}>
-          COMPRAR
-        </button>
+        ${
+          esAgotado
+          ? `<button class="btn" style="background:gray;" disabled>AGOTADO</button>`
+          : `<button class="btn" onclick="confirmar('${p[0]}', this)">COMPRAR</button>`
+        }
 
         ${admin ? `
           <button onclick="agotado(${i})">AGOTAR</button>
           <button onclick="editar(${i})">EDITAR</button>
         ` : ""}
+
       </div>
     `;
   });
+
+  // botón próximamente
+  cont.innerHTML += `
+    <div class="producto">
+      <h3>Próximamente</h3>
+      <p>Más productos en camino 😎</p>
+    </div>
+  `;
 }
 
-// Cambiar precio dinámico
+// 💲 PRECIO DINÁMICO
 function precio(sel,p10,p5){
   let div = sel.parentElement.querySelector(".precio");
-  div.innerText = sel.value == "5" ? "$"+p5 : "$"+p10;
+  div.innerText = sel.value=="5" ? "$"+p5 : "$"+p10;
 }
 
-// Confirmar compra
-function confirmar(nombre){
-  let ok = confirm("¿Comprar " + nombre + "?");
-  if(ok){
-    alert("Se enviará mensaje por WhatsApp");
-  }
+// 📲 COMPRA + WHATSAPP
+function confirmar(nombre,btn){
+  let sel = btn.parentElement.querySelector("select");
+  let tamaño = sel ? sel.value : "5";
+  
+  let ok = confirm("¿Confirmar compra?");
+  if(!ok) return;
+
+  alert("Se enviará mensaje por WhatsApp");
+
+  let msg = `Hola, quiero comprar ${nombre} de ${tamaño}ml`;
+  let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
+
+  window.open(url);
 }
 
-// Info producto
-function info(texto){
-  alert(texto);
+// ℹ️ INFO PERFUME
+function info(nombre){
+  alert(nombre + " - Fragancia premium de alta calidad.");
 }
 
-// Admin login
+// 🔑 ADMIN
 function adminMode(){
   let pass = prompt("Contraseña:");
-  if(pass === "MT-MERCADO2026zz"){
+  if(pass==="MT-MERCADO2026zz"){
     admin = !admin;
-    alert(admin ? "Admin activado" : "Admin desactivado");
+    alert(admin?"Admin activado":"Admin desactivado");
     cargar();
-  } else {
-    alert("Incorrecto");
   }
 }
 
-// Marcar agotado
+// ❌ AGOTAR
 function agotado(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
-
-  if(!agotados.includes(i)){
-    agotados.push(i);
-  }
-
+  if(!agotados.includes(i)) agotados.push(i);
   localStorage.setItem("agotados", JSON.stringify(agotados));
   cargar();
 }
 
-// Editar producto
+// ✏️ EDITAR
 function editar(i){
   let n = prompt("Nombre:", perfumes[i][0]);
   let p10 = prompt("Precio 10ml:", perfumes[i][1]);
   let p5 = prompt("Precio 5ml:", perfumes[i][2]);
   let img = prompt("Imagen URL:", perfumes[i][3]);
 
-  perfumes[i] = [n, p10, p5, img];
+  perfumes[i] = [n,p10,p5,img];
   guardar();
   cargar();
 }
 
-// Iniciar
+// ➕ AGREGAR
+function agregar(){
+  let n = prompt("Nombre:");
+  let p10 = prompt("Precio 10ml:");
+  let p5 = prompt("Precio 5ml:");
+  let img = prompt("Imagen URL:");
+
+  if(!n) return;
+
+  perfumes.push([n,p10,p5,img]);
+  guardar();
+  cargar();
+}
+
 window.onload = cargar;
 </script>
 
