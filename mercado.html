@@ -250,12 +250,41 @@ function cargar(){
 
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
-  perfumes.forEach((p,i)=>{
-    cont.innerHTML += `
+perfumes.forEach((p,i)=>{
+
+  let nombre = p[0];
+  let p10 = p[1];
+  let p5 = p[2];
+  let img = p[3];
+  let tipo = p[4] || "normal";
+
+  cont.innerHTML += `
   <div class="producto">
-    <h3>Próximamente</h3>
-    <p>Más productos en camino.</p>
+
+    <img src="${img}" onclick="info('${nombre}')">
+
+    <h3>${nombre}</h3>
+
+    ${tipo === "proximamente" ? `
+      <button class="btn" style="background:gray;" disabled>
+        Próximamente
+      </button>
+    ` : `
+      <select onchange="precio(this,${p10},${p5})">
+        <option value="10">10 ML - $${p10}</option>
+        <option value="5">5 ML - $${p5}</option>
+      </select>
+
+      <div class="precio">$${p10}</div>
+
+      <button class="btn" onclick="confirmar('${nombre}', this)">
+        COMPRAR
+      </button>
+    `}
+
   </div>
+  `;
+});
 `;
     
 
