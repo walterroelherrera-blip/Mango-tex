@@ -385,6 +385,17 @@ function editar(i){
 
   mostrar(`
     <h3>Editar ${p[0]}</h3>
+
+    <input id="n1" value="${p[1]}" placeholder="Precio 10ml"><br>
+    <input id="n2" value="${p[2]}" placeholder="Precio 5ml"><br>
+    <input id="imgEdit" value="${p[3]}" placeholder="URL imagen"><br>
+
+    <button onclick="guardarEdit(${i})">Guardar</button>
+  `);
+}
+
+  mostrar(`
+    <h3>Editar ${p[0]}</h3>
     <input id="n1" value="${p[1]}"><br>
     <input id="n2" value="${p[2]}"><br>
     <button onclick="guardarEdit(${i})">Guardar</button>
@@ -392,12 +403,18 @@ function editar(i){
 }
 
 function guardarEdit(i){
-  perfumes[i][1] = parseInt(document.getElementById("n1").value);
-  perfumes[i][2] = parseInt(document.getElementById("n2").value);
+  let p10 = parseInt(document.getElementById("n1").value) || 0;
+  let p5 = parseInt(document.getElementById("n2").value) || p10;
+  let img = document.getElementById("imgEdit").value || "https://via.placeholder.com/250";
+
+  perfumes[i][1] = p10;
+  perfumes[i][2] = p5;
+  perfumes[i][3] = img;
 
   guardar();
   cerrar();
   cargar();
+}
 }
 
 /* AGREGAR PRODUCTO */
@@ -418,7 +435,8 @@ function guardarNuevo(){
   let p5 = parseInt(document.getElementById("p5").value);
   let img = document.getElementById("img").value;
 
-  perfumes.push([n,p10,p5,img]);
+  let tipo = document.getElementById("tipo").value;
+perfumes.push([n,p10,p5,img,tipo]);
   guardar();
   cerrar();
   cargar();
