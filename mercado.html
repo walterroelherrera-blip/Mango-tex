@@ -210,9 +210,18 @@ function adminMode(){
 // ❌ AGOTAR
 function agotado(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
-  if(!agotados.includes(i)) agotados.push(i);
+
+  if(agotados.includes(i)){
+    // 🔄 quitar agotado
+    agotados = agotados.filter(x => x !== i);
+  } else {
+    // ❌ marcar agotado
+    agotados.push(i);
+  }
+
   localStorage.setItem("agotados", JSON.stringify(agotados));
   cargar();
+}
 }
 
 // ✏️ EDITAR
