@@ -91,34 +91,50 @@ select{
 <div class="contenedor" id="perfumes"></div>
 
 <script>
+
 let admin = false;
 
-// 📦 Productos iniciales
-let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [
-  ["Valentino Uomo",100,70,"https://i.imgur.com/6X4K7bE.jpg"],
-  ["Valentino Intense",120,90,"https://i.imgur.com/4Yh6F2D.jpg"],
-  ["YSL MYSLF",180,165,"https://i.imgur.com/8RKXAIV.jpg"],
-  ["Nautica Voyage",60,40,"https://i.imgur.com/l0X5bQn.jpg"],
-  ["Nautica Blue",70,60,"https://i.imgur.com/TVQhFqP.jpg"],
-  ["Carolina Herrera",90,50,"https://i.imgur.com/ybk0KqR.jpg"],
-  ["Jordan Power",100,60,"https://i.imgur.com/H1F7GdM.jpg"],
-  ["Versace Eau Fraiche",180,90,"https://i.imgur.com/WE9m3zT.jpg"],
-  ["Stronger With You",190,190,"https://i.imgur.com/k1uP9V9.jpg"],
-  ["Prada Paradigme",80,80,"https://i.imgur.com/1sG9H1p.jpg"]
-];
+// 🔒 DATOS SEGUROS
+let perfumes = [];
 
+try{
+  perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
+}catch{
+  perfumes = [];
+}
+
+// 🔁 RESTAURAR SI SE BORRA TODO
+if(!perfumes || perfumes.length === 0){
+  perfumes = [
+    ["Valentino Uomo",100,70,"https://picsum.photos/200"],
+    ["Valentino Intense",120,90,"https://picsum.photos/200"],
+    ["YSL MYSLF",180,165,"https://picsum.photos/200"],
+    ["Nautica Voyage",60,40,"https://picsum.photos/200"],
+    ["Stronger With You",190,190,"https://picsum.photos/200"]
+  ];
+}
+
+// 💾 GUARDAR
 function guardar(){
   localStorage.setItem("perfumes", JSON.stringify(perfumes));
 }
 
-// 🧠 CARGAR PRODUCTOS
+// 🧠 CARGAR
 function cargar(){
   let cont = document.getElementById("perfumes");
+  if(!cont) return;
+
   cont.innerHTML = "";
 
-  let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+  let agotados = [];
+  try{
+    agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+  }catch{
+    agotados = [];
+  }
 
   perfumes.forEach((p,i)=>{
+
     if(!p || !p[0]) return;
 
     let esAgotado = agotados.includes(i);
@@ -127,7 +143,7 @@ function cargar(){
       <div class="producto">
         ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
 
-        <img src="${p[3]}" 
+        <img src="${p[3] || 'https://picsum.photos/200'}"
         onerror="this.src='https://picsum.photos/200'"
         onclick="info('${p[0]}')">
 
@@ -153,38 +169,30 @@ function cargar(){
         }
 
         ${admin ? `
-          <button onclick="agotado(${i})">AGOTAR</button>
+          <button onclick="agotado(${i})">
+            ${esAgotado ? "DISPONIBLE" : "AGOTAR"}
+          </button>
           <button onclick="editar(${i})">EDITAR</button>
         ` : ""}
 
       </div>
     `;
   });
-
-  // botón próximamente
-  cont.innerHTML += `
-    <div class="producto">
-      <h3>Próximamente</h3>
-      <p>Más productos en camino 😎</p>
-    </div>
-  `;
 }
 
-// 💲 PRECIO DINÁMICO
+// 💲 PRECIO
 function precio(sel,p10,p5){
   let div = sel.parentElement.querySelector(".precio");
   div.innerText = sel.value=="5" ? "$"+p5 : "$"+p10;
 }
 
-// 📲 COMPRA + WHATSAPP
+// 📲 WHATSAPP
 function confirmar(nombre,btn){
   let sel = btn.parentElement.querySelector("select");
   let tamaño = sel ? sel.value : "5";
-  
+
   let ok = confirm("¿Confirmar compra?");
   if(!ok) return;
-
-  alert("Se enviará mensaje por WhatsApp");
 
   let msg = `Hola, quiero comprar ${nombre} de ${tamaño}ml`;
   let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
@@ -192,9 +200,9 @@ function confirmar(nombre,btn){
   window.open(url);
 }
 
-// ℹ️ INFO PERFUME
+// ℹ️ INFO
 function info(nombre){
-  alert(nombre + " - Fragancia premium de alta calidad.");
+  alert(nombre + " - Fragancia premium.");
 }
 
 // 🔑 ADMIN
@@ -207,21 +215,18 @@ function adminMode(){
   }
 }
 
-// ❌ AGOTAR
+// 🔄 TOGGLE AGOTADO
 function agotado(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
   if(agotados.includes(i)){
-    // 🔄 quitar agotado
     agotados = agotados.filter(x => x !== i);
-  } else {
-    // ❌ marcar agotado
+  }else{
     agotados.push(i);
   }
 
   localStorage.setItem("agotados", JSON.stringify(agotados));
   cargar();
-}
 }
 
 // ✏️ EDITAR
@@ -251,6 +256,7 @@ function agregar(){
 }
 
 window.onload = cargar;
+
 </script>
 
 </body>
