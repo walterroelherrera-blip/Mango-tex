@@ -1,22 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
+
 <head>
+  <meta charset="UTF-8">
   <title>Mango Tex</title>
-   <video class="video-inicio" autoplay muted loop playsinline>
-    <source src="MANGOTEX.mp4" type="video/mp4">
-    Tu navegador no soporta video.
-</video>
 
   <style>
-    .video-inicio{
-  width: 80%;
-  max-width: 600px;
-  border-radius: 20px;
-  margin: 20px auto;
-  display: block;
-}
-    
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       margin: 0;
@@ -26,16 +18,13 @@
 
       background:
         linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)),
-        url("data:image/svg+xml,\
-<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>\
-<ellipse cx='50' cy='60' rx='30' ry='40' fill='%23cc8400'/>\
-<path d='M50 20 Q60 0 80 10' stroke='%232e7d32' stroke-width='6' fill='none'/>\
-</svg>");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cellipse cx='50' cy='60' rx='30' ry='40' fill='%23cc8400'/%3E%3Cpath d='M50 20 Q60 0 80 10' stroke='%232e7d32' stroke-width='6' fill='none'/%3E%3C/svg%3E");
 
       background-size: 110px;
       background-repeat: repeat;
     }
 
+    /* NAV */
     nav {
       position: fixed;
       width: 100%;
@@ -48,213 +37,79 @@
 
     nav button {
       background: transparent;
-      border: 1px solid white;
+      border: none;
       color: white;
-      padding: 10px 20px;
-      margin: 5px;
-      border-radius: 20px;
+      font-size: 16px;
+      margin: 0 10px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    nav button:hover {
-      background: white;
-      color: black;
-      transform: scale(1.1);
+    /* VIDEO */
+    .video-inicio {
+      width: 80%;
+      max-width: 600px;
+      border-radius: 20px;
+      margin: 20px auto;
+      display: block;
     }
 
+    /* SECCIONES */
     section {
-      min-height: 100vh;
       padding: 120px 20px;
-      opacity: 0;
-      transform: translateY(60px);
-      transition: 1s;
       text-align: center;
     }
 
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
+    h1 {
+      margin-top: 100px;
     }
 
-    .logo {
-      font-size: 60px;
-      font-weight: bold;
+    .info {
+      max-width: 700px;
+      margin: auto;
+      font-size: 18px;
     }
-
-    .lema {
-      font-style: italic;
-    }
-
-    .card {
-      max-width: 800px;
-      margin: 30px auto;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-      backdrop-filter: blur(10px);
-    }
-
-    .red {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      margin: 10px;
-    }
-
-    .red img {
-      width: 25px;
-    }
-
-    input {
-      padding: 10px;
-      margin: 5px;
-      border-radius: 5px;
-      border: none;
-    }
-
   </style>
-
-  <script>
-    window.addEventListener("scroll", () => {
-      document.querySelectorAll("section").forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 400;
-        if (top > offset) {
-          sec.classList.add("show");
-        }
-      });
-    });
-
-    function irA(id){
-      document.getElementById(id).scrollIntoView({behavior:"smooth"});
-    }
-
-    function irMercado(){
-      window.location.href = "mercado.html";
-    }
-
-    function login(){
-      let u = document.getElementById("user").value;
-      let p = document.getElementById("pass").value;
-
-      let users = {
-        "DIEGOM1NJ4R3Z": ["MT-26-001","Diego"],
-        "JP25004": ["MT-26-002","Juan Pablo"],
-        "M1/A64": ["MT-26-003","Mya"],
-        "W4LT3RH4": ["MT-26-004","Walter"],
-        "CHR1$64BIT": ["MT-2026-005","Christian"]
-      };
-
-      if(users[u] && users[u][0] === p){
-        let nombre = users[u][1];
-
-        let nueva = window.open("", "_blank");
-
-        nueva.document.write(`
-        <html>
-        <head>
-          <title>Panel</title>
-          <style>
-            body {
-              margin:0;
-              font-family: Arial;
-              color:white;
-              text-align:center;
-              background:black;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Hola ${nombre} 👋</h1>
-          <p>Aquí irá tu espacio personal próximamente...</p>
-        </body>
-        </html>
-        `);
-
-      } else {
-        alert("Error ❌");
-      }
-    }
-  </script>
-
 </head>
 
 <body>
 
-<nav>
-  <button onclick="irA('inicio')">Inicio</button>
-  <button onclick="irA('empresa')">Empresa</button>
-  <button onclick="irA('origen')">Origen</button>
-  <button onclick="irA('redes')">Redes</button>
-  <button onclick="irA('contacto')">Contacto</button>
-  <button onclick="irA('personal')">Personal</button>
-  <button onclick="irMercado()">Mercado</button>
-</nav>
+  <!-- NAV -->
+  <nav>
+    <button onclick="location.href='#inicio'">Inicio</button>
+    <button onclick="location.href='#empresa'">Empresa</button>
+    <button onclick="location.href='mercado.html'">Mercado</button>
+    <button onclick="location.href='#contacto'">Contacto</button>
+  </nav>
 
-<section id="inicio" class="show">
-  <div class="logo">MANGOTEX</div>
-  <p class="lema">Productos de gran calidad</p>
-</section>
+  <!-- INICIO -->
+  <section id="inicio">
+    <h1>Mango Tex</h1>
 
-<section id="empresa">
-  <div class="card">
-    <h2>Sobre la empresa</h2>
-    <p>Mangotex es una empresa creada por Walter Roel Herrera junto a su equipo de trabajo.</p>
-    <p>Desde sus inicios, el objetivo ha sido ofrecer productos de alta calidad con una visión moderna e innovadora.</p>
-    <p>La empresa busca destacar en el mercado por su compromiso, creatividad y constante evolución.</p>
-    <p>Aunque actualmente es un proyecto en crecimiento, Mangotex tiene como meta convertirse en una marca reconocida a nivel nacional.</p>
-  </div>
-</section>
+    <video class="video-inicio" autoplay muted loop playsinline>
+      <source src="MANGOTEX.mp4" type="video/mp4">
+    </video>
 
-<section id="origen">
-  <div class="card">
-    <h2>¿Cómo surgió?</h2>
-    <p>La idea nació de un grupo de jóvenes con mentalidad emprendedora que decidieron iniciar su propio negocio.</p>
-    <p>Comenzaron con ideas simples que poco a poco fueron tomando forma hasta convertirse en lo que hoy es Mangotex.</p>
-    <p>El proyecto continúa creciendo con nuevas metas y objetivos a largo plazo.</p>
-  </div>
-</section>
-
-<section id="redes">
-  <div class="card">
-    <h2>Redes</h2>
-
-    <div class="red">
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
-      <p>Mango tex S.A. de C.V.</p>
+    <div class="info">
+      <p>
+        Bienvenido a Mangotex 🍊🔥  
+        Ofrecemos productos de calidad, buen precio y variedad.
+      </p>
     </div>
+  </section>
 
-    <div class="red">
-      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
-      <p>mangotex</p>
-    </div>
+  <!-- EMPRESA -->
+  <section id="empresa">
+    <h2>Empresa</h2>
+    <p>Somos una empresa enfocada en calidad, innovación y estilo.</p>
+  </section>
 
-    <div class="red">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
-      <p>Próximamente</p>
-    </div>
-
-  </div>
-</section>
-
-<section id="contacto">
-  <div class="card">
+  <!-- CONTACTO -->
+  <section id="contacto">
     <h2>Contacto</h2>
-    <p>📞 +52 662 463 7282</p>
-    <p>📧 mangotex081@gmail.com</p>
-  </div>
-</section>
-
-<section id="personal">
-  <div class="card">
-    <h2>Acceso al personal</h2>
-    <input id="user" placeholder="Usuario"><br>
-    <input id="pass" type="password" placeholder="Contraseña"><br><br>
-    <button onclick="login()">Ingresar</button>
-  </div>
-</section>
+    <p>WhatsApp: +52 662 463 7282</p>
+    <p>Email: mangotex@gmail.com</p>
+  </section>
 
 </body>
+
 </html>
