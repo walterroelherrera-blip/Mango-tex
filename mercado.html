@@ -5,6 +5,55 @@
 <title>Mangotex - Mercado</title>
 
 <style>
+  .modal{
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(5px);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.modal.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box{
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(15px);
+  padding:25px;
+  border-radius:20px;
+  text-align:center;
+  width:300px;
+  animation: scaleIn 0.3s ease;
+}
+
+@keyframes scaleIn{
+  from{transform: scale(0.8); opacity:0;}
+  to{transform: scale(1); opacity:1;}
+}
+
+.modal-btns{
+  margin-top:15px;
+  display:flex;
+  justify-content:space-around;
+}
+
+.modal button{
+  padding:10px 15px;
+  border:none;
+  border-radius:15px;
+  cursor:pointer;
+}
+  
   .producto{
   opacity: 0;
   transform: translateY(20px);
@@ -189,6 +238,21 @@ let admin = false;
 // 🔒 DATOS SEGUROS
 let perfumes = [];
 
+  let productoActual = "";
+let tamañoActual = "";
+
+function cerrarModal(){
+  document.getElementById("modalCompra").classList.remove("active");
+}
+
+function confirmarCompra(){
+  let msg = `Hola, quiero comprar ${productoActual} de ${tamañoActual}ml`;
+  let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
+
+  window.open(url);
+  cerrarModal();
+}
+
 try{
   perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
 }catch{
@@ -283,8 +347,19 @@ function confirmar(nombre,btn){
   let sel = btn.parentElement.querySelector("select");
   let tamaño = sel ? sel.value : "5";
 
-  let ok = confirm("¿Confirmar compra?");
-  if(!ok) return;
+let productoActual = "";
+let tamañoActual = "";
+
+function confirmar(nombre,btn){
+  let sel = btn.parentElement.querySelector("select");
+  tamañoActual = sel ? sel.value : "5";
+  productoActual = nombre;
+
+  document.getElementById("textoCompra").innerText =
+    `¿Comprar ${nombre} de ${tamañoActual}ml?`;
+
+  document.getElementById("modalCompra").classList.add("active");
+}
 
   let msg = `Hola, quiero comprar ${nombre} de ${tamaño}ml`;
   let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
@@ -349,7 +424,19 @@ function agregar(){
 
 window.onload = cargar;
 
-</script>
 
+</script>
+  
+<div id="modalCompra" class="modal">
+  <div class="modal-box">
+    <h2>Confirmar compra</h2>
+    <p id="textoCompra"></p>
+
+    <div class="modal-btns">
+      <button onclick="cerrarModal()">Cancelar</button>
+      <button onclick="confirmarCompra()">Confirmar</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
