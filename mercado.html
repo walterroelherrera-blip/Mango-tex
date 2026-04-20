@@ -60,6 +60,10 @@ input{
   width:200px;
 }
 
+button{
+  cursor:pointer;
+}
+
 .contenedor{
   display:flex;
   flex-wrap:wrap;
@@ -96,7 +100,6 @@ input{
   border-radius:15px;
   background:white;
   color:black;
-  cursor:pointer;
 }
 
 select{
@@ -115,16 +118,6 @@ select{
   top:10px;
   right:10px;
   cursor:pointer;
-}
-
-.agotado{
-  position:absolute;
-  top:10px;
-  left:10px;
-  background:red;
-  padding:5px 10px;
-  border-radius:10px;
-  font-size:12px;
 }
 
 .modal{
@@ -163,7 +156,6 @@ select{
   padding:10px;
   border-radius:10px;
 }
-
 </style>
 </head>
 
@@ -207,17 +199,15 @@ select{
 </div>
 
 <script>
-
 let admin=false;
-let productoActual="";
-let tamañoActual="";
 let cart=[];
 let favs=JSON.parse(localStorage.getItem("favs"))||[];
 let ofertas=JSON.parse(localStorage.getItem("ofertas"))||[];
+let productoActual="";
+let tamañoActual="";
 
 let perfumes=JSON.parse(localStorage.getItem("perfumes"))||[];
 
-// PERFUMES ORIGINALES RESTAURADOS
 if(perfumes.length===0){
 perfumes=[
 ["Valentino Uomo",100,70,"https://picsum.photos/200"],
@@ -245,14 +235,11 @@ cont.innerHTML+=`
 <div class='heart' onclick='fav(${i})'>${favs.includes(i)?"❤️":"🤍"}</div>
 <img src='${p[3]}'>
 <h3>${p[0]}</h3>
-
 <select onchange='precio(this,${p[1]},${p[2]})'>
 <option value='10'>10 ML - $${p[1]}</option>
 <option value='5'>5 ML - $${p[2]}</option>
 </select>
-
 <div class='precio'>$${p[1]}</div>
-
 <button class='btn' onclick='comprar(${i},this)'>COMPRAR</button>
 <button class='btn' onclick='addCart(${i})'>AGREGAR</button>
 </div>`;
@@ -327,7 +314,6 @@ ofertas.map(o=>`<div class='oferta'>🔥 ${o}</div>`).join("");
 }
 
 render();
-
 </script>
 
 </body>
