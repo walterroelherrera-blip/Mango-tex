@@ -352,13 +352,11 @@ function confirmar(nombre,btn){
     `¿Comprar ${nombre} de ${tamañoActual}ml?`;
 
   document.getElementById("modalCompra").classList.add("active");
+
+  function abrirModal(){
+  document.getElementById("modalCompra").classList.add("active");
 }
 
-  let msg = `Hola, quiero comprar ${nombre} de ${tamaño}ml`;
-  let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
-
-  window.open(url);
-}
 
 // ℹ️ INFO
 function info(nombre){
