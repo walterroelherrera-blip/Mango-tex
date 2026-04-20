@@ -4,6 +4,23 @@
   <title>Mango Tex</title>
 
   <style>
+    .bloque-inicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* controla la separación */
+}
+
+.contenido-inicio h1 {
+  font-size: 60px;
+  letter-spacing: 3px;
+  margin: 0;
+}
+
+.contenido-inicio p {
+  margin: 5px 0;
+}
+    
     .video-bg {
   position: absolute;
   top: 0;
@@ -21,11 +38,9 @@
 }
 
 .contenido-inicio {
-  position: relative;
-  z-index: 2;
   text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-top: 10px; /* antes estaba muy grande */
+
 }
 
 #inicio {
@@ -316,21 +331,18 @@ window.addEventListener("scroll", () => {
 
 <section id="inicio">
 
-  <div style="position: relative; display: inline-block;">
+  <div class="bloque-inicio">
     
     <video class="video-inicio" autoplay muted loop playsinline>
       <source src="MANGOTEX.mp4" type="video/mp4">
     </video>
 
-    <div class="video-overlay"></div>
+    <div class="contenido-inicio">
+      <h1>MANGOTEX</h1>
+      <p>Innovación. Calidad. Futuro.</p>
+      <button class="btn-pro" onclick="irMercado()">Ver productos</button>
+    </div>
 
-  </div>
-
-  <!-- 🔥 TEXTO PRO FUERA DEL VIDEO -->
-  <div class="contenido-inicio">
-    <h1>MANGOTEX</h1>
-    <p>Innovación. Calidad. Futuro.</p>
-    <button class="btn-pro" onclick="irMercado()">Ver productos</button>
   </div>
 
 </section>
