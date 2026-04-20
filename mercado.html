@@ -9,11 +9,6 @@
   opacity: 0.6;
 }
   
-  .agotado{
-  background: linear-gradient(45deg, red, orange);
-  box-shadow: 0 0 10px rgba(255,0,0,0.6);
-}
-  
   @keyframes glowTitulo {
   0% { text-shadow: 0 0 10px rgba(255,255,255,0.4); }
   50% { text-shadow: 0 0 30px rgba(255,255,255,0.9); }
@@ -65,7 +60,7 @@ h1{
   padding:20px;
 }
 
-.producto{
+..producto{
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(15px);
   padding: 15px;
@@ -73,7 +68,6 @@ h1{
   width: 220px;
   position: relative;
   transition: all 0.3s ease;
-  .producto{
   overflow: hidden; /* 🔥 clave */
 }
   .producto:hover{
@@ -122,13 +116,16 @@ select{
   position:absolute;
   top:10px;
   left:10px;
-  background:red;
   padding:6px 10px;
   border-radius:8px;
   font-size:12px;
   font-weight:bold;
   z-index:2;
+
+  background: linear-gradient(45deg, red, orange);
+  box-shadow: 0 0 10px rgba(255,0,0,0.6);
 }
+  
 .admin-btn{
   position:fixed;
   top:10px;
