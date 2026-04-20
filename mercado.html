@@ -249,7 +249,7 @@ function confirmarCompra(){
   let msg = `Hola, quiero comprar ${productoActual} de ${tamañoActual}ml`;
   let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
 
-  window.open(url);
+  window.location.href = url;
   cerrarModal();
 }
 
