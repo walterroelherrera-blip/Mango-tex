@@ -5,111 +5,6 @@
 <title>Mangotex - Mercado</title>
 
 <style>
-  .modal{
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(5px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  opacity:0;
-  pointer-events:none;
-  transition:0.3s;
-}
-
-.modal.active{
-  opacity:1;
-  pointer-events:auto;
-}
-
-.modal-box{
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(15px);
-  padding:25px;
-  border-radius:20px;
-  text-align:center;
-  width:300px;
-  animation: scaleIn 0.3s ease;
-}
-
-@keyframes scaleIn{
-  from{transform: scale(0.8); opacity:0;}
-  to{transform: scale(1); opacity:1;}
-}
-
-.modal-btns{
-  margin-top:15px;
-  display:flex;
-  justify-content:space-around;
-}
-
-.modal button{
-  padding:10px 15px;
-  border:none;
-  border-radius:15px;
-  cursor:pointer;
-}
-  
-  .producto{
-  opacity: 0;
-  transform: translateY(20px);
-  animation: aparecerCard 0.6s ease forwards;
-}
-
-@keyframes aparecerCard{
-  to{
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-  
-  .producto::after{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
-  transition: 0.5s;
-}
-
-.producto:hover::after{
-  left: 100%;
-}
-  
-  .producto:has(.agotado){
-  opacity: 0.6;
-}
-  
-  @keyframes glowTitulo {
-  0% { text-shadow: 0 0 10px rgba(255,255,255,0.4); }
-  50% { text-shadow: 0 0 30px rgba(255,255,255,0.9); }
-  100% { text-shadow: 0 0 10px rgba(255,255,255,0.4); }
-}
-
-h1{
-  animation: glowTitulo 3s infinite;
-}
-  
-  .back-btn{
-  position:fixed;
-  top:10px;
-  left:10px;
-  background:white;
-  color:black;
-  border:none;
-  border-radius:50%;
-  width:35px;
-  height:35px;
-  cursor:pointer;
-}
-
-  
 body{
   font-family: Arial;
   background:black;
@@ -122,13 +17,29 @@ h1{
   margin:20px;
   font-size:42px;
   letter-spacing:3px;
-
-  text-shadow:
-    0 0 10px rgba(255,255,255,0.6),
-    0 0 20px rgba(255,255,255,0.5),
-    0 0 40px rgba(255,255,255,0.3);
+  text-shadow:0 0 20px rgba(255,255,255,0.3);
 }
 
+/* TOP BAR */
+.topbar{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:10px;
+}
+
+input{
+  padding:8px;
+  border-radius:10px;
+  border:none;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* CONTENEDOR */
 .contenedor{
   display:flex;
   flex-wrap:wrap;
@@ -140,291 +51,231 @@ h1{
 .producto{
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(15px);
-  padding: 15px;
-  border-radius: 20px;
-  width: 220px;
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden; /* 🔥 clave */
-}
-  .producto:hover{
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 0 30px rgba(255,255,255,0.15);
-}
-  
-.producto img{
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 12px;
-  transition: 0.3s;
-}
-  
-  
-.producto:hover img{
-  transform: scale(1.05);
-}
-  
-.btn{
-  margin-top:10px;
-  padding:10px;
-  border:none;
+  padding:15px;
   border-radius:20px;
-  cursor:pointer;
-  background:white;
-  color:black;
+  width:220px;
+  position:relative;
   transition:0.3s;
 }
 
-.btn:hover{
-  box-shadow: 0 0 15px rgba(255,255,255,0.6);
-  transform: scale(1.05);
-}
-  
-select{
-  margin-top:10px;
-  padding:5px;
-  border-radius:5px;
+.producto:hover{
+  transform:translateY(-8px);
 }
 
-.precio{
-  margin-top:5px;
-  font-weight:bold;
+.producto img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.btn{
+  margin-top:8px;
+  padding:8px;
+  border:none;
+  border-radius:15px;
+  background:white;
+  color:black;
+}
+
+.heart{
+  position:absolute;
+  top:10px;
+  right:10px;
+  cursor:pointer;
 }
 
 .agotado{
   position:absolute;
   top:10px;
   left:10px;
-  padding:6px 10px;
-  border-radius:8px;
+  background:red;
+  padding:5px 10px;
+  border-radius:10px;
   font-size:12px;
-  font-weight:bold;
-  z-index:2;
+}
 
-  background: linear-gradient(45deg, red, orange);
-  box-shadow: 0 0 10px rgba(255,0,0,0.6);
-}
-  
-.admin-btn{
+/* MODAL */
+.modal{
   position:fixed;
-  top:10px;
-  right:10px;
-  background:white;
-  border-radius:50%;
-  width:35px;
-  height:35px;
-  border:none;
-  cursor:pointer;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
 }
+
+.modal.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.modal-box{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  width:300px;
+}
+
+/* OFERTAS */
+.ofertas{
+  margin-top:40px;
+  padding:20px;
+  border-top:1px solid #333;
+}
+
+.oferta{
+  background:#111;
+  margin:10px;
+  padding:10px;
+  border-radius:10px;
+}
+
 </style>
 </head>
 
 <body>
-  <button class="back-btn" onclick="window.location.href='index.html'">
-  ⬅
-</button>
-  
-<button class="admin-btn" onclick="adminMode()">✏️</button>
 
 <h1>Mercado Mangotex</h1>
 
+<div class="topbar">
+  <input id="buscador" placeholder="Buscar..." oninput="render()">
+  <button onclick="abrirCarrito()">🛒 (<span id="cartCount">0</span>)</button>
+  <button onclick="adminMode()">Admin</button>
+</div>
+
 <div class="contenedor" id="perfumes"></div>
 
-<script>
+<div class="ofertas">
+  <h2>Ofertas</h2>
+  <div id="ofertasBox"></div>
+</div>
 
-let admin = false;
-
-// 🔒 DATOS SEGUROS
-let perfumes = [];
-
-  let productoActual = "";
-let tamañoActual = "";
-
-function cerrarModal(){
-  document.getElementById("modalCompra").classList.remove("active");
-}
-function confirmarCompra(){
-  let msg = `Hola, quiero comprar ${productoActual} de ${tamañoActual}ml`;
-  let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
-
-  window.location.href = url;
-  cerrarModal();
-}
-
-try{
-  perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
-}catch{
-  perfumes = [];
-}
-
-// 🔁 RESTAURAR SI SE BORRA TODO
-if(!perfumes || perfumes.length === 0){
-  perfumes = [
-    ["Valentino Uomo",100,70,"https://picsum.photos/200"],
-    ["Valentino Intense",120,90,"https://picsum.photos/200"],
-    ["YSL MYSLF",180,165,"https://picsum.photos/200"],
-    ["Nautica Voyage",60,40,"https://picsum.photos/200"],
-    ["Stronger With You",190,190,"https://picsum.photos/200"]
-  ];
-}
-
-// 💾 GUARDAR
-function guardar(){
-  localStorage.setItem("perfumes", JSON.stringify(perfumes));
-}
-
-// 🧠 CARGAR
-function cargar(){
-  let cont = document.getElementById("perfumes");
-  if(!cont) return;
-
-  cont.innerHTML = "";
-
-  let agotados = [];
-  try{
-    agotados = JSON.parse(localStorage.getItem("agotados")) || [];
-  }catch{
-    agotados = [];
-  }
-
-  perfumes.forEach((p,i)=>{
-
-    if(!p || !p[0]) return;
-
-    let esAgotado = agotados.includes(i);
-
-    cont.innerHTML += `
-      <div class="producto">
-        ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
-
-        <img src="${p[3] || 'https://picsum.photos/200'}"
-        onerror="this.src='https://picsum.photos/200'"
-        onclick="info('${p[0]}')">
-
-        <h3>${p[0]}</h3>
-
-        <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado?"disabled":""}>
-          ${
-            p[1]==p[2]
-            ? `<option>5 ML - $${p[2]}</option>`
-            : `
-              <option value="10">10 ML - $${p[1]}</option>
-              <option value="5">5 ML - $${p[2]}</option>
-            `
-          }
-        </select>
-
-        <div class="precio">$${p[1]}</div>
-
-        ${
-          esAgotado
-          ? `<button class="btn" style="background:gray;" disabled>AGOTADO</button>`
-          : `<button class="btn" onclick="confirmar('${p[0]}', this)">COMPRAR</button>`
-        }
-
-        ${admin ? `
-          <button onclick="agotado(${i})">
-            ${esAgotado ? "DISPONIBLE" : "AGOTAR"}
-          </button>
-          <button onclick="editar(${i})">EDITAR</button>
-        ` : ""}
-
-      </div>
-    `;
-  });
-}
-
-// 💲 PRECIO
-function precio(sel,p10,p5){
-  let div = sel.parentElement.querySelector(".precio");
-  div.innerText = sel.value=="5" ? "$"+p5 : "$"+p10;
-}
-
-// 📲 WHATSAPP
-function confirmar(nombre,btn){
-  let sel = btn.parentElement.querySelector("select");
-
-  tamañoActual = sel ? sel.value : "5";
-  productoActual = nombre;
-
-  document.getElementById("textoCompra").innerText =
-    `¿Comprar ${nombre} de ${tamañoActual}ml?`;
-
-  document.getElementById("modalCompra").classList.add("active");
-}
-
-
-// ℹ️ INFO
-function info(nombre){
-  alert(nombre + " - Fragancia premium.");
-}
-
-// 🔑 ADMIN
-function adminMode(){
-  let pass = prompt("Contraseña:");
-  if(pass==="MT-MERCADO2026zz"){
-    admin = !admin;
-    alert(admin?"Admin activado":"Admin desactivado");
-    cargar();
-  }
-}
-
-// 🔄 TOGGLE AGOTADO
-function agotado(i){
-  let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
-
-  if(agotados.includes(i)){
-    agotados = agotados.filter(x => x !== i);
-  }else{
-    agotados.push(i);
-  }
-
-  localStorage.setItem("agotados", JSON.stringify(agotados));
-  cargar();
-}
-
-// ✏️ EDITAR
-function editar(i){
-  let n = prompt("Nombre:", perfumes[i][0]);
-  let p10 = prompt("Precio 10ml:", perfumes[i][1]);
-  let p5 = prompt("Precio 5ml:", perfumes[i][2]);
-  let img = prompt("Imagen URL:", perfumes[i][3]);
-
-  perfumes[i] = [n,p10,p5,img];
-  guardar();
-  cargar();
-}
-
-// ➕ AGREGAR
-function agregar(){
-  let n = prompt("Nombre:");
-  let p10 = prompt("Precio 10ml:");
-  let p5 = prompt("Precio 5ml:");
-  let img = prompt("Imagen URL:");
-
-  if(!n) return;
-
-  perfumes.push([n,p10,p5,img]);
-  guardar();
-  cargar();
-}
-
-window.onload = cargar;
-
-
-</script>
-  
+<!-- MODAL COMPRA -->
 <div id="modalCompra" class="modal">
   <div class="modal-box">
-    <h2>Confirmar compra</h2>
+    <h3>Confirmar</h3>
     <p id="textoCompra"></p>
-
-    <div class="modal-btns">
-      <button onclick="cerrarModal()">Cancelar</button>
-      <button onclick="confirmarCompra()">Confirmar</button>
-    </div>
+    <button onclick="cerrarModal()">Cancelar</button>
+    <button onclick="confirmarCompra()">Comprar</button>
   </div>
 </div>
+
+<!-- MODAL CARRITO -->
+<div id="cartModal" class="modal">
+  <div class="modal-box">
+    <h3>Carrito</h3>
+    <div id="cartList"></div>
+    <button onclick="checkout()">Checkout</button>
+    <button onclick="cerrarCart()">Cerrar</button>
+  </div>
+</div>
+
+<script>
+let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
+let cart = [];
+let favs = JSON.parse(localStorage.getItem("favs")) || [];
+let ofertas = JSON.parse(localStorage.getItem("ofertas")) || [];
+let productoActual="";
+let tamañoActual="";
+
+if(perfumes.length===0){
+perfumes=[
+["Valentino Uomo",100,70,"https://picsum.photos/200"],
+["YSL MYSLF",180,165,"https://picsum.photos/200"]
+];
+}
+
+function save(){
+localStorage.setItem("perfumes",JSON.stringify(perfumes));
+localStorage.setItem("favs",JSON.stringify(favs));
+localStorage.setItem("ofertas",JSON.stringify(ofertas));
+}
+
+function render(){
+let q=document.getElementById("buscador").value.toLowerCase();
+let cont=document.getElementById("perfumes");
+cont.innerHTML="";
+
+perfumes.filter(p=>p[0].toLowerCase().includes(q)).forEach((p,i)=>{
+cont.innerHTML+=`
+<div class="producto">
+<div class="heart" onclick="fav(${i})">${favs.includes(i)?"❤️":"🤍"}</div>
+<img src="${p[3]}">
+<h3>${p[0]}</h3>
+<button class="btn" onclick="addCart(${i})">Agregar</button>
+<button class="btn" onclick="comprar(${i})">Comprar</button>
+</div>`;
+});
+
+document.getElementById("cartCount").innerText=cart.length;
+renderOfertas();
+}
+
+function fav(i){
+if(favs.includes(i))favs=favs.filter(x=>x!==i);
+else favs.push(i);
+save();render();
+}
+
+function addCart(i){
+cart.push(perfumes[i]);
+render();
+}
+
+function abrirCarrito(){
+document.getElementById("cartModal").classList.add("active");
+document.getElementById("cartList").innerHTML=cart.map(p=>"<p>"+p[0]+"</p>").join("");
+}
+
+function cerrarCart(){
+document.getElementById("cartModal").classList.remove("active");
+}
+
+function checkout(){
+let msg=cart.map(p=>p[0]).join(", ");
+window.location="https://wa.me/526624637282?text="+encodeURIComponent(msg);
+}
+
+function comprar(i){
+productoActual=perfumes[i][0];
+tamañoActual="5";
+document.getElementById("textoCompra").innerText=`¿Comprar ${productoActual}?`;
+document.getElementById("modalCompra").classList.add("active");
+}
+
+function cerrarModal(){
+document.getElementById("modalCompra").classList.remove("active");
+}
+
+function confirmarCompra(){
+window.location="https://wa.me/526624637282?text="+encodeURIComponent("Quiero: "+productoActual);
+}
+
+function adminMode(){
+let pass=prompt("Password");
+if(pass=="MT-MERCADO2026zz"){
+let op=prompt("1 agregar perfume\n2 crear oferta");
+if(op=="1"){
+perfumes.push([prompt("nombre"),100,80,prompt("img")]);
+}
+if(op=="2"){
+ofertas.push(prompt("oferta"));
+}
+save();render();
+}
+}
+
+function renderOfertas(){
+let box=document.getElementById("ofertasBox");
+box.innerHTML=ofertas.map(o=>`<div class='oferta'>🔥 ${o}</div>`).join("");
+}
+
+render();
+</script>
+
 </body>
 </html>
