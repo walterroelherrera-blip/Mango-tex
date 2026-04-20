@@ -4,6 +4,33 @@
   <title>Mango Tex</title>
 
   <style>
+    @keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+    
+    .btn-pro:hover {
+  box-shadow: 0 0 20px rgba(255,255,255,0.6);
+}
+    
+    .contenido-inicio h1 {
+  transition: 0.3s;
+}
+
+.contenido-inicio h1:hover {
+  text-shadow: 
+    0 0 15px rgba(255,255,255,0.9),
+    0 0 30px rgba(255,255,255,0.7);
+}
+    
     @keyframes glow {
   0% {
     text-shadow: 0 0 10px rgba(255,255,255,0.5);
