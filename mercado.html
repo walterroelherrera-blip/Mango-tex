@@ -6,7 +6,19 @@
 
 <style>
   .modal{
-  position: fixed;
+  position: fixed;function confirmar(nombre,btn){
+  let sel = btn.parentElement.querySelector("select");
+  tamañoActual = sel ? sel.value : "5";
+  productoActual = nombre;
+
+  document.getElementById("textoCompra").innerText =
+    `¿Comprar ${nombre} de ${tamañoActual}ml?`;
+
+  document.getElementById("modalCompra").classList.add("active");
+
+  function abrirModal(){
+  document.getElementById("modalCompra").classList.add("active");
+}
   top:0;
   left:0;
   width:100%;
@@ -244,7 +256,6 @@ let tamañoActual = "";
 function cerrarModal(){
   document.getElementById("modalCompra").classList.remove("active");
 }
-
 function confirmarCompra(){
   let msg = `Hola, quiero comprar ${productoActual} de ${tamañoActual}ml`;
   let url = "https://wa.me/526624637282?text=" + encodeURIComponent(msg);
@@ -345,15 +356,13 @@ function precio(sel,p10,p5){
 // 📲 WHATSAPP
 function confirmar(nombre,btn){
   let sel = btn.parentElement.querySelector("select");
+
   tamañoActual = sel ? sel.value : "5";
   productoActual = nombre;
 
   document.getElementById("textoCompra").innerText =
     `¿Comprar ${nombre} de ${tamañoActual}ml?`;
 
-  document.getElementById("modalCompra").classList.add("active");
-
-  function abrirModal(){
   document.getElementById("modalCompra").classList.add("active");
 }
 
