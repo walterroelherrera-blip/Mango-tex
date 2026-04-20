@@ -4,6 +4,24 @@
   <title>Mango Tex</title>
 
   <style>
+    body {
+  background-attachment: fixed;
+}
+    
+    .texto-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+}
+    
+    nav.scrolled {
+  background: rgba(0,0,0,0.9);
+  transition: 0.3s;
+}
+    
     .title {
   font-size: 40px;
   letter-spacing: 2px;
@@ -50,6 +68,22 @@ button:hover {
   background: white;
   color: black;
   transform: scale(1.05);
+}
+
+    .btn-pro {
+  background: white;
+  color: black;
+  border-radius: 25px;
+  margin-top: 15px;
+}
+
+.btn-pro:hover {
+  transform: scale(1.1);
+}
+    .btn-pro {
+  background: transparent;
+  color: white;
+  border: 1px solid white;
 }
     
     .fade-in {
@@ -168,15 +202,15 @@ button:hover {
   </style>
 
   <script>
-    window.addEventListener("scroll", () => {
-      document.querySelectorAll("section").forEach(sec => {
-        let top = window.scrollY;
-        let offset = sec.offsetTop - 400;
-        if (top > offset) {
-          sec.classList.add("show");
-        }
-      });
-    });
+    
+window.addEventListener("scroll", () => {
+  const nav = document.querySelector("nav");
+  if(window.scrollY > 50){
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+});
 
     function irA(id){
       document.getElementById(id).scrollIntoView({behavior:"smooth"});
@@ -247,17 +281,22 @@ button:hover {
   <button onclick="irMercado()">Mercado</button>
 </nav>
 
-<section id="inicio" class="show">
+<section id="inicio">
 
   <div style="position: relative; display: inline-block;">
-  
-  <video class="video-inicio" autoplay muted loop playsinline>
-    <source src="MANGOTEX.mp4" type="video/mp4">
-  </video>
+    
+    <video class="video-inicio" autoplay muted loop playsinline>
+      <source src="MANGOTEX.mp4" type="video/mp4">
+    </video>
 
-  <div class="video-overlay"></div>
+    <div class="video-overlay"></div>
 
-</div>
+    <div class="texto-video">
+      <h1>MANGOTEX</h1>
+      <p>Innovación. Calidad. Futuro.</p>
+      <button class="btn-pro" onclick="irMercado()">Ver productos</button>
+    </div>
+
 
   <div class="logo">MANGOTEX</div>
   <p class="lema">Productos de gran calidad</p>
