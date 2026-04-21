@@ -52,7 +52,21 @@ h1{
 }
 
 .producto{
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(15px);
+  padding: 15px;
+  border-radius: 20px;
+  width: 220px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
   animation: aparecerCard 0.6s ease forwards;
+}
+
+.producto:hover{
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 30px rgba(255,255,255,0.15);
 }
 
 @keyframes aparecerCard{
@@ -156,6 +170,19 @@ h1{
 
 <script>
 
+  function agotar(i){
+  let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+
+  if(agotados.includes(i)){
+    agotados = agotados.filter(x => x !== i);
+  }else{
+    agotados.push(i);
+  }
+
+  localStorage.setItem("agotados", JSON.stringify(agotados));
+  cargar();
+}
+
 let admin = false;
 let productoActual = "";
 let tamañoActual = "";
@@ -189,20 +216,53 @@ function cargar(){
   let cont = document.getElementById("perfumes");
   cont.innerHTML = "";
 
+  let agotados = [];
+  try{
+    agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+  }catch{
+    agotados = [];
+  }
+
+  perfumes = perfumes.filter(p =>
+    Array.isArray(p) &&
+    p.length === 4 &&
+    p[0] && p[1] && p[2] && p[3]
+  );
+
   perfumes.forEach((p,i)=>{
+
+    let esAgotado = agotados.includes(i);
+
     cont.innerHTML += `
       <div class="producto">
-        <img src="${p[3]}">
+
+        ${esAgotado ? `<div class="agotado">AGOTADO</div>` : ""}
+
+        <img src="${p[3]}" onclick="info('${p[0]}')">
+
         <h3>${p[0]}</h3>
 
-        <select onchange="precio(this,${p[1]},${p[2]})">
+        <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado ? "disabled" : ""}>
           <option value="10">10 ML - $${p[1]}</option>
           <option value="5">5 ML - $${p[2]}</option>
         </select>
 
         <div class="precio">$${p[1]}</div>
 
-        <button class="btn" onclick="abrirCompra('${p[0]}', this)">COMPRAR</button>
+        <button class="btn" onclick="abrirCompra('${p[0]}', this)">
+          COMPRAR
+        </button>
+
+        ${admin ? `
+          <button class="btn" onclick="agotar(${i})">
+            ${esAgotado ? "DISPONIBLE" : "AGOTAR"}
+          </button>
+
+          <button class="btn" onclick="editar(${i})">
+            EDITAR
+          </button>
+        ` : ""}
+
       </div>
     `;
   });
