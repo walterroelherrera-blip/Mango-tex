@@ -52,13 +52,18 @@ h1{
 }
 
 .producto{
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(15px);
-  padding:15px;
-  border-radius:20px;
-  width:220px;
-  position:relative;
-  transition:0.3s;
+  animation: aparecerCard 0.6s ease forwards;
+}
+
+@keyframes aparecerCard{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }
 
 .producto:hover{
@@ -77,8 +82,15 @@ h1{
   padding:10px;
   border:none;
   border-radius:20px;
-  background:white;
   cursor:pointer;
+  background:white;
+  color:black;
+  transition:0.3s;
+}
+
+.btn:hover{
+  box-shadow:0 0 15px rgba(255,255,255,0.7);
+  transform:scale(1.05);
 }
 
 .precio{
@@ -148,7 +160,20 @@ let admin = false;
 let productoActual = "";
 let tamañoActual = "";
 
-let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
+let perfumes = [];
+
+try{
+  perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
+}catch{
+  perfumes = [];
+}
+
+// limpiar datos rotos (null, incompletos, etc.)
+perfumes = perfumes.filter(p =>
+  Array.isArray(p) &&
+  p.length === 4 &&
+  p[0] && p[1] && p[2] && p[3]
+);
 
 if(perfumes.length === 0){
   perfumes = [
@@ -212,13 +237,34 @@ function confirmarCompra(){
 
 function adminMode(){
   let pass = prompt("Contraseña:");
-  if(pass==="MT-MERCADO2026zz"){
-    let n = prompt("Nombre");
-    let p10 = prompt("Precio 10ml");
-    let p5 = prompt("Precio 5ml");
-    let img = prompt("Imagen URL");
 
-    perfumes.push([n,p10,p5,img]);
+  if(pass === "MT-MERCADO2026zz"){
+    let op = prompt("1 Agregar\n2 Editar\n3 Agotar");
+
+    if(op === "1"){
+      let n = prompt("Nombre");
+      let p10 = prompt("10ml");
+      let p5 = prompt("5ml");
+      let img = prompt("Imagen");
+
+      perfumes.push([n,p10,p5,img]);
+    }
+
+    if(op === "2"){
+      let i = prompt("Index a editar");
+      perfumes[i] = [
+        prompt("Nombre", perfumes[i][0]),
+        prompt("10ml", perfumes[i][1]),
+        prompt("5ml", perfumes[i][2]),
+        prompt("Img", perfumes[i][3])
+      ];
+    }
+
+    if(op === "3"){
+      let i = prompt("Index a agotar");
+      perfumes.splice(i,1);
+    }
+
     localStorage.setItem("perfumes", JSON.stringify(perfumes));
     cargar();
   }
