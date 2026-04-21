@@ -243,14 +243,22 @@ perfumes = perfumes.filter(p =>
 
 if(perfumes.length === 0){
   perfumes = [
-    ["Valentino Uomo",100,70,"https://picsum.photos/200"],
-    ["Valentino Intense",120,90,"https://picsum.photos/200"],
-    ["YSL MYSLF",180,165,"https://picsum.photos/200"],
+    ["Carolina Herrera",120,90,"https://picsum.photos/200"],
+    ["Jordan Power",110,80,"https://picsum.photos/200"],
+    ["MYSLF L'ABSOLU",180,160,"https://picsum.photos/200"],
+    ["Nautica Blue",70,50,"https://picsum.photos/200"],
     ["Nautica Voyage",60,40,"https://picsum.photos/200"],
-    ["Stronger With You",190,190,"https://picsum.photos/200"]
+    ["Prada Paradigme",170,150,"https://picsum.photos/200"],
+    ["Stronger With You",190,170,"https://picsum.photos/200"],
+    ["Valentino Intense",130,100,"https://picsum.photos/200"],
+    ["Valentino Uomo",120,90,"https://picsum.photos/200"],
+    ["Versace Eau Fraiche",140,110,"https://picsum.photos/200"]
   ];
 }
 
+// ordenar siempre (aunque ya haya datos guardados)
+perfumes.sort((a,b) => a[0].localeCompare(b[0]));
+  
 function cargar(){
   let cont = document.getElementById("perfumes");
   cont.innerHTML = "";
