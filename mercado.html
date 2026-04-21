@@ -5,6 +5,44 @@
 <title>Mangotex - Mercado</title>
 
 <style>
+  .modal{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:rgba(0,0,0,0.4);
+  backdrop-filter: blur(0px);
+
+  opacity:0;
+  pointer-events:none;
+  transition:0.3s;
+}
+
+.modal.active{
+  opacity:1;
+  pointer-events:auto;
+  backdrop-filter: blur(12px);
+}
+
+.modal-box{
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.2);
+  padding:25px;
+  border-radius:20px;
+  width:300px;
+  text-align:center;
+  animation: pop 0.3s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.8); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+  
 body{
   font-family: Arial;
   background:black;
@@ -54,19 +92,30 @@ h1{
 .producto{
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(15px);
-  padding: 15px;
-  border-radius: 20px;
-  width: 220px;
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
+  padding:15px;
+  border-radius:20px;
+  width:220px;
+  position:relative;
+  overflow:hidden;
 
-  animation: aparecerCard 0.6s ease forwards;
+  transition:0.4s ease;
+  animation: fadeUp 0.6s ease forwards;
 }
 
 .producto:hover{
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 0 30px rgba(255,255,255,0.15);
+  transform: translateY(-12px) scale(1.04);
+  box-shadow: 0 0 40px rgba(255,255,255,0.2);
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform: translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes aparecerCard{
@@ -298,27 +347,12 @@ function confirmarCompra(){
 function adminMode(){
   let pass = prompt("Contraseña:");
 
-  if(pass === "MT-MERCADO2026zz"){
-    let op = prompt("1 Agregar\n2 Editar\n3 Agotar");
+  if(pass !== "MT-MERCADO2026zz") return;
 
-    if(op === "1"){
-      let n = prompt("Nombre");
-      let p10 = prompt("10ml");
-      let p5 = prompt("5ml");
-      let img = prompt("Imagen");
-
-      perfumes.push([n,p10,p5,img]);
-    }
-
-    if(op === "2"){
-      let i = prompt("Index a editar");
-      perfumes[i] = [
-        prompt("Nombre", perfumes[i][0]),
-        prompt("10ml", perfumes[i][1]),
-        prompt("5ml", perfumes[i][2]),
-        prompt("Img", perfumes[i][3])
-      ];
-    }
+  admin = !admin;
+  alert(admin ? "Admin activado" : "Admin desactivado");
+  cargar();
+}
 
     if(op === "3"){
       let i = prompt("Index a agotar");
