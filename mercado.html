@@ -195,6 +195,20 @@ h1{
 
 <script>
 
+  function editar(i){
+  let n = prompt("Nombre:", perfumes[i][0]);
+  let p10 = prompt("Precio 10ml:", perfumes[i][1]);
+  let p5 = prompt("Precio 5ml:", perfumes[i][2]);
+  let img = prompt("Imagen URL:", perfumes[i][3]);
+
+  if(!n) return;
+
+  perfumes[i] = [n, p10, p5, img];
+
+  localStorage.setItem("perfumes", JSON.stringify(perfumes));
+  cargar();
+}
+
   function agotar(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
 
