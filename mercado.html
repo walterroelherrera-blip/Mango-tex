@@ -193,7 +193,131 @@ h1{
   </div>
 </div>
 
+  <!-- 👇 PEGAS AQUÍ EL NUEVO -->
+<div id="modalInfo" class="modal">
+  <div class="modal-box">
+    <h3 id="tituloInfo"></h3>
+    <p id="descripcionInfo"></p>
+    <button onclick="cerrarInfo()">Cerrar</button>
+  </div>
+</div>
+  
 <script>
+  
+  function info(nombre){
+  document.getElementById("tituloInfo").innerText = nombre;
+  document.getElementById("descripcionInfo").innerText =
+    descripciones[nombre] || "Sin descripción disponible.";
+
+  document.getElementById("modalInfo").classList.add("active");
+}
+
+function cerrarInfo(){
+  document.getElementById("modalInfo").classList.remove("active");
+}
+  
+  let descripciones = {
+
+  "MYSLF L'ABSOLU": `
+Fragancia intensa de Yves Saint Laurent con un toque moderno y elegante.
+
+🔥 Uso: perfecto para noche, citas o eventos importantes  
+⏳ Duración: alta (6-8 horas)  
+🌿 Aroma: fresco especiado con fondo cálido  
+
+💡 Dato: es la versión más intensa de la línea MYSLF, pensada para destacar presencia.
+`,
+
+  "Jordan Power": `
+Inspirada en Michael Jordan, refleja fuerza, ambición y energía.
+
+🔥 Uso: diario o gym vibes  
+⏳ Duración: media  
+🌿 Aroma: fresco especiado  
+
+💡 Dato: busca transmitir la mentalidad ganadora del deporte.
+`,
+
+  "Nautica Blue": `
+Fragancia acuática fresca creada por Maurice Roucel.
+
+🔥 Uso: calor, playa, escuela  
+⏳ Duración: media  
+🌿 Notas: piña, jazmín, sándalo  
+
+💡 Dato: muy ligera y juvenil, ideal para uso diario.
+`,
+
+  "Nautica Voyage": `
+Clásico acuático con toque verde y limpio.
+
+🔥 Uso: diario, oficina  
+⏳ Duración: media-alta  
+🌿 Notas: manzana, loto, almizcle  
+
+💡 Dato: uno de los perfumes más recomendados para empezar.
+`,
+
+  "Prada Paradigme": `
+Fragancia moderna y elegante lanzada en 2025.
+
+🔥 Uso: elegante, eventos  
+⏳ Duración: alta  
+🌿 Notas: bergamota, geranio, maderas  
+
+💡 Dato: mezcla lo clásico con lo moderno de Prada.
+`,
+
+  "Stronger With You": `
+Perfume cálido y dulce de Giorgio Armani.
+
+🔥 Uso: citas, noche  
+⏳ Duración: alta  
+🌿 Notas: vainilla, castaña, lavanda  
+
+💡 Dato: famoso por su aroma adictivo.
+`,
+
+  "Valentino Uomo": `
+Fragancia inspirada en Roma con estilo elegante.
+
+🔥 Uso: formal, noche  
+⏳ Duración: media-alta  
+🌿 Notas: vetiver, salvia, jengibre  
+
+💡 Dato: representa personalidad y estilo único.
+`,
+
+  "Valentino Intense": `
+Versión intensa de Born in Roma.
+
+🔥 Uso: noche, fiestas  
+⏳ Duración: alta  
+🌿 Notas: vainilla, lavanda, vetiver  
+
+💡 Dato: mezcla frescura con sensualidad profunda.
+`,
+
+  "Versace Eau Fraiche": `
+Fragancia fresca y lujosa.
+
+🔥 Uso: calor, verano  
+⏳ Duración: media  
+🌿 Notas: limón, cedro, ámbar  
+
+💡 Dato: sensación de lujo fresco y limpio.
+`,
+
+  "Carolina Herrera": `
+Fragancia elegante y sofisticada.
+
+🔥 Uso: eventos, noche  
+⏳ Duración: alta  
+🌿 Aroma: dulce amaderado  
+
+💡 Dato: marca conocida por perfumes premium.
+`
+};
 
   function editar(i){
   let n = prompt("Nombre:", perfumes[i][0]);
