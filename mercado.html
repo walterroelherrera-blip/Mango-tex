@@ -5,7 +5,14 @@
 <title>Mangotex - Mercado</title>
 
 <style>
-
+  
+  
+  button:disabled{
+  background: gray !important;
+  color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+}
   
   body{
   animation: entrada 0.5s ease;
@@ -523,6 +530,7 @@ function cargar(){
     agotados = [];
   }
 
+  // limpiar datos rotos
   perfumes = perfumes.filter(p =>
     Array.isArray(p) &&
     p.length === 4 &&
@@ -543,15 +551,16 @@ function cargar(){
         <h3>${p[0]}</h3>
 
         <select onchange="precio(this,${p[1]},${p[2]})" ${esAgotado ? "disabled" : ""}>
-          <option value="10">10 ML - $${p[1]}</option>
-          <option value="5">5 ML - $${p[2]}</option>
+          ${p[1] ? `<option value="10">10 ML - $${p[1]}</option>` : ""}
+          ${p[2] ? `<option value="5">5 ML - $${p[2]}</option>` : ""}
         </select>
 
         <div class="precio">$${p[1]}</div>
 
-        <button class="btn" onclick="abrirCompra('${p[0]}', this)">
-          COMPRAR
-        </button>
+        ${esAgotado 
+          ? `<button class="btn" style="background:gray; cursor:not-allowed;" disabled>AGOTADO</button>` 
+          : `<button class="btn" onclick="abrirCompra('${p[0]}', this)">COMPRAR</button>`
+        }
 
         ${admin ? `
           <button class="btn" onclick="agotar(${i})">
@@ -567,6 +576,13 @@ function cargar(){
     `;
   });
 }
+  
+  perfumes = perfumes.map(p => [
+  p[0],
+  Number(p[1]),
+  Number(p[2]),
+  p[3]
+]);
 
 function precio(sel,p10,p5){
   let div = sel.parentElement.querySelector(".precio");
