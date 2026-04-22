@@ -17,7 +17,7 @@
 
 /* 👉 ENTRADA SUAVE */
 .fade-zoom{
-  transform: scale(1.05);
+  transform: scale(1.08) translateY(-10px);
   opacity:0;
 }
     
@@ -376,9 +376,7 @@ window.addEventListener("scroll", () => {
       document.getElementById(id).scrollIntoView({behavior:"smooth"});
     }
 
-    function irMercado(){
-      window.location.href = "mercado.html";
-    }
+    
 
     function login(){
       let u = document.getElementById("user").value;
