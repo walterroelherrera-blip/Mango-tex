@@ -4,6 +4,23 @@
   <title>Mango Tex</title>
 
   <style>
+    
+    body{
+  transition: all 0.4s ease;
+}
+
+/* 👉 SLIDE DERECHA A IZQUIERDA */
+.slide-out{
+  transform: translateX(-100%);
+  opacity:0;
+}
+
+/* 👉 ENTRADA SUAVE */
+.fade-zoom{
+  transform: scale(1.05);
+  opacity:0;
+}
+    
     @keyframes aparecer {
   from {
     opacity: 0;
@@ -330,6 +347,22 @@ button:hover {
 
   <script>
     
+  function irMercado(tipo){
+
+  if(tipo === "menu"){
+    document.body.classList.add("slide-out");
+  }
+
+  if(tipo === "btn"){
+    document.body.classList.add("fade-zoom");
+  }
+
+  setTimeout(()=>{
+    window.location.href = "mercado.html";
+  }, 400);
+}
+    
+    
 window.addEventListener("scroll", () => {
   const nav = document.querySelector("nav");
   if(window.scrollY > 50){
@@ -405,7 +438,7 @@ window.addEventListener("scroll", () => {
   <button onclick="irA('redes')">Redes</button>
   <button onclick="irA('contacto')">Contacto</button>
   <button onclick="irA('personal')">Personal</button>
-  <button onclick="irMercado()">Mercado</button>
+  <button onclick="irMercado('menu')">Mercado</button>
 </nav>
 
 <section id="inicio">
@@ -419,7 +452,7 @@ window.addEventListener("scroll", () => {
     <div class="contenido-inicio">
       <h1>MANGOTEX</h1>
       <p>Innovación. Calidad. Futuro.</p>
-      <button class="btn-pro" onclick="irMercado()">Ver productos</button>
+      <button class="btn-pro" onclick="irMercado('btn')">Ver productos</button>
     </div>
 
   </div>
