@@ -5,6 +5,17 @@
 
   <style>
     
+    .red.x:hover img{
+  filter: drop-shadow(0 0 10px white)
+          drop-shadow(0 0 20px white);
+}
+    
+    /* brillo general al pasar el mouse */
+.red:hover img{
+  filter: drop-shadow(0 0 8px white)
+          drop-shadow(0 0 15px white);
+}
+    
     .red a{
   display:flex;
   align-items:center;
@@ -365,6 +376,9 @@ button:hover {
   width:25px;
   height:25px;
   object-fit:contain;
+  background:white;
+  border-radius:50%;
+  padding:3px;
 }
 
     input {
@@ -528,12 +542,12 @@ window.addEventListener("scroll", () => {
 </div>
 
   <!-- X -->
-  <div class="red">
-    <a href="https://x.com/mangotex081" target="_blank">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png">
-      <p>@mangotex081</p>
-    </a>
-  </div>
+  <div class="red x">
+  <a href="https://x.com/mangotex081" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968830.png">
+    <p>@mangotex081</p>
+  </a>
+</div>
 
   <!-- YouTube -->
   <div class="red">
