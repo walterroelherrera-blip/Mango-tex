@@ -5,6 +5,27 @@
 
   <style>
     
+    .red a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  width:100%;
+}
+
+/* evita azul y morado */
+.red a:visited{
+  color:white;
+}
+
+.red a:link{
+  color:white;
+}
+
+.red a:hover{
+  color:white;
+}
+    
     body{
   transition: all 0.4s ease;
 }
@@ -322,19 +343,29 @@ button:hover {
       padding: 20px;
       border-radius: 15px;
       backdrop-filter: blur(10px);
+
+      text-align: center; 
     }
 
-    .red {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      justify-content: center;
-      margin: 10px;
-    }
+    .red{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  margin:12px 0;
+  transition:0.3s;
+}
+    
+    .red:hover{
+  transform:scale(1.05);
+  opacity:0.9;
+}
 
-    .red img {
-      width: 25px;
-    }
+    .red img{
+  width:25px;
+  height:25px;
+  object-fit:contain;
+}
 
     input {
       padding: 10px;
