@@ -423,48 +423,116 @@ window.addEventListener("scroll", () => {
 
     
 
-    function login(){
-      let u = document.getElementById("user").value;
-      let p = document.getElementById("pass").value;
+   function login(){
+  let u = document.getElementById("user").value;
+  let p = document.getElementById("pass").value;
 
-      let users = {
-        "DIEGOM1NJ4R3Z": ["MT-26-001","Diego"],
-        "JP25004": ["MT-26-002","Juan Pablo"],
-        "M1/A64": ["MT-26-003","Mya"],
-        "W4LT3RH4": ["MT-26-004","Walter"],
-        "CHR1$64BIT": ["MT-2026-005","Christian"]
-      };
+  let users = {
+    "DIEGOM1NJ4R3Z": ["MT-26-001","Diego"],
+    "JP25004": ["MT-26-002","Juan Pablo"],
+    "M1/A64": ["MT-26-003","Mya"],
+    "W4LT3RH4": ["MT-26-004","Walter"],
+    "CHR1$64BIT": ["MT-2026-005","Christian"]
+  };
 
-      if(users[u] && users[u][0] === p){
-        let nombre = users[u][1];
+  if(users[u] && users[u][0] === p){
+    let nombre = users[u][1];
+    let id = users[u][0];
 
-        let nueva = window.open("", "_blank");
+    let nueva = window.open("", "_blank");
 
-        nueva.document.write(`
-        <html>
-        <head>
-          <title>Panel</title>
-          <style>
-            body {
-              margin:0;
-              font-family: Arial;
-              color:white;
-              text-align:center;
-              background:black;
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Hola ${nombre} 👋</h1>
-          <p>Aquí irá tu espacio personal próximamente...</p>
-        </body>
-        </html>
-        `);
+    nueva.document.write(`
+    <html>
+    <head>
+      <title>Panel Mangotex</title>
+      <style>
+        body{
+          margin:0;
+          font-family:Arial;
+          background:black;
+          color:white;
+          display:flex;
+          justify-content:center;
+          align-items:center;
+          height:100vh;
+          overflow:hidden;
+        }
 
-      } else {
-        alert("Error ❌");
-      }
-    }
+        .panel{
+          background: rgba(255,255,255,0.08);
+          backdrop-filter: blur(20px);
+          border:1px solid rgba(255,255,255,0.2);
+          padding:30px;
+          border-radius:20px;
+          text-align:center;
+          width:320px;
+          animation: aparecer 0.6s ease;
+        }
+
+        h1{
+          margin:0;
+          font-size:24px;
+          text-shadow:0 0 10px white;
+        }
+
+        p{
+          opacity:0.8;
+          margin:10px 0;
+        }
+
+        .id{
+          font-size:14px;
+          opacity:0.6;
+        }
+
+        button{
+          margin-top:15px;
+          padding:10px 20px;
+          border:none;
+          border-radius:20px;
+          cursor:pointer;
+          background:white;
+          color:black;
+          transition:0.3s;
+        }
+
+        button:hover{
+          transform:scale(1.1);
+          box-shadow:0 0 15px white;
+        }
+
+        @keyframes aparecer{
+          from{
+            opacity:0;
+            transform:scale(0.8);
+          }
+          to{
+            opacity:1;
+            transform:scale(1);
+          }
+        }
+      </style>
+    </head>
+
+    <body>
+
+      <div class="panel">
+        <h1>Bienvenido ${nombre} 👋</h1>
+        <p class="id">ID: ${id}</p>
+        <p>Panel personal Mangotex</p>
+
+        <button onclick="window.close()">Cerrar sesión</button>
+      </div>
+
+    </body>
+    </html>
+    `);
+
+  } else {
+    alert("Error ❌");
+  }
+}
+    
   </script>
 
 </head>
