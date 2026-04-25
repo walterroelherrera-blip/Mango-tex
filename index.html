@@ -436,108 +436,139 @@ window.addEventListener("scroll", () => {
   };
 
   if(users[u] && users[u][0] === p){
+
     let nombre = users[u][1];
     let id = users[u][0];
 
     let nueva = window.open("", "_blank");
 
     nueva.document.write(`
-    <html>
-    <head>
-      <title>Panel Mangotex</title>
-      <style>
-        body{
-          margin:0;
-          font-family:Arial;
-          background:black;
-          color:white;
-          display:flex;
-          justify-content:center;
-          align-items:center;
-          height:100vh;
-          overflow:hidden;
-        }
+<html>
+<head>
+<title>Panel Mangotex</title>
 
-        .panel{
-          background: rgba(255,255,255,0.08);
-          backdrop-filter: blur(20px);
-          border:1px solid rgba(255,255,255,0.2);
-          padding:30px;
-          border-radius:20px;
-          text-align:center;
-          width:320px;
-          animation: aparecer 0.6s ease;
-        }
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:black;
+  color:white;
+  overflow:hidden;
+}
 
-        h1{
-          margin:0;
-          font-size:24px;
-          text-shadow:0 0 10px white;
-        }
+.panel{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:black;
+  transition:0.6s;
+}
 
-        p{
-          opacity:0.8;
-          margin:10px 0;
-        }
+.panel.hide{
+  opacity:0;
+  transform:scale(1.1);
+  pointer-events:none;
+}
 
-        .id{
-          font-size:14px;
-          opacity:0.6;
-        }
+.main{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.6s;
+}
 
-        button{
-          margin-top:15px;
-          padding:10px 20px;
-          border:none;
-          border-radius:20px;
-          cursor:pointer;
-          background:white;
-          color:black;
-          transition:0.3s;
-        }
+.main.show{
+  opacity:1;
+  transform:translateY(0);
+}
 
-        button:hover{
-          transform:scale(1.1);
-          box-shadow:0 0 15px white;
-        }
+.box{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.2);
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+}
 
-        @keyframes aparecer{
-          from{
-            opacity:0;
-            transform:scale(0.8);
-          }
-          to{
-            opacity:1;
-            transform:scale(1);
-          }
-        }
-      </style>
-    </head>
+.info{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  font-size:14px;
+  opacity:0.7;
+}
 
-    <body>
+button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:white;
+  color:black;
+  transition:0.3s;
+}
 
-      <div class="panel">
-        <h1>Bienvenido ${nombre} 👋</h1>
-        <p class="id">ID: ${id}</p>
-        <p>Panel personal Mangotex</p>
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 15px white;
+}
+</style>
 
-        <button onclick="window.close()">Cerrar sesión</button>
-      </div>
+</head>
 
-    </body>
-    </html>
-    `);
+<body>
+
+<div class="panel" id="bienvenida">
+  <h1>Bienvenido ${nombre} 👋</h1>
+  <p>ID: ${id}</p>
+  <button onclick="entrar()">Continuar</button>
+</div>
+
+<div class="main" id="main">
+  <div class="box">
+    <h1>Panel Personal</h1>
+    <p>Aquí cada usuario puede personalizar su espacio</p>
+  </div>
+
+  <div class="info">
+    <p><b>Usuario:</b> ${u}</p>
+    <p><b>ID:</b> ${id}</p>
+    <p><b>Nombre:</b> ${nombre}</p>
+  </div>
+</div>
+
+<script>
+function entrar(){
+  document.getElementById("bienvenida").classList.add("hide");
+  document.getElementById("main").classList.add("show");
+}
+</script>
+
+</body>
+</html>
+`);
 
   } else {
     alert("Error ❌");
   }
 }
-    
-  </script>
-
-</head>
-
-<body>
+</script>
 
 <!-- VIDEO (YA EN EL LUGAR CORRECTO) -->
 
