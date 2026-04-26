@@ -440,7 +440,7 @@ window.addEventListener("scroll", () => {
 
     let nueva = window.open("", "_blank");
 
-    nueva.document.write(String.raw`
+    nueva.document.write(`
 <html>
 <head>
 <title>Panel Mangotex</title>
@@ -556,7 +556,7 @@ function entrar(){
   document.getElementById("bienvenida").classList.add("hide");
   document.getElementById("main").classList.add("show");
 }
-</script>
+<\/script>
 
 </body>
 </html>
@@ -566,6 +566,7 @@ function entrar(){
     alert("Error ❌");
   }
 }
+    
 <!-- VIDEO (YA EN EL LUGAR CORRECTO) -->
 
 
