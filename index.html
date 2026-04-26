@@ -562,6 +562,13 @@ function entrar(){
 </html>
 `);
 
+  nueva.document.close();
+
+  nueva.entrar = function(){
+  nueva.document.getElementById("bienvenida").classList.add("hide");
+  nueva.document.getElementById("main").classList.add("show");
+};
+
   } else {
     alert("Error ❌");
   }
