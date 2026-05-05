@@ -585,10 +585,11 @@ button:hover{
   </div>
 
   <div id="mensajeGuardado" style="display:none;">
-    <h2>Información guardada correctamente ✅</h2>
-    <p>Se envió un correo de verificación al correo registrado.</p>
-    <p>Para modificar información deberá verificar su identidad.</p>
-  </div>
+  <h2>Información guardada correctamente ✅</h2>
+  <p>Se envió un correo de verificación al correo registrado.</p>
+  <p>Para modificar información deberá verificar su identidad.</p>
+  
+  <button onclick="cerrarGuardado()">Cerrar</button>
 </div>
 
   <div class="info">
@@ -640,6 +641,16 @@ function guardarInfo(){
 }
 
 <\/script>
+
+function cerrarGuardado(){
+  document.getElementById("mensajeGuardado").innerHTML = `
+    <h1>🚧 Panel en construcción</h1>
+    <p>Próximamente habrá más herramientas disponibles.</p>
+    
+    <button onclick="window.close()">Cerrar panel</button>
+    <button onclick="window.location.reload()">Volver al inicio del panel</button>
+  `;
+}
 
 </body>
 </html>
