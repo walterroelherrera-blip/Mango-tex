@@ -572,15 +572,23 @@ button:hover{
   <h1>Panel Personal</h1>
   <p>Complete su información laboral</p>
 
-  <input type="text" placeholder="Nombre completo"><br><br>
-  <input type="date"><br><br>
-  <input type="number" placeholder="Edad"><br><br>
-  <input type="text" placeholder="Puesto / Cargo"><br><br>
-  <input type="text" placeholder="Departamento"><br><br>
-  <input type="email" placeholder="Correo empresarial"><br><br>
-  <input type="tel" placeholder="Número de contacto"><br><br>
+  <div id="formulario">
+    <input id="nombre" type="text" placeholder="Nombre completo"><br><br>
+    <input id="fecha" type="date"><br><br>
+    <input id="edad" type="number" placeholder="Edad"><br><br>
+    <input id="puesto" type="text" placeholder="Puesto / Cargo"><br><br>
+    <input id="depto" type="text" placeholder="Departamento"><br><br>
+    <input id="correo" type="email" placeholder="Correo empresarial"><br><br>
+    <input id="telefono" type="tel" placeholder="Número de contacto"><br><br>
 
-  <button>Guardar información</button>
+    <button onclick="guardarInfo()">Guardar información</button>
+  </div>
+
+  <div id="mensajeGuardado" style="display:none;">
+    <h2>Información guardada correctamente ✅</h2>
+    <p>Se envió un correo de verificación al correo registrado.</p>
+    <p>Para modificar información deberá verificar su identidad.</p>
+  </div>
 </div>
 
   <div class="info">
@@ -595,6 +603,42 @@ function entrar(){
   document.getElementById("bienvenida").classList.add("hide");
   document.getElementById("main").classList.add("show");
 }
+
+function guardarInfo(){
+  let nombre = document.getElementById("nombre").value.trim();
+  let fecha = document.getElementById("fecha").value.trim();
+  let edad = document.getElementById("edad").value.trim();
+  let puesto = document.getElementById("puesto").value.trim();
+  let depto = document.getElementById("depto").value.trim();
+  let correo = document.getElementById("correo").value.trim();
+  let telefono = document.getElementById("telefono").value.trim();
+
+  let emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let telefonoValido = /^[0-9]{10}$/;
+
+  if(!nombre || !fecha || !edad || !puesto || !depto || !correo || !telefono){
+    alert("Completa todos los campos ⚠️");
+    return;
+  }
+
+  if(!emailValido.test(correo)){
+    alert("Correo inválido ❌");
+    return;
+  }
+
+  if(!telefonoValido.test(telefono)){
+    alert("Número inválido (10 dígitos) ❌");
+    return;
+  }
+
+  document.querySelectorAll("input").forEach(input=>{
+    input.disabled = true;
+  });
+
+  document.getElementById("formulario").style.display = "none";
+  document.getElementById("mensajeGuardado").style.display = "block";
+}
+
 <\/script>
 
 </body>
