@@ -642,13 +642,11 @@ function guardarInfo(){
 }
 
 function cerrarGuardado(){
-  document.getElementById("mensajeGuardado").innerHTML = '
-    <h1>🚧 Panel en construcción</h1>
-    <p>Próximamente habrá más herramientas disponibles.</p>
-
-    <button onclick="window.close()">Cerrar panel</button>
-    <button onclick="window.location.reload()">Volver al inicio del panel</button>
-  ';
+  document.getElementById("mensajeGuardado").innerHTML =
+    "<h1>🚧 Panel en construcción</h1>" +
+    "<p>Próximamente habrá más herramientas disponibles.</p>" +
+    "<button onclick='window.close()'>Cerrar panel</button>" +
+    "<button onclick='window.location.reload()'>Volver al inicio del panel</button>";
 }
 
 <\/script>
