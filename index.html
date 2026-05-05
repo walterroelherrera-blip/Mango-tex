@@ -536,7 +536,7 @@ button:hover{
 <div class="panel" id="bienvenida">
   <h1>Bienvenido ${nombre} 👋</h1>
   <p>ID: ${id}</p>
-  <button onclick="entrar()">Continuar</button>
+  <button onclick="window.openerEntrar()">Continuar</button>
 </div>
 
 <div class="main" id="main">
@@ -564,6 +564,11 @@ function entrar(){
 `);
 
   nueva.document.close();
+
+    nueva.openerEntrar = function(){
+  nueva.document.getElementById("bienvenida").classList.add("hide");
+  nueva.document.getElementById("main").classList.add("show");
+};
 
   } else {
     alert("Error ❌");
