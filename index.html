@@ -253,6 +253,30 @@ button:hover {
   transform: scale(1.05);
 }
 
+    input{
+  width: 280px;
+  padding: 12px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  text-align:center;
+  transition:0.3s;
+}
+
+input:focus{
+  border:1px solid white;
+  box-shadow:0 0 10px rgba(255,255,255,0.4);
+}
+
+input::placeholder{
+  color: rgba(255,255,255,0.6);
+}
+
+
     .btn-pro {
   background: white;
   color: black;
@@ -545,9 +569,19 @@ button:hover{
 
 <div class="main" id="main">
   <div class="box">
-    <h1>Panel Personal</h1>
-    <p>Aquí cada usuario puede personalizar su espacio</p>
-  </div>
+  <h1>Panel Personal</h1>
+  <p>Complete su información laboral</p>
+
+  <input type="text" placeholder="Nombre completo"><br><br>
+  <input type="date"><br><br>
+  <input type="number" placeholder="Edad"><br><br>
+  <input type="text" placeholder="Puesto / Cargo"><br><br>
+  <input type="text" placeholder="Departamento"><br><br>
+  <input type="email" placeholder="Correo empresarial"><br><br>
+  <input type="tel" placeholder="Número de contacto"><br><br>
+
+  <button>Guardar información</button>
+</div>
 
   <div class="info">
     <p><b>Usuario:</b> ${u}</p>
