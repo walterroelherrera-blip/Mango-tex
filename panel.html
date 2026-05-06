@@ -186,8 +186,22 @@ let registrado =
   localStorage.getItem("usuario_" + u);
 
 if(registrado){
+
   document.getElementById("formulario").style.display = "none";
+
   document.getElementById("mensajeGuardado").style.display = "block";
+
+  document.getElementById("mensajeGuardado").innerHTML = `
+    <h1>✅ Información ya registrada</h1>
+
+    <p>
+      Tu perfil laboral ya fue configurado.
+    </p>
+
+    <button onclick="cerrarGuardado()">
+      Entrar al panel
+    </button>
+  `;
 }
 
 function entrar(){
@@ -255,8 +269,6 @@ function guardarInfo(){
     "registrado"
   );
   
-localStorage.setItem("registroCompleto", "si");
-  
   document.getElementById("formulario")
     .style.display = "none";
 
@@ -281,24 +293,6 @@ function cerrarGuardado(){
       Volver al inicio
     </button>
   `;
-}
-
-window.onload = function(){
-
-  if(localStorage.getItem("registroCompleto") === "si"){
-
-    document.getElementById("formulario").style.display = "none";
-
-    document.getElementById("mensajeGuardado").style.display = "block";
-
-    document.getElementById("mensajeGuardado").innerHTML = `
-      <h1>✅ Información ya registrada</h1>
-      <p>Tu perfil laboral ya fue configurado.</p>
-
-      <button onclick="cerrarGuardado()">Entrar al panel</button>
-    `;
-  }
-
 }
   
 </script>
