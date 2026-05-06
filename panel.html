@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Panel Mangotex</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:black;
+  color:white;
+  overflow:hidden;
+}
+
+.panel{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:black;
+  transition:0.6s;
+  z-index:3;
+}
+
+.panel.hide{
+  opacity:0;
+  transform:scale(1.1);
+  pointer-events:none;
+}
+
+.main{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100vh;
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.6s;
+  z-index:2;
+  pointer-events:none;
+}
+
+.main.show{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+
+.box{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border:1px solid rgba(255,255,255,0.2);
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+}
+
+.info{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  font-size:14px;
+  opacity:0.7;
+}
+
+button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+  background:white;
+  color:black;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 15px white;
+}
+
+input{
+  width:280px;
+  padding:12px;
+  border:none;
+  outline:none;
+  border-radius:12px;
+  background: rgba(255,255,255,0.08);
+  color:white;
+  border:1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  text-align:center;
+  transition:0.3s;
+}
+
+input:focus{
+  border:1px solid white;
+  box-shadow:0 0 10px rgba(255,255,255,0.4);
+}
+</style>
+</head>
+
+<body>
+
+<div class="panel" id="bienvenida">
+  <h1 id="tituloBienvenida"></h1>
+  <p id="idBienvenida"></p>
+
+  <button onclick="entrar()">Continuar</button>
+</div>
+
+<div class="main" id="main">
+
+  <div class="box">
+
+    <h1>Panel Personal</h1>
+    <p>Complete su información laboral</p>
+
+    <div id="formulario">
+      <input id="nombreInput" type="text" placeholder="Nombre completo"><br><br>
+      <input id="fecha" type="date"><br><br>
+      <input id="edad" type="number" placeholder="Edad"><br><br>
+      <input id="puesto" type="text" placeholder="Puesto / Cargo"><br><br>
+      <input id="depto" type="text" placeholder="Departamento"><br><br>
+      <input id="correo" type="email" placeholder="Correo empresarial"><br><br>
+      <input id="telefono" type="tel" placeholder="Número de contacto"><br><br>
+
+      <button onclick="guardarInfo()">Guardar información</button>
+    </div>
+
+    <div id="mensajeGuardado" style="display:none;">
+      <h2>Información guardada correctamente ✅</h2>
+
+      <p>
+        Se envió un correo de verificación al correo registrado.
+      </p>
+
+      <p>
+        Para modificar información deberá verificar su identidad.
+      </p>
+
+      <button onclick="cerrarGuardado()">
+        Cerrar
+      </button>
+    </div>
+
+  </div>
+
+  <div class="info">
+    <p><b>Usuario:</b> <span id="usuarioInfo"></span></p>
+    <p><b>ID:</b> <span id="idInfo"></span></p>
+    <p><b>Nombre:</b> <span id="nombreInfo"></span></p>
+  </div>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const u = params.get("user");
+const id = params.get("id");
+const nombre = params.get("nombre");
+
+document.getElementById("tituloBienvenida").innerText =
+  "Bienvenido " + nombre + " 👋";
+
+document.getElementById("idBienvenida").innerText =
+  "ID: " + id;
+
+document.getElementById("usuarioInfo").innerText = u;
+document.getElementById("idInfo").innerText = id;
+document.getElementById("nombreInfo").innerText = nombre;
+
+let registrado =
+  localStorage.getItem("usuario_" + u);
+
+if(registrado){
+  document.getElementById("formulario").style.display = "none";
+  document.getElementById("mensajeGuardado").style.display = "block";
+}
+
+function entrar(){
+  document.getElementById("bienvenida")
+    .classList.add("hide");
+
+  document.getElementById("main")
+    .classList.add("show");
+}
+
+function guardarInfo(){
+
+  let nombreForm =
+    document.getElementById("nombreInput").value.trim();
+
+  let fecha =
+    document.getElementById("fecha").value.trim();
+
+  let edad =
+    document.getElementById("edad").value.trim();
+
+  let puesto =
+    document.getElementById("puesto").value.trim();
+
+  let depto =
+    document.getElementById("depto").value.trim();
+
+  let correo =
+    document.getElementById("correo").value.trim();
+
+  let telefono =
+    document.getElementById("telefono").value.trim();
+
+  let emailValido =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  let telefonoValido =
+    /^[0-9]{10}$/;
+
+  if(
+    !nombreForm ||
+    !fecha ||
+    !edad ||
+    !puesto ||
+    !depto ||
+    !correo ||
+    !telefono
+  ){
+    alert("Completa todos los campos ⚠️");
+    return;
+  }
+
+  if(!emailValido.test(correo)){
+    alert("Correo inválido ❌");
+    return;
+  }
+
+  if(!telefonoValido.test(telefono)){
+    alert("Número inválido ❌");
+    return;
+  }
+
+  localStorage.setItem(
+    "usuario_" + u,
+    "registrado"
+  );
+
+  document.getElementById("formulario")
+    .style.display = "none";
+
+  document.getElementById("mensajeGuardado")
+    .style.display = "block";
+}
+
+function cerrarGuardado(){
+
+  document.getElementById("mensajeGuardado").innerHTML = `
+    <h1>🚧 Panel en construcción</h1>
+
+    <p>
+      Próximamente habrá más herramientas disponibles.
+    </p>
+
+    <button onclick="window.close()">
+      Cerrar panel
+    </button>
+
+    <button onclick="window.location.href='index.html'">
+      Volver al inicio
+    </button>
+  `;
+}
+
+</script>
+
+</body>
+</html>
