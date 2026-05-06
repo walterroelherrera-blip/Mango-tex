@@ -182,34 +182,37 @@ document.getElementById("usuarioInfo").innerText = u;
 document.getElementById("idInfo").innerText = id;
 document.getElementById("nombreInfo").innerText = nombre;
 
-let registrado =
-  localStorage.getItem("usuario_" + u);
-
-if(registrado){
-
-  document.getElementById("formulario").style.display = "none";
-
-  document.getElementById("mensajeGuardado").style.display = "block";
-
-  document.getElementById("mensajeGuardado").innerHTML = `
-    <h1>✅ Información ya registrada</h1>
-
-    <p>
-      Tu perfil laboral ya fue configurado.
-    </p>
-
-    <button onclick="cerrarGuardado()">
-      Entrar al panel
-    </button>
-  `;
-}
-
 function entrar(){
+
   document.getElementById("bienvenida")
     .classList.add("hide");
 
   document.getElementById("main")
     .classList.add("show");
+
+  let registrado =
+    localStorage.getItem("usuario_" + u);
+
+  if(registrado){
+
+    document.getElementById("formulario")
+      .style.display = "none";
+
+    document.getElementById("mensajeGuardado")
+      .style.display = "block";
+
+    document.getElementById("mensajeGuardado").innerHTML = `
+      <h1>✅ Información ya registrada</h1>
+
+      <p>
+        Tu perfil laboral ya fue configurado.
+      </p>
+
+      <button onclick="cerrarGuardado()">
+        Entrar al panel
+      </button>
+    `;
+  }
 }
 
 function guardarInfo(){
