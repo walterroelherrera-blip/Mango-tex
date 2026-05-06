@@ -123,8 +123,10 @@ input:focus{
 
   <div class="box">
 
+  <div id="tituloPanel">
     <h1>Panel Personal</h1>
     <p>Complete su información laboral</p>
+  </div>
 
     <div id="formulario">
       <input id="nombreInput" type="text" placeholder="Nombre completo"><br><br>
@@ -195,6 +197,9 @@ function entrar(){
 
   if(registrado){
 
+    document.getElementById("tituloPanel")
+  .style.display = "none";
+
     document.getElementById("formulario")
       .style.display = "none";
 
@@ -216,6 +221,9 @@ function entrar(){
 }
 
 function guardarInfo(){
+
+  document.getElementById("tituloPanel")
+  .style.display = "none";
 
   let nombreForm =
     document.getElementById("nombreInput").value.trim();
