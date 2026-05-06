@@ -463,7 +463,12 @@ window.addEventListener("scroll", () => {
     let nombre = users[u][1];
     let id = users[u][0];
 
-    let nueva = window.open("", "_blank");
+    let nueva = window.open(
+  "panel.html?user=" + encodeURIComponent(u) +
+  "&id=" + encodeURIComponent(id) +
+  "&nombre=" + encodeURIComponent(nombre),
+  "_blank"
+);
 
     nueva.document.write(`
 <html>
