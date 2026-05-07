@@ -197,15 +197,16 @@ function entrar(){
   let registrado =
     localStorage.getItem("usuario_" + u);
 
-if(registrado){
+  if(registrado){
 
-  document.getElementById("tituloPanel")
-    .style.display = "none";
+    document.getElementById("tituloPanel")
+      .style.display = "none";
 
-  document.getElementById("formulario")
-    .style.display = "none";
+    document.getElementById("formulario")
+      .style.display = "none";
 
-  cerrarGuardado();
+    cerrarGuardado();
+  }
 }
 
 function guardarInfo(){
