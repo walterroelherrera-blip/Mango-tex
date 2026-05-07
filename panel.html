@@ -195,29 +195,15 @@ function entrar(){
   let registrado =
     localStorage.getItem("usuario_" + u);
 
-  if(registrado){
+if(registrado){
 
-    document.getElementById("tituloPanel")
-  .style.display = "none";
+  document.getElementById("tituloPanel")
+    .style.display = "none";
 
-    document.getElementById("formulario")
-      .style.display = "none";
+  document.getElementById("formulario")
+    .style.display = "none";
 
-    document.getElementById("mensajeGuardado")
-      .style.display = "block";
-
-    document.getElementById("mensajeGuardado").innerHTML = `
-      <h1>✅ Información ya registrada</h1>
-
-      <p>
-        Tu perfil laboral ya fue configurado.
-      </p>
-
-      <button onclick="cerrarGuardado()">
-        Entrar al panel
-      </button>
-    `;
-  }
+  cerrarGuardado();
 }
 
 function guardarInfo(){
