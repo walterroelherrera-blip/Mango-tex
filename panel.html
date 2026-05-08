@@ -186,8 +186,6 @@ document.getElementById("nombreInfo").innerText = nombre;
 
 function entrar(){
 
-  alert(u);
-
   document.getElementById("bienvenida")
     .classList.add("hide");
 
@@ -263,8 +261,6 @@ function guardarInfo(){
     alert("Número inválido ❌");
     return;
   }
-
-  alert("Guardando: usuario_" + u);
 
   localStorage.setItem(
     "usuario_" + u,
