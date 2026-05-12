@@ -515,6 +515,9 @@ if(perfumes.length === 0){
     ["Valentino Uomo",120,90,"MANGOTEX IMG WEB/perfumes/valentino_uomo.jpg"],
     ["Versace Eau Fraiche",140,110,"MANGOTEX IMG WEB/perfumes/Versace Eau Fraiche.jpg"]
   ];
+
+  localStorage.setItem("perfumes", JSON.stringify(perfumes));
+  
 }
 
 // ordenar siempre (aunque ya haya datos guardados)
