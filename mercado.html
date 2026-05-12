@@ -471,11 +471,12 @@ Fragancia elegante y sofisticada.
 
   function agotar(i){
   let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+  let nombre = perfumes[i][0];
 
-  if(agotados.includes(i)){
-    agotados = agotados.filter(x => x !== i);
+  if(agotados.includes(nombre)){
+    agotados = agotados.filter(x => x !== nombre);
   }else{
-    agotados.push(i);
+    agotados.push(nombre);
   }
 
   localStorage.setItem("agotados", JSON.stringify(agotados));
@@ -503,16 +504,16 @@ perfumes = perfumes.filter(p =>
 
 if(perfumes.length === 0){
   perfumes = [
-    ["Carolina Herrera",120,90,"MANGOTEX IMG WEB/perfumes/Carolina Herrera.webp", false],
-    ["Jordan Power",110,80,"MANGOTEX IMG WEB/perfumes/Jordan Power.jpg", false],
-    ["MYSLF L'ABSOLU",180,160,"MANGOTEX IMG WEB/perfumes/MYSLF L'ABSOLU.webp", false],
-    ["Nautica Blue",70,50,"MANGOTEX IMG WEB/perfumes/Nautica Blue.jpg", false],
-    ["Nautica Voyage",60,40,"MANGOTEX IMG WEB/perfumes/Nautica Voyage.jpg", false],
-    ["Prada Paradigme",170,150,"MANGOTEX IMG WEB/perfumes/Prada Paradigme.jpg", false],
-    ["Stronger With You",190,170,"MANGOTEX IMG WEB/perfumes/Stronger with you.jpg", false],
-    ["Valentino Intense",130,100,"MANGOTEX IMG WEB/perfumes/valentino_intense.jpg", false],
-    ["Valentino Uomo",120,90,"MANGOTEX IMG WEB/perfumes/valentino_uomo.jpg", false],
-    ["Versace Eau Fraiche",140,110,"MANGOTEX IMG WEB/perfumes/Versace Eau Fraiche.jpg", false]
+    ["Carolina Herrera",120,90,"MANGOTEX IMG WEB/perfumes/Carolina Herrera.webp"],
+    ["Jordan Power",110,80,"MANGOTEX IMG WEB/perfumes/Jordan Power.jpg"],
+    ["MYSLF L'ABSOLU",180,160,"MANGOTEX IMG WEB/perfumes/MYSLF L'ABSOLU.webp"],
+    ["Nautica Blue",70,50,"MANGOTEX IMG WEB/perfumes/Nautica Blue.jpg"],
+    ["Nautica Voyage",60,40,"MANGOTEX IMG WEB/perfumes/Nautica Voyage.jpg"],
+    ["Prada Paradigme",170,150,"MANGOTEX IMG WEB/perfumes/Prada Paradigme.jpg"],
+    ["Stronger With You",190,170,"MANGOTEX IMG WEB/perfumes/Stronger with you.jpg"],
+    ["Valentino Intense",130,100,"MANGOTEX IMG WEB/perfumes/valentino_intense.jpg"],
+    ["Valentino Uomo",120,90,"MANGOTEX IMG WEB/perfumes/valentino_uomo.jpg"],
+    ["Versace Eau Fraiche",140,110,"MANGOTEX IMG WEB/perfumes/Versace Eau Fraiche.jpg"]
   ];
 }
 
@@ -539,7 +540,7 @@ function cargar(){
 
   perfumes.forEach((p,i)=>{
 
-    let esAgotado = agotados.includes(i);
+    let esAgotado = agotados.includes(p[0]);
 
     cont.innerHTML += `
       <div class="producto">
