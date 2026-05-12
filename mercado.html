@@ -498,10 +498,12 @@ try{
 // limpiar datos rotos (null, incompletos, etc.)
 perfumes = perfumes.filter(p =>
   Array.isArray(p) &&
-  p.length === 4 &&
-  p[0] && p[1] && p[2] && p[3]
+  p.length >= 4 &&
+  p[0] != null &&
+  p[1] != null &&
+  p[2] != null &&
+  p[3] != null
 );
-
 if(perfumes.length === 0){
   perfumes = [
     ["Carolina Herrera",120,90,"MANGOTEX IMG WEB/perfumes/Carolina Herrera.webp"],
@@ -618,9 +620,15 @@ function confirmarCompra(){
 function adminMode(){
   let pass = prompt("Contraseña:");
 
-  if(pass !== "MT-MERCADO2026zz") return;
+  if(pass !== "MT-MERCADO2026zz"){
+    alert("Contraseña incorrecta");
+    return;
+  }
 
   admin = !admin;
+
+  console.log("ADMIN:", admin);
+
   alert(admin ? "Admin activado" : "Admin desactivado");
   cargar();
 }
