@@ -337,6 +337,36 @@ h1{
     <button onclick="cerrarInfo()">Cerrar</button>
   </div>
 </div>
+
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCQ9GaZ-OzAh_0KLPhGazF102E-VuVABh0",
+    authDomain: "mangotex-3adda.firebaseapp.com",
+    projectId: "mangotex-3adda",
+    storageBucket: "mangotex-3adda.firebasestorage.app",
+    messagingSenderId: "972560513009",
+    appId: "1:972560513009:web:e9ded5520f50a8d995f650",
+    measurementId: "G-YT17FRMSLW"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.db = db;
+window.doc = doc;
+window.getDoc = getDoc;
+window.setDoc = setDoc;
+</script>
+
+
   
 <script>
   
@@ -469,9 +499,17 @@ Fragancia elegante y sofisticada.
   cargar();
 }
 
-  function agotar(i){
-  let agotados = JSON.parse(localStorage.getItem("agotados")) || [];
+  async function agotar(i){
   let nombre = perfumes[i][0];
+
+  let ref = doc(db, "stock", "agotados");
+  let snap = await getDoc(ref);
+
+  let agotados = [];
+
+  if(snap.exists()){
+    agotados = snap.data().lista || [];
+  }
 
   if(agotados.includes(nombre)){
     agotados = agotados.filter(x => x !== nombre);
@@ -479,10 +517,11 @@ Fragancia elegante y sofisticada.
     agotados.push(nombre);
   }
 
-  localStorage.setItem("agotados", JSON.stringify(agotados));
+  await setDoc(ref, { lista: agotados });
+
   cargar();
 }
-
+  
 let admin = false;
 let productoActual = "";
 let tamañoActual = "";
@@ -525,17 +564,19 @@ if(perfumes.length === 0){
 // ordenar siempre (aunque ya haya datos guardados)
 perfumes.sort((a,b) => a[0].localeCompare(b[0]));
   
-function cargar(){
+async function cargar(){
   let cont = document.getElementById("perfumes");
   cont.innerHTML = "";
 
   let agotados = [];
-  try{
-    agotados = JSON.parse(localStorage.getItem("agotados")) || [];
-  }catch{
-    agotados = [];
-  }
 
+  let ref = doc(db, "stock", "agotados");
+  let snap = await getDoc(ref);
+
+  if(snap.exists()){
+    agotados = snap.data().lista || [];
+}
+  
   // limpiar datos rotos
   perfumes = perfumes.filter(p =>
     Array.isArray(p) &&
@@ -633,6 +674,15 @@ function adminMode(){
   cargar();
 }
 
+window.agotar = agotar;
+window.editar = editar;
+window.abrirCompra = abrirCompra;
+window.info = info;
+window.cerrarInfo = cerrarInfo;
+window.cerrarModal = cerrarModal;
+window.confirmarCompra = confirmarCompra;
+window.adminMode = adminMode;
+  
 window.onload = cargar;
 
 </script>
