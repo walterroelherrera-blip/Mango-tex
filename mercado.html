@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Mangotex - Mercado</title>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 
   .producto{
@@ -325,6 +327,65 @@ h1{
   padding:6px 10px;
   border-radius:8px;
   font-size:12px;
+}
+
+@media (max-width: 768px){
+
+  body{
+    cursor:auto;
+    overflow-x:hidden;
+  }
+
+  .cursor{
+    display:none;
+  }
+
+  nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
+    padding:10px;
+  }
+
+  nav button{
+    font-size:12px;
+    padding:8px 14px;
+    margin:2px;
+  }
+
+  h1{
+    font-size:32px !important;
+  }
+
+  h2{
+    font-size:24px !important;
+  }
+
+  p{
+    font-size:14px;
+    padding:0 10px;
+  }
+
+  .card, .producto, .panel{
+    width:90% !important;
+    margin:auto;
+    padding:15px;
+  }
+
+  img, video{
+    max-width:100%;
+    height:auto;
+  }
+
+  input{
+    width:85%;
+    max-width:280px;
+  }
+
+  button{
+    font-size:14px;
+  }
 }
 
 </style>
