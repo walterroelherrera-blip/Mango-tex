@@ -4,6 +4,46 @@
   <title>Mango Tex</title>
 
   <style>
+
+    .producto{
+  position:relative;
+  overflow:hidden;
+}
+
+.producto::before{
+  content:"";
+  position:absolute;
+  top:var(--y);
+  left:var(--x);
+  width:180px;
+  height:180px;
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,0.15),
+    transparent 70%
+  );
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+}
+    
+    
+    body{
+  cursor:none;
+}
+
+.cursor{
+  width:20px;
+  height:20px;
+  border:2px solid rgba(255,255,255,0.8);
+  border-radius:50%;
+  position:fixed;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  backdrop-filter:blur(2px);
+  box-shadow:0 0 15px rgba(255,255,255,0.5);
+  z-index:9999;
+  transition:transform 0.08s linear;
+}
     
     .red.x:hover img{
   filter: drop-shadow(0 0 10px white)
@@ -612,8 +652,19 @@ window.addEventListener("pageshow", function(event) {
   }
 });
 
+const cursor = document.getElementById("cursor");
+
+document.addEventListener("mousemove", e=>{
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+});
+
   
 </script>
+
+
+<div class="cursor" id="cursor"></div>
+  
 
 </body>
 </html>
