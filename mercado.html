@@ -5,6 +5,27 @@
 <title>Mangotex - Mercado</title>
 
 <style>
+
+  .producto{
+  position: relative;
+  overflow: hidden;
+}
+
+.producto::before{
+  content:"";
+  position:absolute;
+  top:var(--y);
+  left:var(--x);
+  width:180px;
+  height:180px;
+  background: radial-gradient(
+    circle,
+    rgba(255,255,255,0.15),
+    transparent 70%
+  );
+  transform: translate(-50%,-50%);
+  pointer-events:none;
+}
   
   
   button:disabled{
@@ -684,6 +705,17 @@ window.confirmarCompra = confirmarCompra;
 window.adminMode = adminMode;
   
 window.onload = cargar;
+
+  
+document.addEventListener("mousemove", e=>{
+  document.querySelectorAll(".producto").forEach(card=>{
+    const rect = card.getBoundingClientRect();
+
+    card.style.setProperty("--x", `${e.clientX - rect.left}px`);
+    card.style.setProperty("--y", `${e.clientY - rect.top}px`);
+  });
+});
+  
 
 </script>
 
